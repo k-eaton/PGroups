@@ -286,8 +286,8 @@ public class pgroups {
         String xmlSourceNameConvert;
         Integer xmlSourceNameIndex;
         
-//        String Xml = "R:\\Lab Folder\\HLA\\Melinda_P\\Development\\hla_ambigs.xml.zip"; //this is the hardcoded destination for the zip file
-        String Xml = "/Users/katrinaeaton/NewFolder/hla_ambigs.xml.zip";
+        String Xml = "R:\\Lab Folder\\HLA\\Melinda_P\\Development\\hla_ambigs.xml.zip"; //this is the hardcoded destination for the zip file
+//        String Xml = "/Users/katrinaeaton/NewFolder/hla_ambigs.xml.zip";
         
         String line; 
         int lineNumber = 1; 
@@ -397,11 +397,11 @@ public class pgroups {
         saveUrl(Xml,ambigsXMLsource );
             
       // }
-//        unzip("R:\\Lab Folder\\HLA\\Melinda_P\\Development\\hla_ambigs.xml.zip","R:\\Lab Folder\\HLA\\Melinda_P\\Development");
-        unzip("/Users/katrinaeaton/NewFolder/hla_ambigs.xml.zip","/Users/katrinaeaton/NewFolder/");
+        unzip("R:\\Lab Folder\\HLA\\Melinda_P\\Development\\hla_ambigs.xml.zip","R:\\Lab Folder\\HLA\\Melinda_P\\Development");
+//        unzip("/Users/katrinaeaton/NewFolder/hla_ambigs.xml.zip","/Users/katrinaeaton/NewFolder/");
 
-//        Xml = "R:\\Lab Folder\\HLA\\Melinda_P\\Development\\hla_ambigs.xml";
-        Xml = "/Users/katrinaeaton/NewFolder/hla_ambigs.xml";
+        Xml = "R:\\Lab Folder\\HLA\\Melinda_P\\Development\\hla_ambigs.xml";
+//        Xml = "/Users/katrinaeaton/NewFolder/hla_ambigs.xml";
 
         String xmlSourceVersion = new String(); 
         String xmlSourceDate = new String(); 
@@ -610,8 +610,8 @@ public class pgroups {
         
   //--START delete xml & .zip file here
         boolean deleted; 
-//        File xmlDown = new File("R:\\Lab Folder\\HLA\\Melinda_P\\Development\\hla_ambigs.xml.zip"); //#1
-        File xmlDown = new File("/Users/katrinaeaton/hla_ambigs.xml.zip"); //#1
+        File xmlDown = new File("R:\\Lab Folder\\HLA\\Melinda_P\\Development\\hla_ambigs.xml.zip"); //#1
+//        File xmlDown = new File("/Users/katrinaeaton/hla_ambigs.xml.zip"); //#1
 
         while (!xmlDown.toString().equals("")){
             System.out.println("About to delete file: " + xmlDown);
@@ -637,8 +637,8 @@ public class pgroups {
             SSkeysIt = SSkeys.iterator();
     //   System.out.println("-----------4-----------------");   
             try{
-//                BufferedWriter cwdFile = new BufferedWriter(new FileWriter("R:\\Lab Folder\\HLA\\Melinda_P\\Development\\cwd" + (oldAllelesNewVersion.replace(".", "")).replace(".","") + "_g-groups.txt"));
-                BufferedWriter cwdFile = new BufferedWriter(new FileWriter("/Users/katrinaeaton/NewFolder/CWD/" + (oldAllelesNewVersion.replace(".", "")).replace(".","") + "_g-groups.txt"));
+                BufferedWriter cwdFile = new BufferedWriter(new FileWriter("R:\\Lab Folder\\HLA\\Melinda_P\\Development\\cwd" + (oldAllelesNewVersion.replace(".", "")).replace(".","") + "_g-groups.txt"));
+//                BufferedWriter cwdFile = new BufferedWriter(new FileWriter("/Users/katrinaeaton/NewFolder/CWD/" + (oldAllelesNewVersion.replace(".", "")).replace(".","") + "_g-groups.txt"));
 
                 cwdFile.write("# Categories for G Groups in the CWD "+ oldAllelesNewVersion + " Catalogue" + CRet);
                 cwdFile.write("# Derived from: " + oldAllelesSourceName + " version:" + oldAllelesSourceVersion + " and " + xmlSourceName + " version:" + xmlSourceVersion + " Dated:" + xmlSourceDate + CRet);
