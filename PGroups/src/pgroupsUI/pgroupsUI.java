@@ -322,8 +322,7 @@ public class pgroupsUI extends javax.swing.JFrame {
     }//GEN-LAST:event_StartActionPerformed
 
     private void CancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CancelActionPerformed
-        // TODO add your handling code here:
-        
+        // TODO add your handling code here:   
         System.exit(0);
     }//GEN-LAST:event_CancelActionPerformed
 
