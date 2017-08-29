@@ -403,308 +403,310 @@ public class pgroups {
 //        Xml = "R:\\Lab Folder\\HLA\\Melinda_P\\Development\\hla_ambigs.xml";
         Xml = "/Users/katrinaeaton/NewFolder/hla_ambigs.xml";
 
-//       
-//        String xmlSourceVersion = new String(); 
-//        String xmlSourceDate = new String(); 
-//    
-//        DocumentBuilderFactory dbFactorys = DocumentBuilderFactory.newInstance();
-//        DocumentBuilder dBuilders;
-//        dBuilders = dbFactorys.newDocumentBuilder();
-//        Document docs = dBuilders.parse(Xml);
-//                //.parse(zipxmlurl);
-//        docs.getDocumentElement().normalize();
-//        NodeList nLists = docs.getElementsByTagName("tns:gGroup");
-//        
-//        NodeList nSource = docs.getElementsByTagName("tns:releaseVersion"); //SM-07/03/2015 This section is new, for pulling documentation of the source files//SM-07/03/2015 This section is new, for pulling documentation of the source files//SM-07/03/2015 This section is new, for pulling documentation of the source files//SM-07/03/2015 This section is new, for pulling documentation of the source files
-//            if (nSource.item(0).getNodeType() == Node.ELEMENT_NODE) { // assumes source documentation only occurs once in the xml file. 
-//                Element eSource = (Element) nSource.item(0);
-//                xmlSourceVersion = eSource.getAttribute("currentRelease");
-//                xmlSourceDate = eSource.getAttribute("date");       
-//            } 
-//           // xmlSourceName = Xml.getFile(); //SM-07/03/2015 End of new section
-//            System.out.println(Xml);
-//             xmlSourceNameConvert = Xml.replace("\\", "/");
-//             System.out.println(xmlSourceNameConvert);
-//            xmlSourceNameList = xmlSourceNameConvert.split("/");
-//            xmlSourceNameIndex = xmlSourceNameList.length;
-//           xmlSourceName = xmlSourceNameList[xmlSourceNameIndex-1];
-//           System.out.println(xmlSourceName);
-//            
-//            //FileNameList = OldPgroup.getFile().split("/");
-//        //FileNameIndex = FileNameList.length; 
-//            oldAllelesNewVersion = updatetable.get(xmlSourceVersion);         
-//           String gGroupName = new String(); 
-//           String gGroupGID = new String();  
-//          // System.out.println("----------3-----------------"); // Remove         //    System.out.println("----------3-----------------");          //    System.out.println("----------3-----------------");          //    System.out.println("----------3-----------------");   
-//
-//       for (int i = 0; i < nLists.getLength(); i++) {
-//           Node nNodes = nLists.item(i); 
-//         
-//           if (nNodes.getNodeType() == Node.ELEMENT_NODE) {
-//                
-//                Element eElements = (Element) nNodes;
-//                gGroupName = eElements.getAttribute("name"); 
-//                gGroupGID = eElements.getAttribute("gid");   
-//               }      
-//           if(nNodes.hasChildNodes()){
-//                //ChildNode begins
-//           NodeList childList = nLists.item(i).getChildNodes();
-//                // clear the cwd-status variable (null) for the new g-group (nNodes)          
-//                CurrentCWDStatus = ""; 
-//                    String childNodename; //SM: declare these outside of the for loop and IF statement
-//                    String childNodealleleid; // and initialize them as null
-//                    
-//                    for (int j = 0; j < childList.getLength(); j++) {
-//                        
-//                    Node childNode = childList.item(j);
-//                    if (childNode.getNodeType() == 1)  {
-//                        childNodename = childNode.getAttributes().getNamedItem("name").getNodeValue(); //SM: looks like we don't need this
-//                        childNodealleleid = childNode.getAttributes().getNamedItem("alleleid").getNodeValue();
-//                       
-//           if (Allcwdalleles.keySet().contains(childNodealleleid)){              // is current alleleid contained on the allcwdalleles hash?
-//                                                                  
-//                        ReadCWDStatus = CWDhashRead(1,Allcwdalleles.get(childNodealleleid)); // yes? retrieve the cwd-status from that allele from the allcwdalleles hash (using the cwdhasmodule)
-//               
-//            switch (CurrentCWDStatus) {
-//                    // String('C');
-//                case "" : 
-//                    CurrentCWDStatus = ReadCWDStatus;
-//                         break;
-//                case "WD": 
-//                    CurrentCWDStatus = ReadCWDStatus;
-//                         break;                                     // yes? overwrite cwd-status variable with the new retrieved cwd-status
-//                case "C":                                               // no? (tehrefore, it is c) do nothing
-//                    //do nothing
-//                         break;      
-//                        }
-//                         
-//               }else {childNode.getNextSibling();} // no? go on to the next sibling
-//                  } 
-//                    }  
-//        
-//        } else { System.out.println("NO CHILD FOUND for: "+ nLists);}   //ChildNode ends
-//            
-//             if ("".equals(CurrentCWDStatus)){    // cwdStat should never be 'null' it should either have a C or WD value or ""
-//              nNodes.getNextSibling();   // yes: go on to next nNode
-//          } else{
-//                  
-//                 CWDhashWrite(gGroupName,gGroupGID,CurrentCWDStatus,Allcwdgroups); //SM: use CWDhashWrite to do all the work 
-//                   nNodes.getNextSibling();                                                               
-//                  // No: add this gGroup to the ggroups hash, using the gGroup name as the key, with the gid and the cwd-status as Value, using CWDhashWrite
-//                  }
-//               }
-// //--- FINISHED Downloading/unzip/READING xml FILE         
-//       
-// //--START  UPDATED CWD ALLELES LIST       
-//   Iterator<String> keyIt = Allcwdalleles.keySet().iterator();
-//        while (keyIt.hasNext()) {
-//            key = keyIt.next();
-//
-//            Updatedcwdalleles.put(key, AlleleList.get(key));
-//            if (Allcwdalleles.get(key).split("\t")[0].equals(Updatedcwdalleles.get(key))) {
-//
-//                Updatedcwdalleles.put(key, AlleleList.get(key) + "\t" + "NO");
-//            } else {
-//                Updatedcwdalleles.put(key, AlleleList.get(key) + "\t" + "YES");
-//                }
-//            //This allows for returning the value for the key(Succesion ID) either Allelename(0) or CWD status(1)
-//            lineNumber++;
-//       // System.out.println("-----------5-----------------");    // Remove 
-//        }
-//        Set keys = Updatedcwdalleles.keySet();
-//        Iterator<String> keysIt = keys.iterator();
-//            while (keysIt.hasNext()) {
-//                key = keysIt.next();
-//                ReverseHash.put(Updatedcwdalleles.get(key).split("\t")[0], key + "\t" + Allcwdalleles.get(key).split("\t")[1]); // added CWD status to reverse updated CWD list
-//                lineNumber++;
-//             } 
-// //--FINISH UPDATED CWD ALLELES LIST          //--FINISH UPDATED CWD ALLELES LIST          //--FINISH UPDATED CWD ALLELES LIST          //--FINISH UPDATED CWD ALLELES LIST         
-//       
-//
-//     
-////---Read from hla_nom_p.txt   <--Pgroup    
-//     //if (makePgroups){
-//      //   System.out.println("--Im in HLA_nom_p----"); // remove
-//               
-//        scnr = new Scanner(OldPgroup.openStream());       
-//        lineNumber = 0;       
-//        if (scnr.hasNextLine())
-//            { System.out.println("--Nextline--"); } 
-//            else {System.out.println("--no nextline----");}
-//            
-//        line = scnr.nextLine();  //line1
-//        //System.out.println("--"+scnr.toString());
-//        ReadCWDStatus = ""; 
-//        CurrentCWDStatus = ("NONE");
-//     
-//        String OldPgroupSourceName; 
-//        String OldPgroupSourceVersion;
-//        String OldPgroupSourceDate;
-//        String OldPgroupNewVersion = new String(); 
-//        String PgroupSourceName = new String();   
-//        String PgroupNewVersion = new String(); 
-//        //substring(0, key.indexOf("*")); 
-//        
-//        
-//        FileNameList = OldPgroup.getFile().split("/");
-//        FileNameIndex = FileNameList.length; 
-//        // System.out.println(" //"+ OldPgroup.getFile() +"||" + OldPgroupSourceName+"\\"); // figure out h0w to fix this
-//        // figure out a dynamic way to always get ONLY the file name from result of getFile, which is just the file name. From last /
-//        OldPgroupSourceName = FileNameList[FileNameIndex -1];
-//              
-//        line = scnr.nextLine();  //line2 date          
-//        OldPgroupSourceDate = line.substring(line.indexOf(":")+2, line.length());  // figure out h0w to fix this
-//        System.out.println("| //"+ OldPgroupSourceDate+ "\\ |");
-//        line = scnr.nextLine();           //line3 version
-//        OldPgroupSourceVersion = line.substring(line.indexOf("HLA")+4, line.length());
-//        System.out.println(" //"+ OldPgroupSourceVersion+ "\\");
-//        scnr.nextLine();          //skips: # origin: http://hla.alleles.org/wmda/hla_nom_p.txt
-//        scnr.nextLine();          //skips: repository: https://raw.githubusercontent.com/ANHIG/IMGTHLA/Latest/wmda/hla_nom_p.txt
-//
-//        scnr.nextLine();          //skips: # author: WHO, Steven G. E. Marsh (steven.marsh@ucl.ac.uk)   
-//             
-//        while(scnr.hasNextLine()){
-//           line = scnr.nextLine();
-//                     
-//          if (!line.endsWith(";")) {
-//            Pdata = line.split(";");   //[0]= Locus, [1]=allele, [2]= Pgroup 
-//            lineNumber++;
-//            Integer n;
-//                        
-//            for(n = 0; n < Pdata[1].trim().split("/").length; n++) {
-//                //check hashmap; compare alleles in pgroup list to cwdalleles to see whats in this list, give it the value
-//               if (ReverseHash.keySet().contains(Pdata[0]+Pdata[1].trim().split("/")[n])){              // is current allele contained on the allcwdalleles hash?
-//                    ReadCWDStatus = ReverseHash.get(Pdata[0]+Pdata[1].trim().split("/")[n]).split("\t")[1]; // yes? retrieve the cwd-status from that allele from the allcwdalleles hash (using the cwdhasmodule)
-//                                     
-//                      switch (CurrentCWDStatus) {
-//                        case "NONE" : 
-//                              CurrentCWDStatus = ReadCWDStatus;
-//                             break;
-//                        case "WD": 
-//                              CurrentCWDStatus = ReadCWDStatus;
-//                             break;                                     // yes? overwrite cwd-status variable with the new retrieved cwd-status
-//                        case "C":                                        // no? (tehrefore, it is c) do nothing
-//                             //do nothing
-//                             break;      
-//                            }
-//                    
-//                        }               
-//                    }    
-//                        CWDhashWrite(Pdata[0]+Pdata[2], "PGI" + IDGenerator(lineNumber), CurrentCWDStatus, Allpgroups);  // key=Pgroup name; value = CWDstatus (C, WD, or NONE) + PID
-//                        CurrentCWDStatus = "NONE";   
-//                        
-//                     //   System.out.println("|"+Allpgroups.get(Pdata[0]+Pdata[2]));
-//                 }           
-//            }   scnr.close();
-//          //  System.out.println("--Im out HLA_nom_p----");
-//      //} 
-//  //----Finished reading from hla_nom_p.txt   //----Finished reading from hla_nom_p.txt   //----Finished reading from hla_nom_p.txt   //----Finished reading from hla_nom_p.txt 
-//     
-//        
-//  //--START delete xml & .zip file here
-//        boolean deleted; 
-////        File xmlDown = new File("R:\\Lab Folder\\HLA\\Melinda_P\\Development\\hla_ambigs.xml.zip"); //#1
-//        File xmlDown = new File("/Users/katrinaeaton/hla_ambigs.xml.zip"); //#1
-//
-//        while (!xmlDown.toString().equals("")){
-//            System.out.println("About to delete file: " + xmlDown);
-//                deleted = xmlDown.delete();
-//           System.out.println("File Deleted!: " + xmlDown + " = " + deleted);
-//           System.out.println("testingtesting");
-//           switch (xmlDown.toString().charAt(xmlDown.toString().length()-3)) {
-//               
-//               case 'z': xmlDown = new File(xmlDown.toString().replace(".zip", "")); 
-//                   break; 
-//               case 'x': xmlDown = new File(""); 
-//                   break; 
-//           }
-//            
-//        }
-//            
-////-- FINISHED delete xml & .zip file here 
-//           
-////--START write cwd Ggroups file     
-//           if (makeGgroups){
-//    String gGroupLocus; // need to catch the locus for the file
-//        SSkeys = new TreeSet<>(Allcwdgroups.keySet());
-//        SSkeysIt = SSkeys.iterator();
-//    //   System.out.println("-----------4-----------------");   
-//        try{
-//            BufferedWriter cwdFile = new BufferedWriter(new FileWriter("R:\\Lab Folder\\HLA\\Melinda_P\\Development\\cwd" + (oldAllelesNewVersion.replace(".", "")).replace(".","") + "_g-groups.txt"));
-//               cwdFile.write("# Categories for G Groups in the CWD "+ oldAllelesNewVersion + " Catalogue" + CRet);
-//               cwdFile.write("# Derived from: " + oldAllelesSourceName + " version:" + oldAllelesSourceVersion + " and " + xmlSourceName + " version:" + xmlSourceVersion + " Dated:" + xmlSourceDate + CRet);
-//               cwdFile.write("Locus" + "\t" + "IMGT/HLA " + xmlSourceVersion + " G Group" + "\t" + "CWD " + oldAllelesNewVersion + "Status" + "\t" + "GID" + CRet);
-//
-//            while(SSkeysIt.hasNext()) {             
-//                key = SSkeysIt.next(); // key is the gGroup Name
-//                gGroupLocus = key.substring(0, key.indexOf("*")); 
-//                cwdFile.write(gGroupLocus + "\t" + key + "\t" + CWDhashRead(0,Allcwdgroups.get(key)) + "\t" + CWDhashRead(1,Allcwdgroups.get(key)) + CRet);
-//            }
-//            cwdFile.close();     
-//        } catch (IOException e) {}  
-//        
-//           }
-////--FINISH write file: cwd210_g-groups.txt//--FINISH write file: cwd210_g-groups.txt//--FINISH write file: cwd210_g-groups.txt//--FINISH write file: cwd210_g-groups.txt
-//          
-////--START write UPDATED CWD ALLELES file     
-//   if (makeAlleles){     
-//     try {         
-//         BufferedWriter Newcwdfile = new BufferedWriter(new FileWriter("R:\\Lab Folder\\HLA\\Melinda_P\\Development\\cwd"   + (oldAllelesNewVersion.replace(".", "")).replace(".","") + "_alleles.txt"));
-//               Newcwdfile.write("# HLA Alleles in the CWD "+ oldAllelesNewVersion + " Catalogue" + "\t" + "\t" + "\t" + "\t" + CRet); //HLA Alleles in the CWD 2.0.0 Catalogue	
-//               Newcwdfile.write("# Derived from: " + oldAllelesSourceName + " version:" + oldAllelesSourceVersion + " and "  + ALhistorySourceName + " version:" + ALhistorySourceVersion + "\t" + "\t" + "\t" + "\t" + CRet);
-//               Newcwdfile.write("Locus" + "\t" + "IMGT/HLA Accession Number " + ALhistorySourceVersion + "\t" + "Allele" + "\t" + "CWD " + oldAllelesNewVersion + " Category" + "\t" + "Name Extended from IMGT/HLA " + oldSourceVersion + " to " + ALhistorySourceVersion + CRet);
-//            lineNumber = 0;
-//     SSkeys = new TreeSet<>(ReverseHash.keySet()); // all keys (allelenames) for reverse hash sorted by allelenames
-//        Iterator<String> RHkeysIt = SSkeys.iterator();
-//         while (RHkeysIt.hasNext()) {
-//                                 
-//            key = ReverseHash.get(RHkeysIt.next()).split("\t")[0];  // "real key" here would have to be split away from updated CWD status
-//            Locusletter = Allcwdalleles.get(key).split("\t")[0].substring(0, Allcwdalleles.get(key).split("\t")[0].indexOf("*"));
-//            Newcwdfile.write(Locusletter + "\t" + key + "\t" + Updatedcwdalleles.get(key).split("\t")[0] + "\t" + Allcwdalleles.get(key).split("\t")[1] + "\t" + Updatedcwdalleles.get(key).split("\t")[1] + CRet);
-//            lineNumber++;
-//          } Newcwdfile.close();
-//        } catch (IOException e) {}
-//     
-//   }
-////--FINISH MAKE UPDATED CWD ALLELES FILE       //--FINISH MAKE UPDATED CWD ALLELES FILE       //--FINISH MAKE UPDATED CWD ALLELES FILE       //--FINISH MAKE UPDATED CWD ALLELES FILE       
-// 
-////--START write file: cwd210_P-groups.txt    
-//   if(makePgroups){  
-//     SSkeys = new TreeSet<>(Allpgroups.keySet());
-//     SSkeysIt =  SSkeys.iterator();
-//     lineNumber = 0;               
-//  //   line = scnr.nextLine(); //try to get line back to top line of hla_nom_p but this line prevents the file from being written
-//   //String OldPgroupSourceDate = ""; //line.substring(line.indexOf(":")+2, line.length());
-//   //String OldPgroupSourceVersion = "";  //line.substring(line.indexOf("HLA")+4, line.length());
-//    //String OldPgroupSourceName = OldPgroup.getUserInfo();
-//     
-//      OldPgroupSourceName = OldPgroup.getFile().substring(6);
-//      try {  
-//          BufferedWriter NewPgrpcwdfile = new BufferedWriter(new FileWriter("R:\\Lab Folder\\HLA\\Melinda_P\\Development\\cwd"  + (oldAllelesNewVersion.replace(".", "")).replace(".","") + "p-groups.txt"));
-//          NewPgrpcwdfile.write("# Categories for P Groups in the CWD " + oldAllelesNewVersion + " Catalogue" + CRet);
-//          NewPgrpcwdfile.write("# Derived from: " + oldAllelesSourceName + " version:" + oldAllelesSourceVersion + " and "  + OldPgroupSourceName + " version:" + OldPgroupSourceVersion + " Dated:" + OldPgroupSourceDate + "\t" + "\t"  + CRet);
-//          NewPgrpcwdfile.write("Locus" + " IMGT/HLA" + ALhistorySourceVersion  + "\t"  + "P Group" + "\t"  + "CWD " + oldSourceVersion + "Category"+ "\t"  + "Pid" + CRet);
-//           
-//     while(SSkeysIt.hasNext()) {
-//         lineNumber++;
-//         key = SSkeysIt.next();
-//       
-//       if( !Allpgroups.get(key).split("\t")[0].equals("NONE")){
-//             Locusletter = key.substring(0, key.indexOf("*"));
-//             NewPgrpcwdfile.write(Locusletter + "\t" + key + "\t" + Allpgroups.get(key).split("\t")[0] + "\t" + Allpgroups.get(key).split("\t")[1] + CRet);
-//         }
-//         lineNumber++;        
-//            }
-//             NewPgrpcwdfile.close();
-//            } catch (IOException e) {
-//        }
-//   }
-//--FINISH write file: cwd210_P-groups.txt     
- 
-   
+        String xmlSourceVersion = new String(); 
+        String xmlSourceDate = new String(); 
+    
+        DocumentBuilderFactory dbFactorys = DocumentBuilderFactory.newInstance();
+        DocumentBuilder dBuilders;
+        dBuilders = dbFactorys.newDocumentBuilder();
+        Document docs = dBuilders.parse(Xml);
+                //.parse(zipxmlurl);
+        docs.getDocumentElement().normalize();
+        NodeList nLists = docs.getElementsByTagName("tns:gGroup");
+        
+        NodeList nSource = docs.getElementsByTagName("tns:releaseVersion"); //SM-07/03/2015 This section is new, for pulling documentation of the source files//SM-07/03/2015 This section is new, for pulling documentation of the source files//SM-07/03/2015 This section is new, for pulling documentation of the source files//SM-07/03/2015 This section is new, for pulling documentation of the source files
+        if (nSource.item(0).getNodeType() == Node.ELEMENT_NODE) { // assumes source documentation only occurs once in the xml file. 
+            Element eSource = (Element) nSource.item(0);
+            xmlSourceVersion = eSource.getAttribute("currentRelease");
+            xmlSourceDate = eSource.getAttribute("date");       
+        } 
+            // xmlSourceName = Xml.getFile(); //SM-07/03/2015 End of new section
+        System.out.println(Xml);
+        xmlSourceNameConvert = Xml.replace("\\", "/");
+        System.out.println(xmlSourceNameConvert);
+        xmlSourceNameList = xmlSourceNameConvert.split("/");
+        xmlSourceNameIndex = xmlSourceNameList.length;
+        xmlSourceName = xmlSourceNameList[xmlSourceNameIndex-1];
+        System.out.println(xmlSourceName);
+            
+        //FileNameList = OldPgroup.getFile().split("/");
+        //FileNameIndex = FileNameList.length; 
+        oldAllelesNewVersion = updatetable.get(xmlSourceVersion);         
+        String gGroupName = new String(); 
+        String gGroupGID = new String();  
+        // System.out.println("----------3-----------------"); // Remove         //    System.out.println("----------3-----------------");          //    System.out.println("----------3-----------------");          //    System.out.println("----------3-----------------");   
+
+        for (int i = 0; i < nLists.getLength(); i++) {
+            Node nNodes = nLists.item(i); 
+         
+            if (nNodes.getNodeType() == Node.ELEMENT_NODE) {
+                
+                Element eElements = (Element) nNodes;
+                gGroupName = eElements.getAttribute("name"); 
+                gGroupGID = eElements.getAttribute("gid");   
+            }      
+            if (nNodes.hasChildNodes()){
+                //ChildNode begins
+                NodeList childList = nLists.item(i).getChildNodes();
+                // clear the cwd-status variable (null) for the new g-group (nNodes)          
+                CurrentCWDStatus = ""; 
+                String childNodename; //SM: declare these outside of the for loop and IF statement
+                String childNodealleleid; // and initialize them as null
+
+                for (int j = 0; j < childList.getLength(); j++) {
+
+                    Node childNode = childList.item(j);
+                    if (childNode.getNodeType() == 1)  {
+                        childNodename = childNode.getAttributes().getNamedItem("name").getNodeValue(); //SM: looks like we don't need this
+                        childNodealleleid = childNode.getAttributes().getNamedItem("alleleid").getNodeValue();
+
+                        if (Allcwdalleles.keySet().contains(childNodealleleid)){              // is current alleleid contained on the allcwdalleles hash?
+
+                            ReadCWDStatus = CWDhashRead(1,Allcwdalleles.get(childNodealleleid)); // yes? retrieve the cwd-status from that allele from the allcwdalleles hash (using the cwdhasmodule)
+
+                            switch (CurrentCWDStatus) {
+                            // String('C');
+                                case "" : 
+                                    CurrentCWDStatus = ReadCWDStatus;
+                                    break;
+                                case "WD": 
+                                    CurrentCWDStatus = ReadCWDStatus;
+                                    break;                                     // yes? overwrite cwd-status variable with the new retrieved cwd-status
+                                case "C":                                               // no? (tehrefore, it is c) do nothing
+                            //do nothing
+                                    break;      
+                            }
+
+                        }else{
+                            childNode.getNextSibling();
+                        } // no? go on to the next sibling
+                    } 
+                }  
+        
+            } else { 
+                System.out.println("NO CHILD FOUND for: "+ nLists);
+            }  
+            //ChildNode ends
+            
+            if ("".equals(CurrentCWDStatus)){    // cwdStat should never be 'null' it should either have a C or WD value or ""
+                nNodes.getNextSibling();   // yes: go on to next nNode
+            } else {
+                  
+                CWDhashWrite(gGroupName,gGroupGID,CurrentCWDStatus,Allcwdgroups); //SM: use CWDhashWrite to do all the work 
+                nNodes.getNextSibling();                                                               
+                // No: add this gGroup to the ggroups hash, using the gGroup name as the key, with the gid and the cwd-status as Value, using CWDhashWrite
+            }
+        }
+        //--- FINISHED Downloading/unzip/READING xml FILE         
+       
+        //--START  UPDATED CWD ALLELES LIST       
+        Iterator<String> keyIt = Allcwdalleles.keySet().iterator();
+        
+        while (keyIt.hasNext()) {
+            key = keyIt.next();
+
+            Updatedcwdalleles.put(key, AlleleList.get(key));
+            if (Allcwdalleles.get(key).split("\t")[0].equals(Updatedcwdalleles.get(key))) {
+                Updatedcwdalleles.put(key, AlleleList.get(key) + "\t" + "NO");
+            } else {
+                Updatedcwdalleles.put(key, AlleleList.get(key) + "\t" + "YES");
+            }
+            //This allows for returning the value for the key(Succesion ID) either Allelename(0) or CWD status(1)
+            lineNumber++;
+       // System.out.println("-----------5-----------------");    // Remove 
+        }
+        Set keys = Updatedcwdalleles.keySet();
+        Iterator<String> keysIt = keys.iterator();
+        
+        while (keysIt.hasNext()) {
+            key = keysIt.next();
+            ReverseHash.put(Updatedcwdalleles.get(key).split("\t")[0], key + "\t" + Allcwdalleles.get(key).split("\t")[1]); // added CWD status to reverse updated CWD list
+            lineNumber++;
+        } 
+ //--FINISH UPDATED CWD ALLELES LIST          //--FINISH UPDATED CWD ALLELES LIST          //--FINISH UPDATED CWD ALLELES LIST          //--FINISH UPDATED CWD ALLELES LIST         
+       
+
      
+//---Read from hla_nom_p.txt   <--Pgroup    
+        //if (makePgroups){
+        //   System.out.println("--Im in HLA_nom_p----"); // remove
+               
+        scnr = new Scanner(OldPgroup.openStream());       
+        lineNumber = 0;       
+        if (scnr.hasNextLine()){ 
+            System.out.println("--Nextline--"); 
+        } else {
+            System.out.println("--no nextline----");
+        }
+            
+        line = scnr.nextLine();  //line1
+        //System.out.println("--"+scnr.toString());
+        ReadCWDStatus = ""; 
+        CurrentCWDStatus = ("NONE");
+     
+        String OldPgroupSourceName; 
+        String OldPgroupSourceVersion;
+        String OldPgroupSourceDate;
+        String OldPgroupNewVersion = new String(); 
+        String PgroupSourceName = new String();   
+        String PgroupNewVersion = new String(); 
+        //substring(0, key.indexOf("*")); 
+        
+        
+        FileNameList = OldPgroup.getFile().split("/");
+        FileNameIndex = FileNameList.length; 
+        // System.out.println(" //"+ OldPgroup.getFile() +"||" + OldPgroupSourceName+"\\"); // figure out h0w to fix this
+        // figure out a dynamic way to always get ONLY the file name from result of getFile, which is just the file name. From last /
+        OldPgroupSourceName = FileNameList[FileNameIndex -1];
+              
+        line = scnr.nextLine();  //line2 date          
+        OldPgroupSourceDate = line.substring(line.indexOf(":")+2, line.length());  // figure out h0w to fix this
+        System.out.println("| //"+ OldPgroupSourceDate+ "\\ |");
+        line = scnr.nextLine();           //line3 version
+        OldPgroupSourceVersion = line.substring(line.indexOf("HLA")+4, line.length());
+        System.out.println(" //"+ OldPgroupSourceVersion+ "\\");
+        scnr.nextLine();          //skips: # origin: http://hla.alleles.org/wmda/hla_nom_p.txt
+        scnr.nextLine();          //skips: repository: https://raw.githubusercontent.com/ANHIG/IMGTHLA/Latest/wmda/hla_nom_p.txt
 
-}
+        scnr.nextLine();          //skips: # author: WHO, Steven G. E. Marsh (steven.marsh@ucl.ac.uk)   
+             
+        while(scnr.hasNextLine()){
+            line = scnr.nextLine();
+                     
+            if (!line.endsWith(";")) {
+                Pdata = line.split(";");   //[0]= Locus, [1]=allele, [2]= Pgroup 
+                lineNumber++;
+                Integer n;
 
+                for(n = 0; n < Pdata[1].trim().split("/").length; n++) {
+                    //check hashmap; compare alleles in pgroup list to cwdalleles to see whats in this list, give it the value
+                    if (ReverseHash.keySet().contains(Pdata[0]+Pdata[1].trim().split("/")[n])){              // is current allele contained on the allcwdalleles hash?
+                        ReadCWDStatus = ReverseHash.get(Pdata[0]+Pdata[1].trim().split("/")[n]).split("\t")[1]; // yes? retrieve the cwd-status from that allele from the allcwdalleles hash (using the cwdhasmodule)
 
+                        switch (CurrentCWDStatus) {
+                            case "NONE" : 
+                                CurrentCWDStatus = ReadCWDStatus;
+                                break;
+                            case "WD": 
+                                CurrentCWDStatus = ReadCWDStatus;
+                                break;                                     // yes? overwrite cwd-status variable with the new retrieved cwd-status
+                            case "C":                                        // no? (tehrefore, it is c) do nothing
+                                //do nothing
+                                break;      
+                        }   
+                    }               
+                }    
+                CWDhashWrite(Pdata[0]+Pdata[2], "PGI" + IDGenerator(lineNumber), CurrentCWDStatus, Allpgroups);  // key=Pgroup name; value = CWDstatus (C, WD, or NONE) + PID
+                CurrentCWDStatus = "NONE";   
+                //  System.out.println("|"+Allpgroups.get(Pdata[0]+Pdata[2]));
+            }           
+        }   
+        
+        scnr.close();
+          //  System.out.println("--Im out HLA_nom_p----");
+      //} 
+  //----Finished reading from hla_nom_p.txt   //----Finished reading from hla_nom_p.txt   //----Finished reading from hla_nom_p.txt   //----Finished reading from hla_nom_p.txt 
+     
+        
+  //--START delete xml & .zip file here
+        boolean deleted; 
+//        File xmlDown = new File("R:\\Lab Folder\\HLA\\Melinda_P\\Development\\hla_ambigs.xml.zip"); //#1
+        File xmlDown = new File("/Users/katrinaeaton/hla_ambigs.xml.zip"); //#1
+
+        while (!xmlDown.toString().equals("")){
+            System.out.println("About to delete file: " + xmlDown);
+                deleted = xmlDown.delete();
+            System.out.println("File Deleted!: " + xmlDown + " = " + deleted);
+            System.out.println("testingtesting");
+            switch (xmlDown.toString().charAt(xmlDown.toString().length()-3)) {
+                case 'z': 
+                    xmlDown = new File(xmlDown.toString().replace(".zip", "")); 
+                    break; 
+                case 'x': 
+                    xmlDown = new File(""); 
+                    break; 
+            }    
+        }
+            
+//-- FINISHED delete xml & .zip file here 
+           
+//--START write cwd Ggroups file     
+        if (makeGgroups){
+            String gGroupLocus; // need to catch the locus for the file
+            SSkeys = new TreeSet<>(Allcwdgroups.keySet());
+            SSkeysIt = SSkeys.iterator();
+    //   System.out.println("-----------4-----------------");   
+            try{
+//                BufferedWriter cwdFile = new BufferedWriter(new FileWriter("R:\\Lab Folder\\HLA\\Melinda_P\\Development\\cwd" + (oldAllelesNewVersion.replace(".", "")).replace(".","") + "_g-groups.txt"));
+                BufferedWriter cwdFile = new BufferedWriter(new FileWriter("/Users/katrinaeaton/NewFolder/CWD/" + (oldAllelesNewVersion.replace(".", "")).replace(".","") + "_g-groups.txt"));
+
+                cwdFile.write("# Categories for G Groups in the CWD "+ oldAllelesNewVersion + " Catalogue" + CRet);
+                cwdFile.write("# Derived from: " + oldAllelesSourceName + " version:" + oldAllelesSourceVersion + " and " + xmlSourceName + " version:" + xmlSourceVersion + " Dated:" + xmlSourceDate + CRet);
+                cwdFile.write("Locus" + "\t" + "IMGT/HLA " + xmlSourceVersion + " G Group" + "\t" + "CWD " + oldAllelesNewVersion + "Status" + "\t" + "GID" + CRet);
+
+                while(SSkeysIt.hasNext()) {             
+                    key = SSkeysIt.next(); // key is the gGroup Name
+                    gGroupLocus = key.substring(0, key.indexOf("*")); 
+                    cwdFile.write(gGroupLocus + "\t" + key + "\t" + CWDhashRead(0,Allcwdgroups.get(key)) + "\t" + CWDhashRead(1,Allcwdgroups.get(key)) + CRet);
+                }
+                cwdFile.close();     
+            } catch (IOException e) {}  
+        }
+//--FINISH write file: cwd210_g-groups.txt//--FINISH write file: cwd210_g-groups.txt//--FINISH write file: cwd210_g-groups.txt//--FINISH write file: cwd210_g-groups.txt
+          
+//--START write UPDATED CWD ALLELES file     
+        if (makeAlleles){     
+            try {         
+                BufferedWriter Newcwdfile = new BufferedWriter(new FileWriter("R:\\Lab Folder\\HLA\\Melinda_P\\Development\\cwd"   + (oldAllelesNewVersion.replace(".", "")).replace(".","") + "_alleles.txt"));
+    //             BufferedWriter Newcwdfile = new BufferedWriter(new FileWriter("/Users/katrinaeaton/NewFolder/CWD/"   + (oldAllelesNewVersion.replace(".", "")).replace(".","") + "_alleles.txt"));
+
+                Newcwdfile.write("# HLA Alleles in the CWD "+ oldAllelesNewVersion + " Catalogue" + "\t" + "\t" + "\t" + "\t" + CRet); //HLA Alleles in the CWD 2.0.0 Catalogue	
+                Newcwdfile.write("# Derived from: " + oldAllelesSourceName + " version:" + oldAllelesSourceVersion + " and "  + ALhistorySourceName + " version:" + ALhistorySourceVersion + "\t" + "\t" + "\t" + "\t" + CRet);
+                Newcwdfile.write("Locus" + "\t" + "IMGT/HLA Accession Number " + ALhistorySourceVersion + "\t" + "Allele" + "\t" + "CWD " + oldAllelesNewVersion + " Category" + "\t" + "Name Extended from IMGT/HLA " + oldSourceVersion + " to " + ALhistorySourceVersion + CRet);
+                lineNumber = 0;
+
+                SSkeys = new TreeSet<>(ReverseHash.keySet()); // all keys (allelenames) for reverse hash sorted by allelenames
+                Iterator<String> RHkeysIt = SSkeys.iterator();
+                while (RHkeysIt.hasNext()) {                     
+                    key = ReverseHash.get(RHkeysIt.next()).split("\t")[0];  // "real key" here would have to be split away from updated CWD status
+                    Locusletter = Allcwdalleles.get(key).split("\t")[0].substring(0, Allcwdalleles.get(key).split("\t")[0].indexOf("*"));
+                    Newcwdfile.write(Locusletter + "\t" + key + "\t" + Updatedcwdalleles.get(key).split("\t")[0] + "\t" + Allcwdalleles.get(key).split("\t")[1] + "\t" + Updatedcwdalleles.get(key).split("\t")[1] + CRet);
+                    lineNumber++;
+                } Newcwdfile.close();
+            } catch (IOException e) {} 
+        }
+//--FINISH MAKE UPDATED CWD ALLELES FILE       //--FINISH MAKE UPDATED CWD ALLELES FILE       //--FINISH MAKE UPDATED CWD ALLELES FILE       //--FINISH MAKE UPDATED CWD ALLELES FILE       
+ 
+//--START write file: cwd210_P-groups.txt    
+        if(makePgroups){  
+            SSkeys = new TreeSet<>(Allpgroups.keySet());
+            SSkeysIt =  SSkeys.iterator();
+            lineNumber = 0;               
+    //        line = scnr.nextLine(); //try to get line back to top line of hla_nom_p but this line prevents the file from being written
+    //        String OldPgroupSourceDate = ""; //line.substring(line.indexOf(":")+2, line.length());
+    //        String OldPgroupSourceVersion = "";  //line.substring(line.indexOf("HLA")+4, line.length());
+    //        String OldPgroupSourceName = OldPgroup.getUserInfo();
+
+            OldPgroupSourceName = OldPgroup.getFile().substring(6);
+            try {  
+                BufferedWriter NewPgrpcwdfile = new BufferedWriter(new FileWriter("R:\\Lab Folder\\HLA\\Melinda_P\\Development\\cwd"  + (oldAllelesNewVersion.replace(".", "")).replace(".","") + "p-groups.txt"));
+                NewPgrpcwdfile.write("# Categories for P Groups in the CWD " + oldAllelesNewVersion + " Catalogue" + CRet);
+                NewPgrpcwdfile.write("# Derived from: " + oldAllelesSourceName + " version:" + oldAllelesSourceVersion + " and "  + OldPgroupSourceName + " version:" + OldPgroupSourceVersion + " Dated:" + OldPgroupSourceDate + "\t" + "\t"  + CRet);
+                NewPgrpcwdfile.write("Locus" + " IMGT/HLA" + ALhistorySourceVersion  + "\t"  + "P Group" + "\t"  + "CWD " + oldSourceVersion + "Category"+ "\t"  + "Pid" + CRet);
+
+                while(SSkeysIt.hasNext()) {
+                    lineNumber++;
+                    key = SSkeysIt.next();
+
+                    if( !Allpgroups.get(key).split("\t")[0].equals("NONE")){
+                        Locusletter = key.substring(0, key.indexOf("*"));
+                        NewPgrpcwdfile.write(Locusletter + "\t" + key + "\t" + Allpgroups.get(key).split("\t")[0] + "\t" + Allpgroups.get(key).split("\t")[1] + CRet);
+                    }
+                    lineNumber++;        
+                }
+                NewPgrpcwdfile.close();
+            } catch (IOException e) {}
+        }
+//--FINISH write file: cwd210_P-groups.txt     
+    }
 }
