@@ -42,9 +42,12 @@ import org.xml.sax.SAXException;
  */
 public class pgroups {
     
-    public pgroups(String xmlDirectory) {
+    public pgroups(String args[] ) {
+        String xmlDirectory = args[0];
         System.out.println(xmlDirectory + " initialization (not main)");
-
+        System.out.println(args[1]);
+        
+        
     }
 
 /**
@@ -290,7 +293,7 @@ public class pgroups {
         Integer xmlSourceNameIndex;
         
 //        String Xml = xmlDirectory + "\\hla_ambigs.xml.zip"; //xmlDirectory + "hla_ambigs.xml.zip";
-        System.out.println(args[0]);
+        System.out.println(args[0] + " (main)");
         String Xml = "R:\\Lab Folder\\HLA\\Melinda_P\\Development\\hla_ambigs.xml.zip"; //this is the hardcoded destination for the zip file
 //        String Xml = "/Users/katrinaeaton/NewFolder/hla_ambigs.xml.zip";
         

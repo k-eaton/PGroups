@@ -321,7 +321,9 @@ public class pgroupsUI extends javax.swing.JFrame {
         String location;
         location = SaveDirectoryLabel.getText();
         System.out.println("Send those bad ass files to " + location);
-        pgroups fileGenerator = new pgroups(location);
+        String[] passMeOn = {location, "test"}; 
+        pgroups fileGenerator = new pgroups(passMeOn);
+        
 
     }//GEN-LAST:event_StartActionPerformed
 
