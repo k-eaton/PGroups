@@ -23,14 +23,14 @@ import javax.swing.JFileChooser;
  */
 public class pgroupsUI extends javax.swing.JFrame {
 
+    
     /**
      * Creates new form pgroupsUI
      */
     
     public pgroupsUI() {
+        
         initComponents();
-
-//        AllCWD.setSelected(true);
 
     }
 
@@ -318,7 +318,11 @@ public class pgroupsUI extends javax.swing.JFrame {
     private void StartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_StartActionPerformed
         // TODO add your handling code here:
         
-        pgroups fileGenerator = new pgroups();
+        String location;
+        location = SaveDirectoryLabel.getText();
+        System.out.println("Send those bad ass files to " + location);
+        pgroups fileGenerator = new pgroups(location);
+
     }//GEN-LAST:event_StartActionPerformed
 
     private void CancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CancelActionPerformed
@@ -352,7 +356,7 @@ public class pgroupsUI extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(pgroupsUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-
+        
         /* Create and display the form */
         
         java.awt.EventQueue.invokeLater(new Runnable() {
