@@ -42,7 +42,10 @@ import org.xml.sax.SAXException;
  */
 public class pgroups {
     
+    public pgroups(String xmlDirectory) {
+        System.out.println(xmlDirectory + " initialization (not main)");
 
+    }
 
 /**
  *
@@ -261,7 +264,7 @@ public class pgroups {
      * @throws ParseException
      */
     @SuppressWarnings("empty-statement") 
-    public static void main(String args[]) throws FileNotFoundException, SAXException, IOException, ParserConfigurationException, ParseException{
+    public static void main(String[] args) throws FileNotFoundException, SAXException, IOException, ParserConfigurationException, ParseException{
        //---All Urls used to get Files---
     //  URL OldPgroup = new URL("http://hla.alleles.org/wmda/hla_nom_p.txt");  //hla_nom_p.txt
         URL OldPgroup = new URL("https://raw.githubusercontent.com/ANHIG/IMGTHLA/Latest/wmda/hla_nom_p.txt");  //hla_nom_p.txt
@@ -286,8 +289,9 @@ public class pgroups {
         String xmlSourceNameConvert;
         Integer xmlSourceNameIndex;
         
-        String Xml = args[0];
-//        String Xml = "R:\\Lab Folder\\HLA\\Melinda_P\\Development\\hla_ambigs.xml.zip"; //this is the hardcoded destination for the zip file
+//        String Xml = xmlDirectory + "\\hla_ambigs.xml.zip"; //xmlDirectory + "hla_ambigs.xml.zip";
+        System.out.println(args[0]);
+        String Xml = "R:\\Lab Folder\\HLA\\Melinda_P\\Development\\hla_ambigs.xml.zip"; //this is the hardcoded destination for the zip file
 //        String Xml = "/Users/katrinaeaton/NewFolder/hla_ambigs.xml.zip";
         
         String line; 
