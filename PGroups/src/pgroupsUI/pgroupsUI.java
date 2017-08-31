@@ -11,7 +11,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
-import java.io.File;
+import java.io.*;
 import java.util.EventListener.*;
 import javax.swing.JFileChooser;
 
@@ -317,12 +317,20 @@ public class pgroupsUI extends javax.swing.JFrame {
 
     private void StartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_StartActionPerformed
         // TODO add your handling code here:
-        
-        String location;
-        location = SaveDirectoryLabel.getText();
-        System.out.println("Send those bad ass files to " + location);
-        String[] passMeOn = {location, "test"}; 
-        pgroups fileGenerator = new pgroups(passMeOn);
+        try 
+        {
+            String location;
+            location = SaveDirectoryLabel.getText();
+            System.out.println("Send those bad ass files to " + location);
+            String[] passMeOn = {location, "test"}; 
+            pgroups fileGenerator = new pgroups(passMeOn);
+
+            fileGenerator.main(passMeOn);
+        }
+        catch (Exception ex)
+        {
+            System.out.println(ex);
+        }
         
 
     }//GEN-LAST:event_StartActionPerformed
@@ -335,7 +343,7 @@ public class pgroupsUI extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
+    public static void main(String args[]) throws FileNotFoundException {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -366,6 +374,8 @@ public class pgroupsUI extends javax.swing.JFrame {
                 new pgroupsUI().setVisible(true);
             }
         });
+        
+        
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
