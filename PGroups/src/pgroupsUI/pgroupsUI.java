@@ -245,49 +245,49 @@ public class pgroupsUI extends javax.swing.JFrame {
     private void AllelesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AllelesActionPerformed
         // TODO add your handling code here:
         
-        Alleles.addItemListener(new ItemListener() {
-//            @Override
-            public void itemStateChanged(ItemEvent e) {
-                System.out.println(e.getStateChange() == ItemEvent.SELECTED
-                    ? "SELECTED" : "DESELECTED");
-                
+//        Alleles.addItemListener(new ItemListener() {
+////            @Override
+//            public void itemStateChanged(ItemEvent e) {
+//                System.out.println(e.getStateChange() == ItemEvent.SELECTED
+//                    ? "SELECTED" : "DESELECTED");
+//                
 //                if(e.getStateChange() == ItemEvent.SELECTED) {
 //                    AllCWD.setSelected(false);
 //                }
-            }
-        });
+//            }
+//        });
     }//GEN-LAST:event_AllelesActionPerformed
 
     private void GGroupsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GGroupsActionPerformed
         // TODO add your handling code here:
-        
-        GGroups.addItemListener(new ItemListener() {
-//            @Override
-            public void itemStateChanged(ItemEvent e) {
-                System.out.println(e.getStateChange() == ItemEvent.SELECTED
-                    ? "SELECTED" : "DESELECTED");
-                
+//        
+//        GGroups.addItemListener(new ItemListener() {
+////            @Override
+//            public void itemStateChanged(ItemEvent e) {
+//                System.out.println(e.getStateChange() == ItemEvent.SELECTED
+//                    ? "SELECTED" : "DESELECTED");
+//                
 //                if(e.getStateChange() == ItemEvent.SELECTED) {
 //                    AllCWD.setSelected(false);
 //                }
-            }
-        });
+//            }
+//        });
     }//GEN-LAST:event_GGroupsActionPerformed
 
     private void PGroupsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PGroupsActionPerformed
         // TODO add your handling code here:
         
-        PGroups.addItemListener(new ItemListener() {
-//            @Override
-            public void itemStateChanged(ItemEvent e) {
-                System.out.println(e.getStateChange() == ItemEvent.SELECTED
-                    ? "SELECTED" : "DESELECTED");
-                
+//        PGroups.addItemListener(new ItemListener() {
+////            @Override
+//            public void itemStateChanged(ItemEvent e) {
+//                System.out.println(e.getStateChange() == ItemEvent.SELECTED
+//                    ? "SELECTED" : "DESELECTED");
+//                
 //                if(e.getStateChange() == ItemEvent.SELECTED) {
 //                    AllCWD.setSelected(false);
 //                }
-            }
-        });
+//            }
+//        });
     }//GEN-LAST:event_PGroupsActionPerformed
 
     private void AllCWDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AllCWDActionPerformed
