@@ -46,10 +46,9 @@ public class pgroups {
         String xmlDirectory = args[0];
         System.out.println(xmlDirectory + " initialization (not main)");
         System.out.println(args[1]);
-        System.out.println(toggles[0]);
-        System.out.println(toggles[1]);
-        System.out.println(toggles[2]);
-        
+        System.out.println("Alleles = " + toggles[0]);
+        System.out.println("GGroups = " + toggles[1]);
+        System.out.println("PGroups = " + toggles[2]);
         
     }
 

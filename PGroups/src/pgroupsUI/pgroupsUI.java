@@ -246,14 +246,14 @@ public class pgroupsUI extends javax.swing.JFrame {
         // TODO add your handling code here:
         
         Alleles.addItemListener(new ItemListener() {
-            @Override
+//            @Override
             public void itemStateChanged(ItemEvent e) {
                 System.out.println(e.getStateChange() == ItemEvent.SELECTED
                     ? "SELECTED" : "DESELECTED");
                 
-                if(e.getStateChange() == ItemEvent.SELECTED) {
-                    AllCWD.setSelected(false);
-                }
+//                if(e.getStateChange() == ItemEvent.SELECTED) {
+//                    AllCWD.setSelected(false);
+//                }
             }
         });
     }//GEN-LAST:event_AllelesActionPerformed
@@ -262,14 +262,14 @@ public class pgroupsUI extends javax.swing.JFrame {
         // TODO add your handling code here:
         
         GGroups.addItemListener(new ItemListener() {
-            @Override
+//            @Override
             public void itemStateChanged(ItemEvent e) {
                 System.out.println(e.getStateChange() == ItemEvent.SELECTED
                     ? "SELECTED" : "DESELECTED");
                 
-                if(e.getStateChange() == ItemEvent.SELECTED) {
-                    AllCWD.setSelected(false);
-                }
+//                if(e.getStateChange() == ItemEvent.SELECTED) {
+//                    AllCWD.setSelected(false);
+//                }
             }
         });
     }//GEN-LAST:event_GGroupsActionPerformed
@@ -278,32 +278,32 @@ public class pgroupsUI extends javax.swing.JFrame {
         // TODO add your handling code here:
         
         PGroups.addItemListener(new ItemListener() {
-            @Override
+//            @Override
             public void itemStateChanged(ItemEvent e) {
                 System.out.println(e.getStateChange() == ItemEvent.SELECTED
                     ? "SELECTED" : "DESELECTED");
                 
-                if(e.getStateChange() == ItemEvent.SELECTED) {
-                    AllCWD.setSelected(false);
-                }
+//                if(e.getStateChange() == ItemEvent.SELECTED) {
+//                    AllCWD.setSelected(false);
+//                }
             }
         });
     }//GEN-LAST:event_PGroupsActionPerformed
 
     private void AllCWDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AllCWDActionPerformed
-        AllCWD.addItemListener(new ItemListener() {
-            @Override
-            public void itemStateChanged(ItemEvent e) {
-                System.out.println(e.getStateChange() == ItemEvent.SELECTED
-                    ? "SELECTED" : "DESELECTED");
-                
-                if(e.getStateChange() == ItemEvent.SELECTED) {
-                    PGroups.setSelected(false);
-                    GGroups.setSelected(false);
-                    Alleles.setSelected(false);
-                }
-            }
-        });
+//        AllCWD.addItemListener(new ItemListener() {
+//            @Override
+//            public void itemStateChanged(ItemEvent e) {
+//                System.out.println(e.getStateChange() == ItemEvent.SELECTED
+//                    ? "SELECTED" : "DESELECTED");
+//                
+//                if(e.getStateChange() == ItemEvent.SELECTED) {
+//                    PGroups.setSelected(false);
+//                    GGroups.setSelected(false);
+//                    Alleles.setSelected(false);
+//                }
+//            }
+//        });
     }//GEN-LAST:event_AllCWDActionPerformed
 
     private void ShowFilesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ShowFilesActionPerformed
@@ -335,8 +335,8 @@ public class pgroupsUI extends javax.swing.JFrame {
             boolean pgroupsToggle = true;
             
             if (Alleles.isSelected() == false) { allelesToggle = false; }
-            if (GGroups.isSelected() == false) { allelesToggle = false; }
-            if (PGroups.isSelected() == false) { allelesToggle = false; }
+            if (GGroups.isSelected() == false) { ggroupsToggle = false; }
+            if (PGroups.isSelected() == false) { pgroupsToggle = false; }
             
             
             
