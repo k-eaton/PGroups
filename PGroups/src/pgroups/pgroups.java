@@ -42,10 +42,13 @@ import org.xml.sax.SAXException;
  */
 public class pgroups {
     
-    public pgroups(String args[] ) {
+    public pgroups(String args[], boolean[] toggles ) {
         String xmlDirectory = args[0];
         System.out.println(xmlDirectory + " initialization (not main)");
         System.out.println(args[1]);
+        System.out.println(toggles[0]);
+        System.out.println(toggles[1]);
+        System.out.println(toggles[2]);
         
         
     }
@@ -267,7 +270,7 @@ public class pgroups {
      * @throws ParseException
      */
     @SuppressWarnings("empty-statement") 
-    public static void main(String[] args) throws FileNotFoundException, SAXException, IOException, ParserConfigurationException, ParseException{
+    public static void main(String[] args, boolean[] toggles) throws FileNotFoundException, SAXException, IOException, ParserConfigurationException, ParseException{
        //---All Urls used to get Files---
     //  URL OldPgroup = new URL("http://hla.alleles.org/wmda/hla_nom_p.txt");  //hla_nom_p.txt
         URL OldPgroup = new URL("https://raw.githubusercontent.com/ANHIG/IMGTHLA/Latest/wmda/hla_nom_p.txt");  //hla_nom_p.txt
@@ -312,10 +315,10 @@ public class pgroups {
         String[] Pdata = new String[3]; 
         String NewVersionNum;
  
-        boolean makePgroups = true;
-        boolean makeAlleles = true;
-        boolean makeGgroups = true;
-       
+        boolean makeAlleles = toggles[0];
+        boolean makeGgroups = toggles[1];
+        boolean makePgroups = toggles[2];
+
        
         
  //---starts to read Version update Table file   

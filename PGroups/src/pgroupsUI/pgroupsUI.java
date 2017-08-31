@@ -330,13 +330,17 @@ public class pgroupsUI extends javax.swing.JFrame {
             String location;
             location = SaveDirectoryLabel.getText();
             
+            boolean allelesToggle = true;
+            boolean ggroupsToggle = false;
+            boolean pgroupsToggle = true;
             
+            boolean[] whatWeAreRunning = {allelesToggle, ggroupsToggle, pgroupsToggle};
             
             System.out.println("Send those bad ass files to " + location);
-            String[] passMeOn = {location, "test"}; 
+            String[] passMeOn = {location, "test"};
             
-            pgroups fileGenerator = new pgroups(passMeOn);
-            fileGenerator.main(passMeOn);
+            pgroups fileGenerator = new pgroups(passMeOn, whatWeAreRunning);
+            fileGenerator.main(passMeOn, whatWeAreRunning);
         }
         catch (Exception ex)
         {
@@ -354,7 +358,7 @@ public class pgroupsUI extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) throws FileNotFoundException {
+    public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
