@@ -331,8 +331,14 @@ public class pgroupsUI extends javax.swing.JFrame {
             location = SaveDirectoryLabel.getText();
             
             boolean allelesToggle = true;
-            boolean ggroupsToggle = false;
+            boolean ggroupsToggle = true;
             boolean pgroupsToggle = true;
+            
+            if (Alleles.isSelected() == false) { allelesToggle = false; }
+            if (GGroups.isSelected() == false) { allelesToggle = false; }
+            if (PGroups.isSelected() == false) { allelesToggle = false; }
+            
+            
             
             boolean[] whatWeAreRunning = {allelesToggle, ggroupsToggle, pgroupsToggle};
             
