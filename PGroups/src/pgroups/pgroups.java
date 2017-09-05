@@ -6,6 +6,7 @@
 package pgroups;
 
 import pgroupsUI.*;
+import java.awt.Desktop;
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.BufferedWriter;
@@ -720,7 +721,10 @@ public class pgroups {
                     lineNumber++;        
                 }
                 NewPgrpcwdfile.close();
+                Desktop.getDesktop().open(File NewPgrpcwdfile);
+
             } catch (IOException e) {}
+
         }
 //--FINISH write file: cwd210_P-groups.txt     
     }
