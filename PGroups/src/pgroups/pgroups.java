@@ -294,7 +294,7 @@ public class pgroups {
         String xmlSourceNameConvert;
         Integer xmlSourceNameIndex;
         
-        String Xml = args[0] + "\\hla_ambigs.xml.zip"; //xmlDirectory + "hla_ambigs.xml.zip";
+        String Xml = args[0] + System.getProperty("file.separator") + "hla_ambigs.xml.zip"; //xmlDirectory + "hla_ambigs.xml.zip";
         System.out.println(args[0] + " (main)");
 //        String Xml = "R:\\Lab Folder\\HLA\\Melinda_P\\Development\\hla_ambigs.xml.zip"; //this is the hardcoded destination for the zip file
 //        String Xml = "/Users/katrinaeaton/NewFolder/hla_ambigs.xml.zip";
@@ -407,12 +407,12 @@ public class pgroups {
         saveUrl(Xml,ambigsXMLsource );
             
       // }
-        unzip(args[0] + "\\hla_ambigs.xml.zip",args[0]);
+        unzip(args[0] + System.getProperty("file.separator") + "hla_ambigs.xml.zip",args[0]);
 
 //        unzip("R:\\Lab Folder\\HLA\\Melinda_P\\Development\\hla_ambigs.xml.zip","R:\\Lab Folder\\HLA\\Melinda_P\\Development");
 //        unzip("/Users/katrinaeaton/NewFolder/hla_ambigs.xml.zip","/Users/katrinaeaton/NewFolder/");
 
-        Xml = args[0] + "\\hla_ambigs.xml";
+        Xml = args[0] + System.getProperty("file.separator") + "hla_ambigs.xml";
 //        Xml = "R:\\Lab Folder\\HLA\\Melinda_P\\Development\\hla_ambigs.xml";
 //        Xml = "/Users/katrinaeaton/NewFolder/hla_ambigs.xml";
 
@@ -672,7 +672,7 @@ public class pgroups {
 //--START write UPDATED CWD ALLELES file     
         if (makeAlleles){     
             try {         
-                BufferedWriter Newcwdfile = new BufferedWriter(new FileWriter(args[0] + "\\cwd" + (oldAllelesNewVersion.replace(".", "")).replace(".","") + "_alleles.txt"));
+                BufferedWriter Newcwdfile = new BufferedWriter(new FileWriter(args[0] + System.getProperty("file.separator") + "cwd" + (oldAllelesNewVersion.replace(".", "")).replace(".","") + "_alleles.txt"));
     //             BufferedWriter Newcwdfile = new BufferedWriter(new FileWriter("/Users/katrinaeaton/NewFolder/CWD/"   + (oldAllelesNewVersion.replace(".", "")).replace(".","") + "_alleles.txt"));
 
                 Newcwdfile.write("# HLA Alleles in the CWD "+ oldAllelesNewVersion + " Catalogue" + "\t" + "\t" + "\t" + "\t" + CRet); //HLA Alleles in the CWD 2.0.0 Catalogue	
@@ -704,7 +704,7 @@ public class pgroups {
 
             OldPgroupSourceName = OldPgroup.getFile().substring(6);
             try {  
-                BufferedWriter NewPgrpcwdfile = new BufferedWriter(new FileWriter(args[0] + "\\cwd"  + (oldAllelesNewVersion.replace(".", "")).replace(".","") + "p-groups.txt"));
+                BufferedWriter NewPgrpcwdfile = new BufferedWriter(new FileWriter(args[0] + System.getProperty("file.separator") + "cwd"  + (oldAllelesNewVersion.replace(".", "")).replace(".","") + "p-groups.txt"));
                 NewPgrpcwdfile.write("# Categories for P Groups in the CWD " + oldAllelesNewVersion + " Catalogue" + CRet);
                 NewPgrpcwdfile.write("# Derived from: " + oldAllelesSourceName + " version:" + oldAllelesSourceVersion + " and "  + OldPgroupSourceName + " version:" + OldPgroupSourceVersion + " Dated:" + OldPgroupSourceDate + "\t" + "\t"  + CRet);
                 NewPgrpcwdfile.write("Locus" + " IMGT/HLA" + ALhistorySourceVersion  + "\t"  + "P Group" + "\t"  + "CWD " + oldSourceVersion + "Category"+ "\t"  + "Pid" + CRet);
