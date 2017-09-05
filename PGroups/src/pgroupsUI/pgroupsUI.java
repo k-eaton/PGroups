@@ -123,7 +123,7 @@ public class pgroupsUI extends javax.swing.JFrame {
 
         SelectDirectoryLabel.setText("Select Destination Directory For New Files");
 
-        SaveDirectoryLabel.setText(System.getProperty("user.home") + System.getProperty("file.separator")+ "documents");
+        SaveDirectoryLabel.setText(System.getProperty("user.home") + System.getProperty("file.separator")+ "Documents");
 
         SelectDirectoryButton.setText("Save to...");
         SelectDirectoryButton.addActionListener(new java.awt.event.ActionListener() {
@@ -301,6 +301,10 @@ public class pgroupsUI extends javax.swing.JFrame {
         String directoryLocation = directory.getAbsolutePath();
         SaveDirectoryLabel.setText( directoryLocation );
         System.out.println(directory);
+        
+        // SaveDirectoryLabel (where we're getting our directory from) 
+        // defaults to home documents directory. See custom code in design window.
+        // System.getProperty("user.home") + System.getProperty("file.separator")+ "Documents"
         
     }//GEN-LAST:event_SelectDirectoryButtonActionPerformed
 
