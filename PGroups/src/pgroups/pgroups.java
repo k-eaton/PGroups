@@ -651,7 +651,7 @@ public class pgroups {
             SSkeysIt = SSkeys.iterator();
     //   System.out.println("-----------4-----------------");   
             try{
-                BufferedWriter cwdFile = new BufferedWriter(new FileWriter(args[0] + "\\cwd" + (oldAllelesNewVersion.replace(".", "")).replace(".","") + "_g-groups.txt"));
+                BufferedWriter cwdFile = new BufferedWriter(new FileWriter(args[0] + System.getProperty("file.separator") + "cwd" + (oldAllelesNewVersion.replace(".", "")).replace(".","") + "_g-groups.txt"));
 //                BufferedWriter cwdFile = new BufferedWriter(new FileWriter("R:\\Lab Folder\\HLA\\Melinda_P\\Development\\cwd" + (oldAllelesNewVersion.replace(".", "")).replace(".","") + "_g-groups.txt"));
 //                BufferedWriter cwdFile = new BufferedWriter(new FileWriter("/Users/katrinaeaton/NewFolder/CWD/" + (oldAllelesNewVersion.replace(".", "")).replace(".","") + "_g-groups.txt"));
 
