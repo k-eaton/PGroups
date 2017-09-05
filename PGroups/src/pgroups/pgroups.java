@@ -623,7 +623,7 @@ public class pgroups {
         
   //--START delete xml & .zip file here
         boolean deleted; 
-        File xmlDown = new File(args[0] + "\\hla_ambigs.xml.zip"); //#1
+        File xmlDown = new File(args[0] + System.getProperty("file.separator") + "hla_ambigs.xml.zip"); //#1
 //        File xmlDown = new File("R:\\Lab Folder\\HLA\\Melinda_P\\Development\\hla_ambigs.xml.zip"); //#1
 //        File xmlDown = new File("/Users/katrinaeaton/hla_ambigs.xml.zip"); //#1
 
