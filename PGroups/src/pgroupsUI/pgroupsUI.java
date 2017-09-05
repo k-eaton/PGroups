@@ -123,7 +123,7 @@ public class pgroupsUI extends javax.swing.JFrame {
 
         SelectDirectoryLabel.setText("Select Destination Directory For New Files");
 
-        SaveDirectoryLabel.setText(" ");
+        SaveDirectoryLabel.setText(System.getProperty("user.home") + System.getProperty("file.separator")+ "documents");
 
         SelectDirectoryButton.setText("Save to...");
         SelectDirectoryButton.addActionListener(new java.awt.event.ActionListener() {
@@ -147,8 +147,6 @@ public class pgroupsUI extends javax.swing.JFrame {
                 CancelActionPerformed(evt);
             }
         });
-
-        jProgressBar1.setIndeterminate(true);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -320,9 +318,7 @@ public class pgroupsUI extends javax.swing.JFrame {
             if (Alleles.isSelected() == false) { allelesToggle = false; }
             if (GGroups.isSelected() == false) { ggroupsToggle = false; }
             if (PGroups.isSelected() == false) { pgroupsToggle = false; }
-            
-            
-            
+                       
             boolean[] whatWeAreRunning = {allelesToggle, ggroupsToggle, pgroupsToggle};
             
             System.out.println("Send those bad ass files to " + location);
@@ -330,6 +326,9 @@ public class pgroupsUI extends javax.swing.JFrame {
             
             pgroups fileGenerator = new pgroups(passMeOn, whatWeAreRunning);
             fileGenerator.main(passMeOn, whatWeAreRunning);
+        }
+        catch (FileNotFoundException ex){
+            System.out.println(ex + " File not found.");
         }
         catch (Exception ex)
         {
