@@ -690,6 +690,20 @@ public class pgroups {
                     Newcwdfile.write(Locusletter + "\t" + key + "\t" + Updatedcwdalleles.get(key).split("\t")[0] + "\t" + Allcwdalleles.get(key).split("\t")[1] + "\t" + Updatedcwdalleles.get(key).split("\t")[1] + CRet);
                     lineNumber++;
                 } Newcwdfile.close();
+                
+                // Open the file if the user chooses to
+                if (toggles[3] == true) {
+                    String allelesFileLocation = args[0] 
+                            + System.getProperty("file.separator") 
+                            + "cwd" 
+                            + (oldAllelesNewVersion.replace(".", "")).replace(".","")
+                            + "_alleles.txt";
+                    
+                    // I know I should be able to consolodate these two lines,
+                    // but the program crashes when I do.
+                    File fileToOpen = new File(allelesFileLocation);
+                    Desktop.getDesktop().open(fileToOpen);
+                }
             } catch (IOException e) {} 
         }
 //--FINISH MAKE UPDATED CWD ALLELES FILE       //--FINISH MAKE UPDATED CWD ALLELES FILE       //--FINISH MAKE UPDATED CWD ALLELES FILE       //--FINISH MAKE UPDATED CWD ALLELES FILE       
@@ -723,10 +737,17 @@ public class pgroups {
                 }
                 NewPgrpcwdfile.close();
                 
+                // Open the file if the user chooses to
                 if (toggles[3] == true) {
-                    String fileName = "cwd" + (oldAllelesNewVersion.replace(".", "")).replace(".","") + "_p-groups.txt";
-                    String pgroupsFile = args[0] + System.getProperty("file.separator") + fileName;
-                    File fileToOpen = new File(pgroupsFile);
+                    String pgroupsFileLocation = args[0] 
+                            + System.getProperty("file.separator") 
+                            + "cwd" 
+                            + (oldAllelesNewVersion.replace(".", "")).replace(".","")
+                            + "_p-groups.txt";
+                    
+                    // I know I should be able to consolodate these two lines,
+                    // but the program crashes when I do.
+                    File fileToOpen = new File(pgroupsFileLocation);
                     Desktop.getDesktop().open(fileToOpen);
                 }
 
