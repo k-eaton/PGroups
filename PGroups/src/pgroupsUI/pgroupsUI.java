@@ -318,12 +318,14 @@ public class pgroupsUI extends javax.swing.JFrame {
             boolean allelesToggle = true;
             boolean ggroupsToggle = true;
             boolean pgroupsToggle = true;
+            boolean showMeTheFiles = ShowFiles.isSelected();
             
             if (Alleles.isSelected() == false) { allelesToggle = false; }
             if (GGroups.isSelected() == false) { ggroupsToggle = false; }
             if (PGroups.isSelected() == false) { pgroupsToggle = false; }
+//            if (ShowFiles.isSelected) == true) { 
                        
-            boolean[] whatWeAreRunning = {allelesToggle, ggroupsToggle, pgroupsToggle};
+            boolean[] whatWeAreRunning = {allelesToggle, ggroupsToggle, pgroupsToggle, showMeTheFiles};
             
             System.out.println("Send those bad ass files to " + location);
             String[] passMeOn = {location, "test"};

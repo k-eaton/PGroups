@@ -722,10 +722,13 @@ public class pgroups {
                     lineNumber++;        
                 }
                 NewPgrpcwdfile.close();
-                String fileName = "cwd" + (oldAllelesNewVersion.replace(".", "")).replace(".","") + "p-groups.txt";
-                String pgroupsFile = args[0] + System.getProperty("file.separator") + fileName;
-                File test = new File(pgroupsFile);
-                Desktop.getDesktop().open(test);
+                
+                if (toggles[3] == true) {
+                    String fileName = "cwd" + (oldAllelesNewVersion.replace(".", "")).replace(".","") + "p-groups.txt";
+                    String pgroupsFile = args[0] + System.getProperty("file.separator") + fileName;
+                    File fileToOpen = new File(pgroupsFile);
+                    Desktop.getDesktop().open(fileToOpen);
+                }
 
             } catch (IOException e) {}
 
