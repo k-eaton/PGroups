@@ -315,15 +315,14 @@ public class pgroupsUI extends javax.swing.JFrame {
             String location;
             location = SaveDirectoryLabel.getText();
             
-            boolean allelesToggle = true;
-            boolean ggroupsToggle = true;
-            boolean pgroupsToggle = true;
+            boolean allelesToggle = Alleles.isSelected();
+            boolean ggroupsToggle = GGroups.isSelected();
+            boolean pgroupsToggle = PGroups.isSelected();
             boolean showMeTheFiles = ShowFiles.isSelected();
             
-            if (Alleles.isSelected() == false) { allelesToggle = false; }
-            if (GGroups.isSelected() == false) { ggroupsToggle = false; }
-            if (PGroups.isSelected() == false) { pgroupsToggle = false; }
-//            if (ShowFiles.isSelected) == true) { 
+//            if (Alleles.isSelected() == false) { allelesToggle = false; }
+//            if (GGroups.isSelected() == false) { ggroupsToggle = false; }
+//            if (PGroups.isSelected() == false) { pgroupsToggle = false; }
                        
             boolean[] whatWeAreRunning = {allelesToggle, ggroupsToggle, pgroupsToggle, showMeTheFiles};
             
