@@ -18,6 +18,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.nio.file.Files;
 import java.text.ParseException;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -721,7 +722,8 @@ public class pgroups {
                     lineNumber++;        
                 }
                 NewPgrpcwdfile.close();
-                Desktop.getDesktop().open(File NewPgrpcwdfile);
+                String pgroupsFile = (args[0] + System.getProperty("file.separator") + "p-groups.txt");
+                Desktop.getDesktop().open(File pgroupsFile);
 
             } catch (IOException e) {}
 
