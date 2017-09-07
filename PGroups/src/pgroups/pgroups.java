@@ -677,7 +677,8 @@ public class pgroups {
                             + "_g-groups.txt";
                     
                     // I know I should be able to consolodate these two lines,
-                    // but the program crashes when I do.
+                    // but the program no longer recognizes File as an object
+                    // when I do.
                     File fileToOpen = new File(ggroupsFileLocation);
                     Desktop.getDesktop().open(fileToOpen);
                 }
@@ -714,7 +715,8 @@ public class pgroups {
                             + "_alleles.txt";
                     
                     // I know I should be able to consolodate these two lines,
-                    // but the program crashes when I do.
+                    // but the program no longer recognizes File as an object
+                    // when I do.
                     File fileToOpen = new File(allelesFileLocation);
                     Desktop.getDesktop().open(fileToOpen);
                 }
@@ -760,7 +762,8 @@ public class pgroups {
                             + "_p-groups.txt";
                     
                     // I know I should be able to consolodate these two lines,
-                    // but the program crashes when I do.
+                    // but the program no longer recognizes File as an object
+                    // when I do.
                     File fileToOpen = new File(pgroupsFileLocation);
                     Desktop.getDesktop().open(fileToOpen);
                 }
