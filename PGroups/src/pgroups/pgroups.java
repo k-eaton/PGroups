@@ -722,8 +722,10 @@ public class pgroups {
                     lineNumber++;        
                 }
                 NewPgrpcwdfile.close();
-                String pgroupsFile = (args[0] + System.getProperty("file.separator") + "p-groups.txt");
-                Desktop.getDesktop().open(File pgroupsFile);
+                String fileName = "cwd" + (oldAllelesNewVersion.replace(".", "")).replace(".","") + "p-groups.txt";
+                String pgroupsFile = args[0] + System.getProperty("file.separator") + fileName;
+                File test = new File(pgroupsFile);
+                Desktop.getDesktop().open(test);
 
             } catch (IOException e) {}
 
