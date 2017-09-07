@@ -11,9 +11,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.beans.PropertyChangeEvent;
 import java.io.*;
 import java.util.EventListener.*;
 import javax.swing.JFileChooser;
+import  javax.swing.SwingWorker;
 
 
 
@@ -344,6 +346,15 @@ public class pgroupsUI extends javax.swing.JFrame {
         System.exit(0);
     }//GEN-LAST:event_CancelActionPerformed
 
+    private void propertyChange(PropertyChangeEvent evt){
+        if (!done) {
+            int progress = task.getProgress();
+            progressBar.setValue(progress);
+            taskOutput.append(String.format(
+                    "Completed %d%% of task.\n", progress));
+        }
+    }
+    
     /**
      * @param args the command line arguments
      */
