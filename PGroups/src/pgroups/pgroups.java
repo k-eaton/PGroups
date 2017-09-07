@@ -706,7 +706,7 @@ public class pgroups {
 
             OldPgroupSourceName = OldPgroup.getFile().substring(6);
             try {  
-                BufferedWriter NewPgrpcwdfile = new BufferedWriter(new FileWriter(args[0] + System.getProperty("file.separator") + "cwd"  + (oldAllelesNewVersion.replace(".", "")).replace(".","") + "p-groups.txt"));
+                BufferedWriter NewPgrpcwdfile = new BufferedWriter(new FileWriter(args[0] + System.getProperty("file.separator") + "cwd"  + (oldAllelesNewVersion.replace(".", "")).replace(".","") + "_p-groups.txt"));
                 NewPgrpcwdfile.write("# Categories for P Groups in the CWD " + oldAllelesNewVersion + " Catalogue" + CRet);
                 NewPgrpcwdfile.write("# Derived from: " + oldAllelesSourceName + " version:" + oldAllelesSourceVersion + " and "  + OldPgroupSourceName + " version:" + OldPgroupSourceVersion + " Dated:" + OldPgroupSourceDate + "\t" + "\t"  + CRet);
                 NewPgrpcwdfile.write("Locus" + " IMGT/HLA" + ALhistorySourceVersion  + "\t"  + "P Group" + "\t"  + "CWD " + oldSourceVersion + "Category"+ "\t"  + "Pid" + CRet);
@@ -724,7 +724,7 @@ public class pgroups {
                 NewPgrpcwdfile.close();
                 
                 if (toggles[3] == true) {
-                    String fileName = "cwd" + (oldAllelesNewVersion.replace(".", "")).replace(".","") + "p-groups.txt";
+                    String fileName = "cwd" + (oldAllelesNewVersion.replace(".", "")).replace(".","") + "_p-groups.txt";
                     String pgroupsFile = args[0] + System.getProperty("file.separator") + fileName;
                     File fileToOpen = new File(pgroupsFile);
                     Desktop.getDesktop().open(fileToOpen);

@@ -302,7 +302,7 @@ public class pgroupsUI extends javax.swing.JFrame {
         SaveDirectoryLabel.setText( directoryLocation );
         System.out.println(directory);
         
-        // SaveDirectoryLabel (where we're getting our directory from) 
+        // SaveDirectoryLabel (where we're getting our directory from for start button) 
         // defaults to home documents directory. See custom code in design window.
         // System.getProperty("user.home") + System.getProperty("file.separator")+ "Documents"
         
@@ -320,10 +320,6 @@ public class pgroupsUI extends javax.swing.JFrame {
             boolean pgroupsToggle = PGroups.isSelected();
             boolean showMeTheFiles = ShowFiles.isSelected();
             
-//            if (Alleles.isSelected() == false) { allelesToggle = false; }
-//            if (GGroups.isSelected() == false) { ggroupsToggle = false; }
-//            if (PGroups.isSelected() == false) { pgroupsToggle = false; }
-                       
             boolean[] whatWeAreRunning = {allelesToggle, ggroupsToggle, pgroupsToggle, showMeTheFiles};
             
             System.out.println("Send those bad ass files to " + location);
