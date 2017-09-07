@@ -666,7 +666,21 @@ public class pgroups {
                     gGroupLocus = key.substring(0, key.indexOf("*")); 
                     cwdFile.write(gGroupLocus + "\t" + key + "\t" + CWDhashRead(0,Allcwdgroups.get(key)) + "\t" + CWDhashRead(1,Allcwdgroups.get(key)) + CRet);
                 }
-                cwdFile.close();     
+                cwdFile.close();  
+                
+                // Open the file if the user chooses to
+                if (toggles[3] == true) {
+                    String ggroupsFileLocation = args[0] 
+                            + System.getProperty("file.separator") 
+                            + "cwd" 
+                            + (oldAllelesNewVersion.replace(".", "")).replace(".","")
+                            + "_g-groups.txt";
+                    
+                    // I know I should be able to consolodate these two lines,
+                    // but the program crashes when I do.
+                    File fileToOpen = new File(ggroupsFileLocation);
+                    Desktop.getDesktop().open(fileToOpen);
+                }
             } catch (IOException e) {}  
         }
 //--FINISH write file: cwd210_g-groups.txt//--FINISH write file: cwd210_g-groups.txt//--FINISH write file: cwd210_g-groups.txt//--FINISH write file: cwd210_g-groups.txt
