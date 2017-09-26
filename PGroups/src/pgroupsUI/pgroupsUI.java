@@ -346,14 +346,7 @@ public class pgroupsUI extends javax.swing.JFrame {
         System.exit(0);
     }//GEN-LAST:event_CancelActionPerformed
 
-    private void propertyChange(PropertyChangeEvent evt){
-        if (!done) {
-            int progress = task.getProgress();
-            progressBar.setValue(progress);
-            taskOutput.append(String.format(
-                    "Completed %d%% of task.\n", progress));
-        }
-    }
+
     
     /**
      * @param args the command line arguments
