@@ -17,9 +17,9 @@ public class StatusBar extends SwingWorker<StatusBar, Void>{
     @Override
     protected StatusBar doInBackground(){
         
-        System.out.println("StatusBar is running");
+        System.out.println("doInBackground is running");
         
-        StatusBar countDown = new StatusBar();
+//        StatusBar test = new StatusBar();
 //        pgroups fileGenerator = new pgroups(passMeOn, whatWeAreRunning);
 //        fileGenerator.main(passMeOn, whatWeAreRunning);
         for(int i=0; i<=20 ;i++) {
@@ -39,7 +39,10 @@ public class StatusBar extends SwingWorker<StatusBar, Void>{
         return null;
     }
     
-    public static void main() {
+    public static void main(String[] args) {
+        System.out.println("StatusBar main method is called");
+        StatusBar test = new StatusBar();
+        test.run();
     }
     
 }

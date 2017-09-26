@@ -7,16 +7,16 @@ package pgroupsUI;
 
 import pgroups.*;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
+//import java.awt.event.ActionEvent;
+//import java.awt.event.ActionListener;
+//import java.awt.event.ItemEvent;
+//import java.awt.event.ItemListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.*;
-import java.util.EventListener.*;
-import javax.swing.JFileChooser;
-import  javax.swing.SwingWorker;
+//import java.util.EventListener.*;
+//import javax.swing.JFileChooser;
+import javax.swing.SwingWorker;
 
 
 
@@ -334,36 +334,37 @@ public class pgroupsUI extends javax.swing.JFrame {
             pgroups fileGenerator = new pgroups(passMeOn, whatWeAreRunning);
             fileGenerator.main(passMeOn, whatWeAreRunning);
             
-            /* StatusBar Testing */
+        /* StatusBar Testing */
             
             StatusBar countDown = new StatusBar();
+//            countDown.main();
         
             countDown.addPropertyChangeListener(new PropertyChangeListener() {
+                
                 @Override
                 public void propertyChange(PropertyChangeEvent evt) {
+//                    countDown.doInBackground();
                     String name = evt.getPropertyName();
-    //                if (name == "Half way there!"){
+                    
                     System.out.println("property change");
-    //                    jProgressBar1.setString(name);
-    //                }
-                    if (name.equals("progress")) {
+                    
+//                    if (name.equals("progress")) {
                         int progress = (int) evt.getNewValue();
                         jProgressBar1.setValue(progress);
                         jProgressBar1.setString("Your total is " + progress);
                         repaint();
 
-                    } else if (name.equals("state")) {
-                        SwingWorker.StateValue state = (SwingWorker.StateValue) evt.getNewValue();
-    //                    switch (state) {
-    //                        case DONE:
-    //                            .setEnabled(true);
-    //                            break;
-    //                    }
-                    }
+//                    } else if (name.equals("state")) {
+//                        SwingWorker.StateValue state = (SwingWorker.StateValue) evt.getNewValue();
+//                    }
                 }
+                
             });
             
-            /* End StatusBar Testing */
+            
+//            countDown.main();
+            
+        /* End StatusBar Testing */
             
         }
         catch (FileNotFoundException ex){
