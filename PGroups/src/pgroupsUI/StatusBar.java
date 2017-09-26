@@ -6,6 +6,7 @@
 package pgroupsUI;
 
 import javax.swing.SwingWorker;
+import pgroups.pgroups;
 
 /**
  *
@@ -16,7 +17,11 @@ public class StatusBar extends SwingWorker<StatusBar, Void>{
     @Override
     protected StatusBar doInBackground(){
         
+        System.out.println("StatusBar is running");
+        
         StatusBar countDown = new StatusBar();
+//        pgroups fileGenerator = new pgroups(passMeOn, whatWeAreRunning);
+//        fileGenerator.main(passMeOn, whatWeAreRunning);
         for(int i=0; i<=20 ;i++) {
             try {
                 Thread.sleep(500);
@@ -32,6 +37,9 @@ public class StatusBar extends SwingWorker<StatusBar, Void>{
             }
         }
         return null;
+    }
+    
+    public static void main() {
     }
     
 }

@@ -343,7 +343,7 @@ public class pgroupsUI extends javax.swing.JFrame {
                 public void propertyChange(PropertyChangeEvent evt) {
                     String name = evt.getPropertyName();
     //                if (name == "Half way there!"){
-                        System.out.println("property change");
+                    System.out.println("property change");
     //                    jProgressBar1.setString(name);
     //                }
                     if (name.equals("progress")) {
@@ -351,7 +351,6 @@ public class pgroupsUI extends javax.swing.JFrame {
                         jProgressBar1.setValue(progress);
                         jProgressBar1.setString("Your total is " + progress);
                         repaint();
-
 
                     } else if (name.equals("state")) {
                         SwingWorker.StateValue state = (SwingWorker.StateValue) evt.getNewValue();
