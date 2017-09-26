@@ -7,15 +7,16 @@ package pgroupsUI;
 
 import pgroups.*;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
+//import java.awt.event.ActionEvent;
+//import java.awt.event.ActionListener;
+//import java.awt.event.ItemEvent;
+//import java.awt.event.ItemListener;
 import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.io.*;
-import java.util.EventListener.*;
-import javax.swing.JFileChooser;
-import  javax.swing.SwingWorker;
+//import java.util.EventListener.*;
+//import javax.swing.JFileChooser;
+import javax.swing.SwingWorker;
 
 
 
@@ -150,6 +151,9 @@ public class pgroupsUI extends javax.swing.JFrame {
             }
         });
 
+        jProgressBar1.setCursor(new java.awt.Cursor(java.awt.Cursor.WAIT_CURSOR));
+        jProgressBar1.setStringPainted(true);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -212,7 +216,7 @@ public class pgroupsUI extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(51, 51, 51)
                         .addComponent(ShowFiles, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
                 .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(27, 27, 27)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -329,6 +333,39 @@ public class pgroupsUI extends javax.swing.JFrame {
             
             pgroups fileGenerator = new pgroups(passMeOn, whatWeAreRunning);
             fileGenerator.main(passMeOn, whatWeAreRunning);
+            
+        /* StatusBar Testing */
+            
+            StatusBar countDown = new StatusBar();
+//            countDown.main();
+        
+            countDown.addPropertyChangeListener(new PropertyChangeListener() {
+                
+                @Override
+                public void propertyChange(PropertyChangeEvent evt) {
+//                    countDown.doInBackground();
+                    String name = evt.getPropertyName();
+                    
+                    System.out.println("property change");
+                    
+//                    if (name.equals("progress")) {
+                        int progress = (int) evt.getNewValue();
+                        jProgressBar1.setValue(progress);
+                        jProgressBar1.setString("Your total is " + progress);
+                        repaint();
+
+//                    } else if (name.equals("state")) {
+//                        SwingWorker.StateValue state = (SwingWorker.StateValue) evt.getNewValue();
+//                    }
+                }
+                
+            });
+            
+            
+//            countDown.main();
+            
+        /* End StatusBar Testing */
+            
         }
         catch (FileNotFoundException ex){
             System.out.println(ex + " File not found.");
@@ -346,15 +383,7 @@ public class pgroupsUI extends javax.swing.JFrame {
         System.exit(0);
     }//GEN-LAST:event_CancelActionPerformed
 
-//    private void propertyChange(PropertyChangeEvent evt){
-//        if (!done) {
-//            int progress = task.getProgress();
-//            progressBar.setValue(progress);
-//            taskOutput.append(String.format(
-//                    "Completed %d%% of task.\n", progress));
-//        }
-//    }
-    
+   
     /**
      * @param args the command line arguments
      */
