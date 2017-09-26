@@ -17,7 +17,7 @@ public class StatusBar extends SwingWorker<StatusBar, Void>{
     protected StatusBar doInBackground(){
         
         StatusBar countDown = new StatusBar();
-        for(int i=0;i<=20;i++) {
+        for(int i=0; i<=20 ;i++) {
             try {
                 Thread.sleep(500);
                 setProgress(5 * i);
