@@ -5,6 +5,7 @@
  */
 package pgroupsUI;
 
+import java.beans.PropertyChangeEvent;
 import javax.swing.SwingWorker;
 import pgroups.pgroups;
 

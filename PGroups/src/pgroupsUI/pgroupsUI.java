@@ -340,7 +340,6 @@ public class pgroupsUI extends javax.swing.JFrame {
 //            countDown.main();
         
             countDown.addPropertyChangeListener(new PropertyChangeListener() {
-                
                 @Override
                 public void propertyChange(PropertyChangeEvent evt) {
 //                    countDown.doInBackground();
@@ -348,12 +347,12 @@ public class pgroupsUI extends javax.swing.JFrame {
                     
                     System.out.println("property change");
                     
-//                    if (name.equals("progress")) {
+                    if (name.equals("progress")) {
                         int progress = (int) evt.getNewValue();
                         jProgressBar1.setValue(progress);
                         jProgressBar1.setString("Your total is " + progress);
                         repaint();
-
+                    }
 //                    } else if (name.equals("state")) {
 //                        SwingWorker.StateValue state = (SwingWorker.StateValue) evt.getNewValue();
 //                    }
@@ -362,7 +361,7 @@ public class pgroupsUI extends javax.swing.JFrame {
             });
             
             
-//            countDown.main();
+            countDown.execute();
             
         /* End StatusBar Testing */
             
