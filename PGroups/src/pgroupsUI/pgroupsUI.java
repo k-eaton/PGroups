@@ -332,7 +332,8 @@ public class pgroupsUI extends javax.swing.JFrame {
             String[] passMeOn = {location, "test"};
             
             pgroups fileGenerator = new pgroups(passMeOn, whatWeAreRunning);
-            fileGenerator.main(passMeOn, whatWeAreRunning);
+//            fileGenerator.main(passMeOn, whatWeAreRunning);
+            fileGenerator.main();
             
         /* StatusBar Testing */
             

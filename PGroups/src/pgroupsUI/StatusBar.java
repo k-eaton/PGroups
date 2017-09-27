@@ -23,6 +23,8 @@ public class StatusBar extends SwingWorker<StatusBar, Void>{
 //        StatusBar test = new StatusBar();
 //        pgroups fileGenerator = new pgroups(passMeOn, whatWeAreRunning);
 //        fileGenerator.main(passMeOn, whatWeAreRunning);
+//        pgroups fileGenerator = new pgroups(passMeOn, whatWeAreRunning);
+//        fileGenerator.main();
         for(int i=0; i<=20 ;i++) {
             try {
                 Thread.sleep(500);

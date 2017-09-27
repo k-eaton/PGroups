@@ -51,6 +51,7 @@ public class pgroups {
         System.out.println("Alleles = " + toggles[0]);
         System.out.println("GGroups = " + toggles[1]);
         System.out.println("PGroups = " + toggles[2]);
+        boolean ALLELES = toggles[0];
         
     }
 
@@ -271,8 +272,11 @@ public class pgroups {
      * @throws ParseException
      */
     @SuppressWarnings("empty-statement") 
-    public static void main(String[] args, boolean[] toggles) throws FileNotFoundException, SAXException, IOException, ParserConfigurationException, ParseException{
-       //---All Urls used to get Files---
+    public static void main() throws FileNotFoundException, SAXException, IOException, ParserConfigurationException, ParseException{
+//---Setting variables ---
+
+
+//---All Urls used to get Files---
     //  URL OldPgroup = new URL("http://hla.alleles.org/wmda/hla_nom_p.txt");  //hla_nom_p.txt
         URL OldPgroup = new URL("https://raw.githubusercontent.com/ANHIG/IMGTHLA/Latest/wmda/hla_nom_p.txt");  //hla_nom_p.txt
         URL oldAlleles = new URL("http://igdawg.org/pubs/cwd200_alleles.txt"); //cwd200_alleles.txt
@@ -296,7 +300,7 @@ public class pgroups {
         String xmlSourceNameConvert;
         Integer xmlSourceNameIndex;
         
-        String Xml = args[0] + System.getProperty("file.separator") + "hla_ambigs.xml.zip"; //xmlDirectory + "hla_ambigs.xml.zip";
+        String Xml = ALLELES + System.getProperty("file.separator") + "hla_ambigs.xml.zip"; //xmlDirectory + "hla_ambigs.xml.zip";
         System.out.println(args[0] + " (main)");
 //        String Xml = "R:\\Lab Folder\\HLA\\Melinda_P\\Development\\hla_ambigs.xml.zip"; //this is the hardcoded destination for the zip file
 //        String Xml = "/Users/katrinaeaton/NewFolder/hla_ambigs.xml.zip";
@@ -673,6 +677,7 @@ public class pgroups {
                     String ggroupsFileLocation = args[0] 
                             + System.getProperty("file.separator") 
                             + "cwd" 
+                            // gives proper version in file name
                             + (oldAllelesNewVersion.replace(".", "")).replace(".","")
                             + "_g-groups.txt";
                     
@@ -711,6 +716,7 @@ public class pgroups {
                     String allelesFileLocation = args[0] 
                             + System.getProperty("file.separator") 
                             + "cwd" 
+                            // gives proper version in file name
                             + (oldAllelesNewVersion.replace(".", "")).replace(".","")
                             + "_alleles.txt";
                     
@@ -758,6 +764,7 @@ public class pgroups {
                     String pgroupsFileLocation = args[0] 
                             + System.getProperty("file.separator") 
                             + "cwd" 
+                            // gives proper version in file name
                             + (oldAllelesNewVersion.replace(".", "")).replace(".","")
                             + "_p-groups.txt";
                     
