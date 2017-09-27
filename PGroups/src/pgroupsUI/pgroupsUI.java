@@ -332,8 +332,10 @@ public class pgroupsUI extends javax.swing.JFrame {
             String[] passMeOn = {location, "test"};
             
             
-            Variables passedOnData = new Variables(whatWeAreRunning, passMeOn);
-            pgroups fileGenerator = new pgroups(passedOnData.getDirectory(), passedOnData.getRunMe());
+//            Variables passedOnData = new Variables(whatWeAreRunning, passMeOn);
+            pgroups fileGenerator = new pgroups(passMeOn, whatWeAreRunning);
+//            pgroups fileGenerator = new pgroups(passedOnData.getDirectory(), passedOnData.getRunMe());
+
 //            fileGenerator.main(passMeOn, whatWeAreRunning);
 //            fileGenerator.main();
             

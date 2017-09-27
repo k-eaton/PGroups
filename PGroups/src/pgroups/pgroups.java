@@ -168,12 +168,14 @@ public class pgroups extends SwingWorker<StatusBar, Void> {
      * @throws IOException
      */
     
-   
-    public static void saveUrl(final String filename, final String urlString)
+//    public static void saveUrl(final String filename, final String urlString)   
+    public void saveUrl(final String filename, final String urlString)
         throws MalformedURLException, IOException {
         BufferedInputStream in = null;
         FileOutputStream fout = null;
         try {
+    setProgress(35);
+
             in = new BufferedInputStream(new URL(urlString).openStream());
             fout = new FileOutputStream(filename);
 
@@ -183,11 +185,14 @@ public class pgroups extends SwingWorker<StatusBar, Void> {
                 fout.write(data, 0, count);
             }
         } finally {
+    setProgress(37);    
             if (in != null) {
                 in.close();
+    setProgress(38);
             }
             if (fout != null) {
                 fout.close();
+    setProgress(39);
             }
         }
     }
@@ -316,7 +321,6 @@ public class pgroups extends SwingWorker<StatusBar, Void> {
         Integer xmlSourceNameIndex;
         
         String Xml = runMe[0] + System.getProperty("file.separator") + "hla_ambigs.xml.zip"; //xmlDirectory + "hla_ambigs.xml.zip";
-        System.out.println(runMe[0] + " (main)");
 //        String Xml = "R:\\Lab Folder\\HLA\\Melinda_P\\Development\\hla_ambigs.xml.zip"; //this is the hardcoded destination for the zip file
 //        String Xml = "/Users/katrinaeaton/NewFolder/hla_ambigs.xml.zip";
         
@@ -353,7 +357,7 @@ public class pgroups extends SwingWorker<StatusBar, Void> {
             lineNumber++;
         } 
         scnr.close();
-//    setProgress(10);
+    setProgress(10);
         //System.out.println("-----------1-----------------");
         
 //--end of reading Version update Table file   
@@ -378,7 +382,7 @@ public class pgroups extends SwingWorker<StatusBar, Void> {
             AlleleList.put(Data[0], Data[ALcolumn]);
             lineNumber++;
         }
-//    setProgress(20);
+    setProgress(20);
         scnr.close(); // I think we need to close the scanner in the reading of the versionupdatetable
 //-- Finished reading from the Allelelist_history file
         
@@ -418,7 +422,7 @@ public class pgroups extends SwingWorker<StatusBar, Void> {
           // System.out.println("-----------2----------------"); //Remove
         }
         scnr.close();
-//    setProgress(30);
+    setProgress(30);
 //--- finished reading from cwd200_alleles.txt
     
 //--- START Downloading/unzip/READING xml FILE    
@@ -428,8 +432,8 @@ public class pgroups extends SwingWorker<StatusBar, Void> {
        
      // saveUrl(Xml,"https://raw.githubusercontent.com/jrob119/IMGTHLA/Latest/xml/hla_ambigs.xml.zip" );
 // 12-04-2015 commented out the above and added a new variable at the top for the source of the hla_ambigs.xml.zip file        
-        saveUrl(Xml,ambigsXMLsource );
-//    setProgress(40);
+        saveUrl(Xml, ambigsXMLsource);
+    setProgress(40);
             
       // }
         unzip(directory[0] + System.getProperty("file.separator") + "hla_ambigs.xml.zip",directory[0]);
@@ -475,7 +479,6 @@ public class pgroups extends SwingWorker<StatusBar, Void> {
         // System.out.println("----------3-----------------"); // Remove         //    System.out.println("----------3-----------------");          //    System.out.println("----------3-----------------");          //    System.out.println("----------3-----------------");   
 
         for (int i = 0; i < nLists.getLength(); i++) {
-//    setProgress(30 + i);
             Node nNodes = nLists.item(i); 
          
             if (nNodes.getNodeType() == Node.ELEMENT_NODE) {
@@ -677,7 +680,7 @@ public class pgroups extends SwingWorker<StatusBar, Void> {
             SSkeysIt = SSkeys.iterator();
     //   System.out.println("-----------4-----------------");   
             try{
-//        setProgress(40);
+        setProgress(40);
                 BufferedWriter cwdFile = new BufferedWriter(new FileWriter(directory[0] + System.getProperty("file.separator") + "cwd" + (oldAllelesNewVersion.replace(".", "")).replace(".","") + "_g-groups.txt"));
 //                BufferedWriter cwdFile = new BufferedWriter(new FileWriter("R:\\Lab Folder\\HLA\\Melinda_P\\Development\\cwd" + (oldAllelesNewVersion.replace(".", "")).replace(".","") + "_g-groups.txt"));
 //                BufferedWriter cwdFile = new BufferedWriter(new FileWriter("/Users/katrinaeaton/NewFolder/CWD/" + (oldAllelesNewVersion.replace(".", "")).replace(".","") + "_g-groups.txt"));
