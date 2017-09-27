@@ -331,16 +331,19 @@ public class pgroupsUI extends javax.swing.JFrame {
             System.out.println("Send those bad ass files to " + location);
             String[] passMeOn = {location, "test"};
             
-            pgroups fileGenerator = new pgroups(passMeOn, whatWeAreRunning);
+            
+            Variables passedOnData = new Variables(whatWeAreRunning, passMeOn);
+            pgroups fileGenerator = new pgroups(passedOnData.getDirectory(), passedOnData.getRunMe());
 //            fileGenerator.main(passMeOn, whatWeAreRunning);
-            fileGenerator.main();
+//            fileGenerator.main();
             
         /* StatusBar Testing */
             
-            StatusBar countDown = new StatusBar();
+//            StatusBar countDown = new StatusBar();
 //            countDown.main();
+//            countDown.addPropertyChangeListener(new PropertyChangeListener() {
         
-            countDown.addPropertyChangeListener(new PropertyChangeListener() {
+            fileGenerator.addPropertyChangeListener(new PropertyChangeListener() {
                 @Override
                 public void propertyChange(PropertyChangeEvent evt) {
 //                    countDown.doInBackground();
@@ -362,14 +365,16 @@ public class pgroupsUI extends javax.swing.JFrame {
             });
             
             
-            countDown.execute();
+//            countDown.execute();
+            fileGenerator.execute();
+
             
         /* End StatusBar Testing */
             
         }
-        catch (FileNotFoundException ex){
-            System.out.println(ex + " File not found.");
-        }
+//        catch (FileNotFoundException ex){
+//            System.out.println(ex + " File not found.");
+//        }
         catch (Exception ex)
         {
             System.out.println(ex);

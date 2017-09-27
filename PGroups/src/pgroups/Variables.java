@@ -10,5 +10,15 @@ package pgroups;
  * @author kaeaton
  */
 public class Variables {
+    private boolean[] runMe;
+    private String[] directory;
     
+    public Variables(boolean[] running, String[] location){
+        runMe = running;
+        directory = location; 
+    }
+    
+    public boolean[] getRunMe() { return runMe; }
+    public String[] getDirectory() { return directory; }
+
 }
