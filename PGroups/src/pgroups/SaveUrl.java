@@ -42,17 +42,12 @@ public class SaveUrl {
             while ((count = in.read(data, 0, 1024)) != -1) {
                 fout.write(data, 0, count);
             }
-            System.out.println("end of save url try");
-            
         } finally {
-//    setProgress(37);    
             if (in != null) {
                 in.close();
-////    setProgress(38);
             }
             if (fout != null) {
                 fout.close();
-////    setProgress(39);
             }
         }
         System.out.println("end of save url");
