@@ -169,7 +169,7 @@ public class pgroups extends SwingWorker<StatusBar, Void> {
      */
     
 //    public static void saveUrl(final String filename, final String urlString)   
-    public void saveUrl(final String filename, final String urlString)
+    public void saveUrl(final String filename, final String urlString)   
         throws MalformedURLException, IOException {
         BufferedInputStream in = null;
         FileOutputStream fout = null;
@@ -209,7 +209,8 @@ public class pgroups extends SwingWorker<StatusBar, Void> {
      * @param destDirectory
      * @throws IOException
      */
-    public static void unzip(String zipFilePath, String destDirectory) throws IOException {
+//    public static void unzip(String zipFilePath, String destDirectory) throws IOException {
+    public void unzip(String zipFilePath, String destDirectory) throws IOException {
         File destDir = new File(destDirectory);
         if (!destDir.exists()) {
             destDir.mkdir();
@@ -240,7 +241,8 @@ public class pgroups extends SwingWorker<StatusBar, Void> {
      * @param filePath
      * @throws IOException
      */
-    private static void extractFile(ZipInputStream zipIn, String filePath) throws IOException {
+//    private static void extractFile(ZipInputStream zipIn, String filePath) throws IOException {
+    private void extractFile(ZipInputStream zipIn, String filePath) throws IOException {
         BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(filePath));
         byte[] bytesIn = new byte[BUFFER_SIZE];
         int read = 0;
@@ -320,7 +322,7 @@ public class pgroups extends SwingWorker<StatusBar, Void> {
         String xmlSourceNameConvert;
         Integer xmlSourceNameIndex;
         
-        String Xml = runMe[0] + System.getProperty("file.separator") + "hla_ambigs.xml.zip"; //xmlDirectory + "hla_ambigs.xml.zip";
+        String Xml = directory[0] + System.getProperty("file.separator") + "hla_ambigs.xml.zip"; //xmlDirectory + "hla_ambigs.xml.zip";
 //        String Xml = "R:\\Lab Folder\\HLA\\Melinda_P\\Development\\hla_ambigs.xml.zip"; //this is the hardcoded destination for the zip file
 //        String Xml = "/Users/katrinaeaton/NewFolder/hla_ambigs.xml.zip";
         
@@ -432,7 +434,11 @@ public class pgroups extends SwingWorker<StatusBar, Void> {
        
      // saveUrl(Xml,"https://raw.githubusercontent.com/jrob119/IMGTHLA/Latest/xml/hla_ambigs.xml.zip" );
 // 12-04-2015 commented out the above and added a new variable at the top for the source of the hla_ambigs.xml.zip file        
-        saveUrl(Xml, ambigsXMLsource);
+//        saveUrl(Xml, ambigsXMLsource);
+        SaveUrl saveUrl = new SaveUrl(Xml, ambigsXMLsource);
+    setProgress(39);
+        System.out.println("saveurl test");
+        saveUrl.output();
     setProgress(40);
             
       // }
@@ -767,7 +773,7 @@ public class pgroups extends SwingWorker<StatusBar, Void> {
 
             OldPgroupSourceName = OldPgroup.getFile().substring(6);
             try {  
-//        setProgress(80);
+        setProgress(80);
                 BufferedWriter NewPgrpcwdfile = new BufferedWriter(new FileWriter(directory[0] + System.getProperty("file.separator") + "cwd"  + (oldAllelesNewVersion.replace(".", "")).replace(".","") + "_p-groups.txt"));
                 NewPgrpcwdfile.write("# Categories for P Groups in the CWD " + oldAllelesNewVersion + " Catalogue" + CRet);
                 NewPgrpcwdfile.write("# Derived from: " + oldAllelesSourceName + " version:" + oldAllelesSourceVersion + " and "  + OldPgroupSourceName + " version:" + OldPgroupSourceVersion + " Dated:" + OldPgroupSourceDate + "\t" + "\t"  + CRet);
