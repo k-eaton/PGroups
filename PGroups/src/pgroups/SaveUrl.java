@@ -25,8 +25,7 @@ public class SaveUrl{
             try {
                 in = new BufferedInputStream(new URL(urlString).openStream());
                 fout = new FileOutputStream(filename);
-            } catch (Exception ex)
-            {
+            } catch (Exception ex) {
                 System.out.println(ex);
             }
     }
@@ -39,6 +38,8 @@ public class SaveUrl{
             while ((count = in.read(data, 0, 1024)) != -1) {
                 fout.write(data, 0, count);
             }
+        } catch (Exception ex) {
+            System.out.println(ex);
         } finally {
             if (in != null) {
                 in.close();
