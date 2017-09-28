@@ -7,7 +7,7 @@ package pgroups;
 
 import pgroupsUI.*;
 import java.awt.Desktop;
-import java.io.BufferedInputStream;
+//import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -41,7 +41,7 @@ import org.xml.sax.SAXException;
 
 /**
  *
- * @author katrinaeaton
+ * @author Katrina Eaton & MePerez
  */
 public class pgroups extends SwingWorker<StatusBar, Void> {
 //public class pgroups {
@@ -50,17 +50,8 @@ public class pgroups extends SwingWorker<StatusBar, Void> {
     private String[] directory;
     
     public pgroups(String args[], boolean[] toggles ) {
-//    public pgroups() {
         runMe = toggles;
         directory = args;
-//        String xmlDirectory = args[0];
-//        System.out.println(xmlDirectory + " initialization (not main)");
-//        System.out.println(args[1]);
-//        System.out.println("Alleles = " + toggles[0]);
-//        System.out.println("GGroups = " + toggles[1]);
-//        System.out.println("PGroups = " + toggles[2]);
-//        boolean ALLELES = toggles[0];
-        
     }
     
     
@@ -169,33 +160,33 @@ public class pgroups extends SwingWorker<StatusBar, Void> {
      */
     
 //    public static void saveUrl(final String filename, final String urlString)   
-    public void saveUrl(final String filename, final String urlString)   
-        throws MalformedURLException, IOException {
-        BufferedInputStream in = null;
-        FileOutputStream fout = null;
-        try {
-    setProgress(35);
-
-            in = new BufferedInputStream(new URL(urlString).openStream());
-            fout = new FileOutputStream(filename);
-
-            final byte data[] = new byte[1024];
-            int count;
-            while ((count = in.read(data, 0, 1024)) != -1) {
-                fout.write(data, 0, count);
-            }
-        } finally {
-    setProgress(37);    
-            if (in != null) {
-                in.close();
-    setProgress(38);
-            }
-            if (fout != null) {
-                fout.close();
-    setProgress(39);
-            }
-        }
-    }
+//    public void saveUrl(final String filename, final String urlString)   
+//        throws MalformedURLException, IOException {
+//        BufferedInputStream in = null;
+//        FileOutputStream fout = null;
+//        try {
+//    setProgress(35);
+//
+//            in = new BufferedInputStream(new URL(urlString).openStream());
+//            fout = new FileOutputStream(filename);
+//
+//            final byte data[] = new byte[1024];
+//            int count;
+//            while ((count = in.read(data, 0, 1024)) != -1) {
+//                fout.write(data, 0, count);
+//            }
+//        } finally {
+//    setProgress(37);    
+//            if (in != null) {
+//                in.close();
+//    setProgress(38);
+//            }
+//            if (fout != null) {
+//                fout.close();
+//    setProgress(39);
+//            }
+//        }
+//    }
     
  
     
@@ -437,7 +428,6 @@ public class pgroups extends SwingWorker<StatusBar, Void> {
 //        saveUrl(Xml, ambigsXMLsource);
         SaveUrl saveUrl = new SaveUrl(Xml, ambigsXMLsource);
     setProgress(39);
-        System.out.println("saveurl test");
         saveUrl.output();
     setProgress(40);
             
@@ -686,7 +676,7 @@ public class pgroups extends SwingWorker<StatusBar, Void> {
             SSkeysIt = SSkeys.iterator();
     //   System.out.println("-----------4-----------------");   
             try{
-        setProgress(40);
+        setProgress(50);
                 BufferedWriter cwdFile = new BufferedWriter(new FileWriter(directory[0] + System.getProperty("file.separator") + "cwd" + (oldAllelesNewVersion.replace(".", "")).replace(".","") + "_g-groups.txt"));
 //                BufferedWriter cwdFile = new BufferedWriter(new FileWriter("R:\\Lab Folder\\HLA\\Melinda_P\\Development\\cwd" + (oldAllelesNewVersion.replace(".", "")).replace(".","") + "_g-groups.txt"));
 //                BufferedWriter cwdFile = new BufferedWriter(new FileWriter("/Users/katrinaeaton/NewFolder/CWD/" + (oldAllelesNewVersion.replace(".", "")).replace(".","") + "_g-groups.txt"));
@@ -724,7 +714,7 @@ public class pgroups extends SwingWorker<StatusBar, Void> {
 //--START write UPDATED CWD ALLELES file     
         if (makeAlleles){     
             try {       
-//        setProgress(60);
+        setProgress(60);
                 BufferedWriter Newcwdfile = new BufferedWriter(new FileWriter(directory[0] + System.getProperty("file.separator") + "cwd" + (oldAllelesNewVersion.replace(".", "")).replace(".","") + "_alleles.txt"));
     //             BufferedWriter Newcwdfile = new BufferedWriter(new FileWriter("/Users/katrinaeaton/NewFolder/CWD/"   + (oldAllelesNewVersion.replace(".", "")).replace(".","") + "_alleles.txt"));
 
@@ -811,6 +801,7 @@ public class pgroups extends SwingWorker<StatusBar, Void> {
 
         }
 //--FINISH write file: cwd210_P-groups.txt    
+    setProgress(100);
         return null;
     }
 }

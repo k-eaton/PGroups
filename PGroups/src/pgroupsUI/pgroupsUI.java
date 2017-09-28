@@ -152,6 +152,7 @@ public class pgroupsUI extends javax.swing.JFrame {
         });
 
         jProgressBar1.setCursor(new java.awt.Cursor(java.awt.Cursor.WAIT_CURSOR));
+        jProgressBar1.setFocusable(false);
         jProgressBar1.setStringPainted(true);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());

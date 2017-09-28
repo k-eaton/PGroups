@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+
 /**
  *
  * @author katrinaeaton
@@ -44,7 +45,7 @@ public class SaveUrl {
             System.out.println("end of save url try");
             
         } finally {
-////    setProgress(37);    
+//    setProgress(37);    
             if (in != null) {
                 in.close();
 ////    setProgress(38);
@@ -56,8 +57,9 @@ public class SaveUrl {
         }
         System.out.println("end of save url");
         return fout;
-        
     }
+}
+
 ////    public FileOutputStream SaveUrl(final String filename, final String urlString)
 //    throws MalformedURLException, IOException {
 //        BufferedInputStream in = null;
@@ -87,4 +89,4 @@ public class SaveUrl {
 ////        return fout;
 //    }
     
-}
+
