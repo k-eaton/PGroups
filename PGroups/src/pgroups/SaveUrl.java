@@ -11,7 +11,7 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import javax.swing.SwingWorker;
-import pgroupsUI.StatusBar;
+//import pgroupsUI.StatusBar;
 
 
 
@@ -25,30 +25,27 @@ public class SaveUrl extends SwingWorker<FileOutputStream, Void>{
     public FileOutputStream fout;
     
     public SaveUrl(String filename, String urlString)
-    throws MalformedURLException, IOException {
-        try {
-            in = new BufferedInputStream(new URL(urlString).openStream());
-            fout = new FileOutputStream(filename);
-        } catch (Exception ex)
-        {
-            System.out.println(ex);
-        }
-        
+        throws MalformedURLException, IOException {
+            try {
+                in = new BufferedInputStream(new URL(urlString).openStream());
+                fout = new FileOutputStream(filename);
+            } catch (Exception ex)
+            {
+                System.out.println(ex);
+            }
     }
     
     @Override
     protected void done() {
         try {
             get();
-
             System.out.println("done");
-        //can call other gui update code here
+        
         } catch (Throwable t) {
-        //do something with the exception
-         }
+            System.out.println(t);
+        }
     }
     
-//    public FileOutputStream output() throws MalformedURLException, IOException {
     @Override
     public FileOutputStream doInBackground() throws MalformedURLException, IOException {
         try {
@@ -71,7 +68,6 @@ public class SaveUrl extends SwingWorker<FileOutputStream, Void>{
         }
     setProgress(39);
         System.out.println("end of save url");
-        
         return fout;
     }
 }
