@@ -435,28 +435,9 @@ public class pgroups extends SwingWorker<StatusBar, Void> {
 // 12-04-2015 commented out the above and added a new variable at the top for the source of the hla_ambigs.xml.zip file        
 //        saveUrl(Xml, ambigsXMLsource);
         SaveUrl saveUrl = new SaveUrl(Xml, ambigsXMLsource);
-        saveUrl.addPropertyChangeListener(new PropertyChangeListener() {
-            @Override
-            public void propertyChange(PropertyChangeEvent evt){
-
-                String name = evt.getPropertyName();
-
-                System.out.println("property change");
-
-                if (name.equals("progress")) {
-                    int progress = (int) evt.getNewValue();
-                    setProgress(progress);
-                }
-
-//                    } else if (name.equals("state")) {
-//                        SwingWorker.StateValue state = (SwingWorker.StateValue) evt.getNewValue();
-//                    }
-            }
-
-        });
-        saveUrl.execute();
-        saveUrl.done();
-
+        saveUrl.saveTheUrl();
+    setProgress(35);
+    
         unzip(directory[0] + System.getProperty("file.separator") + "hla_ambigs.xml.zip",directory[0]);
     setProgress(40);
 
