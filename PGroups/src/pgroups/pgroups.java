@@ -7,6 +7,8 @@ package pgroups;
 
 import pgroupsUI.*;
 import java.awt.Desktop;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 //import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.BufferedWriter;
@@ -18,7 +20,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.nio.file.Files;
+//import java.nio.file.Files;
 import java.text.ParseException;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -38,18 +40,23 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
-
 /**
- *
- * @author Katrina Eaton & MePerez
+ * @author Katrina Eaton & Melinda Perez
  */
+
 public class pgroups extends SwingWorker<StatusBar, Void> {
-//public class pgroups {
 
     private boolean[] runMe;
     private String[] directory;
     
-    public pgroups(String args[], boolean[] toggles ) {
+    //---All Urls used to get Files---
+    private final URL OldPgroup = new URL("https://raw.githubusercontent.com/ANHIG/IMGTHLA/Latest/wmda/hla_nom_p.txt");  //hla_nom_p.txt
+    private final URL oldAlleles = new URL("http://igdawg.org/pubs/cwd200_alleles.txt"); //cwd200_alleles.txt
+    private final URL ALhistory = new URL("https://raw.githubusercontent.com/jrob119/IMGTHLA/Latest/Allelelist_history.txt"); //Allelelist_history.txt
+    private final URL Versionupdatetable = new URL("http://igdawg.org/pubs/cwdv.upd");  //version_update_table.txt
+    private final String ambigsXMLsource = "https://raw.githubusercontent.com/jrob119/IMGTHLA/Latest/xml/hla_ambigs.xml.zip"; //source path to hla_ambigs.xml.zip
+
+    public pgroups(String args[], boolean[] toggles ) throws IOException {
         runMe = toggles;
         directory = args;
     }
@@ -157,6 +164,8 @@ public class pgroups extends SwingWorker<StatusBar, Void> {
      * @param urlString
      * @throws MalformedURLException
      * @throws IOException
+     * 
+     * moved to class SaveUrl
      */
     
 //    public static void saveUrl(final String filename, final String urlString)   
@@ -291,11 +300,11 @@ public class pgroups extends SwingWorker<StatusBar, Void> {
 
 //---All Urls used to get Files---
     //  URL OldPgroup = new URL("http://hla.alleles.org/wmda/hla_nom_p.txt");  //hla_nom_p.txt
-        URL OldPgroup = new URL("https://raw.githubusercontent.com/ANHIG/IMGTHLA/Latest/wmda/hla_nom_p.txt");  //hla_nom_p.txt
-        URL oldAlleles = new URL("http://igdawg.org/pubs/cwd200_alleles.txt"); //cwd200_alleles.txt
-        URL ALhistory = new URL("https://raw.githubusercontent.com/jrob119/IMGTHLA/Latest/Allelelist_history.txt"); //Allelelist_history.txt
-        URL Versionupdatetable = new URL("http://igdawg.org/pubs/cwdv.upd");  //version_update_table.txt
-        String ambigsXMLsource = "https://raw.githubusercontent.com/jrob119/IMGTHLA/Latest/xml/hla_ambigs.xml.zip"; //source path to hla_ambigs.xml.zip
+//        URL OldPgroup = new URL("https://raw.githubusercontent.com/ANHIG/IMGTHLA/Latest/wmda/hla_nom_p.txt");  //hla_nom_p.txt
+//        URL oldAlleles = new URL("http://igdawg.org/pubs/cwd200_alleles.txt"); //cwd200_alleles.txt
+//        URL ALhistory = new URL("https://raw.githubusercontent.com/jrob119/IMGTHLA/Latest/Allelelist_history.txt"); //Allelelist_history.txt
+//        URL Versionupdatetable = new URL("http://igdawg.org/pubs/cwdv.upd");  //version_update_table.txt
+//        String ambigsXMLsource = "https://raw.githubusercontent.com/jrob119/IMGTHLA/Latest/xml/hla_ambigs.xml.zip"; //source path to hla_ambigs.xml.zip
       
  //---All Hashmaps---
         HashMap<String, String> AlleleList = new HashMap<>(); // contains the ACC#s and reference allele names for the current database release version = ALhistory file
@@ -314,9 +323,7 @@ public class pgroups extends SwingWorker<StatusBar, Void> {
         Integer xmlSourceNameIndex;
         
         String Xml = directory[0] + System.getProperty("file.separator") + "hla_ambigs.xml.zip"; //xmlDirectory + "hla_ambigs.xml.zip";
-//        String Xml = "R:\\Lab Folder\\HLA\\Melinda_P\\Development\\hla_ambigs.xml.zip"; //this is the hardcoded destination for the zip file
-//        String Xml = "/Users/katrinaeaton/NewFolder/hla_ambigs.xml.zip";
-        
+
         String line; 
         int lineNumber = 1; 
         Scanner scnr;
@@ -365,7 +372,8 @@ public class pgroups extends SwingWorker<StatusBar, Void> {
         FileNameIndex = FileNameList.length;
         ALhistorySourceName = FileNameList[FileNameIndex - 1];
         ALhistorySourceVersion = Punctuate(scnr.nextLine().split("\t")[1]);
-       
+    setProgress(20);
+    
         while (scnr.hasNextLine()) {
             line = scnr.nextLine();
             String[] Data = line.split("\t");
@@ -375,7 +383,7 @@ public class pgroups extends SwingWorker<StatusBar, Void> {
             AlleleList.put(Data[0], Data[ALcolumn]);
             lineNumber++;
         }
-    setProgress(20);
+    setProgress(25);
         scnr.close(); // I think we need to close the scanner in the reading of the versionupdatetable
 //-- Finished reading from the Allelelist_history file
         
@@ -427,12 +435,33 @@ public class pgroups extends SwingWorker<StatusBar, Void> {
 // 12-04-2015 commented out the above and added a new variable at the top for the source of the hla_ambigs.xml.zip file        
 //        saveUrl(Xml, ambigsXMLsource);
         SaveUrl saveUrl = new SaveUrl(Xml, ambigsXMLsource);
-    setProgress(39);
-        saveUrl.output();
-    setProgress(40);
+        saveUrl.addPropertyChangeListener(new PropertyChangeListener() {
+                @Override
+                public void propertyChange(PropertyChangeEvent evt){
+                    
+                    String name = evt.getPropertyName();
+                    
+                    System.out.println("property change");
+                    
+                    if (name.equals("progress")) {
+                        int progress = (int) evt.getNewValue();
+                        setProgress(progress);
+                    }
+                     
+//                    } else if (name.equals("state")) {
+//                        SwingWorker.StateValue state = (SwingWorker.StateValue) evt.getNewValue();
+//                    }
+                }
+                
+            });
+        
+        saveUrl.execute();
+//        saveUrl.done();
+//        saveUrl.output();
             
       // }
         unzip(directory[0] + System.getProperty("file.separator") + "hla_ambigs.xml.zip",directory[0]);
+    setProgress(40);
 
 //        unzip("R:\\Lab Folder\\HLA\\Melinda_P\\Development\\hla_ambigs.xml.zip","R:\\Lab Folder\\HLA\\Melinda_P\\Development");
 //        unzip("/Users/katrinaeaton/NewFolder/hla_ambigs.xml.zip","/Users/katrinaeaton/NewFolder/");
@@ -697,7 +726,7 @@ public class pgroups extends SwingWorker<StatusBar, Void> {
                     String ggroupsFileLocation = directory[0] 
                             + System.getProperty("file.separator") 
                             + "cwd" 
-                            // gives proper version in file name
+                            // finds proper version in file name
                             + (oldAllelesNewVersion.replace(".", "")).replace(".","")
                             + "_g-groups.txt";
                     
@@ -737,7 +766,7 @@ public class pgroups extends SwingWorker<StatusBar, Void> {
                     String allelesFileLocation = directory[0] 
                             + System.getProperty("file.separator") 
                             + "cwd" 
-                            // gives proper version in file name
+                            // finds proper version in file name
                             + (oldAllelesNewVersion.replace(".", "")).replace(".","")
                             + "_alleles.txt";
                     
@@ -786,7 +815,7 @@ public class pgroups extends SwingWorker<StatusBar, Void> {
                     String pgroupsFileLocation = directory[0] 
                             + System.getProperty("file.separator") 
                             + "cwd" 
-                            // gives proper version in file name
+                            // finds proper version in file name
                             + (oldAllelesNewVersion.replace(".", "")).replace(".","")
                             + "_p-groups.txt";
                     
