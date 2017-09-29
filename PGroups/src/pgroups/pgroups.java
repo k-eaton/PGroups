@@ -201,57 +201,58 @@ public class pgroups extends SwingWorker<StatusBar, Void> {
     
   
     //-----Start of trying to unzip xml  
-    private static final int BUFFER_SIZE = 4096;
+//    private static final int BUFFER_SIZE = 4096;
     
     /**
-     *
+     * Moved to class Unzip
      * @param zipFilePath
      * @param destDirectory
      * @throws IOException
      */
 //    public static void unzip(String zipFilePath, String destDirectory) throws IOException {
-    public void unzip(String zipFilePath, String destDirectory) throws IOException {
-        File destDir = new File(destDirectory);
-        if (!destDir.exists()) {
-            destDir.mkdir();
-        }
-        ZipInputStream zipIn = new ZipInputStream(new FileInputStream(zipFilePath));
-        ZipEntry entry = zipIn.getNextEntry();
-        // iterates over entries in the zip file
-        
-        while (entry != null) {
-            String filePath = destDirectory + File.separator + entry.getName();
-            
-            if (!entry.isDirectory()) {
-                // if the entry is a file, extracts it
-                extractFile(zipIn, filePath);
-            } else {
-                // if the entry is a directory, make the directory
-                File dir = new File(filePath);
-                dir.mkdir();
-            }
-            zipIn.closeEntry();
-            entry = zipIn.getNextEntry();
-        }
-        zipIn.close();
-    }
+//    public void unzip(String zipFilePath, String destDirectory) throws IOException {
+//        File destDir = new File(destDirectory);
+//        if (!destDir.exists()) {
+//            destDir.mkdir();
+//        }
+//        ZipInputStream zipIn = new ZipInputStream(new FileInputStream(zipFilePath));
+//        ZipEntry entry = zipIn.getNextEntry();
+//        // iterates over entries in the zip file
+//        
+//        while (entry != null) {
+//            String filePath = destDirectory + File.separator + entry.getName();
+//            
+//            if (!entry.isDirectory()) {
+//                // if the entry is a file, extracts it
+//                extractFile(zipIn, filePath);
+//            } else {
+//                // if the entry is a directory, make the directory
+//                File dir = new File(filePath);
+//                dir.mkdir();
+//            }
+//            zipIn.closeEntry();
+//            entry = zipIn.getNextEntry();
+//        }
+//        zipIn.close();
+//    }
     /**
+     * moved to class Unzip
      * Extracts a zip entry (file entry)
      * @param zipIn
      * @param filePath
      * @throws IOException
      */
 //    private static void extractFile(ZipInputStream zipIn, String filePath) throws IOException {
-    private void extractFile(ZipInputStream zipIn, String filePath) throws IOException {
-        BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(filePath));
-        byte[] bytesIn = new byte[BUFFER_SIZE];
-        int read = 0;
-        while ((read = zipIn.read(bytesIn)) != -1) {
-            bos.write(bytesIn, 0, read);
-        }
-        bos.close();
-    }
- //-----end of trying to unzip xml 
+//    private void extractFile(ZipInputStream zipIn, String filePath) throws IOException {
+//        BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(filePath));
+//        byte[] bytesIn = new byte[BUFFER_SIZE];
+//        int read = 0;
+//        while ((read = zipIn.read(bytesIn)) != -1) {
+//            bos.write(bytesIn, 0, read);
+//        }
+//        bos.close();
+//    }
+// //-----end of trying to unzip xml 
     /*
  public class GlobalVariables{
          String line; 
@@ -436,19 +437,15 @@ public class pgroups extends SwingWorker<StatusBar, Void> {
 //        saveUrl(Xml, ambigsXMLsource);
         SaveUrl saveUrl = new SaveUrl(Xml, ambigsXMLsource);
         saveUrl.saveTheUrl();
+        
     setProgress(35);
     
         Unzip unzipFile = new Unzip(directory[0] + System.getProperty("file.separator") + "hla_ambigs.xml.zip",directory[0]);
         unzipFile.unzipTheFile();
-//        unzip(directory[0] + System.getProperty("file.separator") + "hla_ambigs.xml.zip",directory[0]);
+        
     setProgress(40);
 
-//        unzip("R:\\Lab Folder\\HLA\\Melinda_P\\Development\\hla_ambigs.xml.zip","R:\\Lab Folder\\HLA\\Melinda_P\\Development");
-//        unzip("/Users/katrinaeaton/NewFolder/hla_ambigs.xml.zip","/Users/katrinaeaton/NewFolder/");
-
         Xml = directory[0] + System.getProperty("file.separator") + "hla_ambigs.xml";
-//        Xml = "R:\\Lab Folder\\HLA\\Melinda_P\\Development\\hla_ambigs.xml";
-//        Xml = "/Users/katrinaeaton/NewFolder/hla_ambigs.xml";
 
         String xmlSourceVersion = new String(); 
         String xmlSourceDate = new String(); 
@@ -482,6 +479,8 @@ public class pgroups extends SwingWorker<StatusBar, Void> {
         String gGroupName = new String(); 
         String gGroupGID = new String();  
         // System.out.println("----------3-----------------"); // Remove         //    System.out.println("----------3-----------------");          //    System.out.println("----------3-----------------");          //    System.out.println("----------3-----------------");   
+
+    setProgress(50);
 
         for (int i = 0; i < nLists.getLength(); i++) {
             Node nNodes = nLists.item(i); 
@@ -534,6 +533,8 @@ public class pgroups extends SwingWorker<StatusBar, Void> {
                 System.out.println("NO CHILD FOUND for: "+ nLists);
             }  
             //ChildNode ends
+
+    setProgress(60);
             
             if ("".equals(CurrentCWDStatus)){    // cwdStat should never be 'null' it should either have a C or WD value or ""
                 nNodes.getNextSibling();   // yes: go on to next nNode
@@ -573,7 +574,8 @@ public class pgroups extends SwingWorker<StatusBar, Void> {
  //--FINISH UPDATED CWD ALLELES LIST          //--FINISH UPDATED CWD ALLELES LIST          //--FINISH UPDATED CWD ALLELES LIST          //--FINISH UPDATED CWD ALLELES LIST         
        
 
-     
+    setProgress(70);
+
 //---Read from hla_nom_p.txt   <--Pgroup    
         //if (makePgroups){
         //   System.out.println("--Im in HLA_nom_p----"); // remove
@@ -616,7 +618,9 @@ public class pgroups extends SwingWorker<StatusBar, Void> {
         scnr.nextLine();          //skips: repository: https://raw.githubusercontent.com/ANHIG/IMGTHLA/Latest/wmda/hla_nom_p.txt
 
         scnr.nextLine();          //skips: # author: WHO, Steven G. E. Marsh (steven.marsh@ucl.ac.uk)   
-             
+
+    setProgress(80);        
+        
         while(scnr.hasNextLine()){
             line = scnr.nextLine();
                      
@@ -685,7 +689,7 @@ public class pgroups extends SwingWorker<StatusBar, Void> {
             SSkeysIt = SSkeys.iterator();
     //   System.out.println("-----------4-----------------");   
             try{
-        setProgress(50);
+//        setProgress(50);
                 BufferedWriter cwdFile = new BufferedWriter(new FileWriter(directory[0] + System.getProperty("file.separator") + "cwd" + (oldAllelesNewVersion.replace(".", "")).replace(".","") + "_g-groups.txt"));
 //                BufferedWriter cwdFile = new BufferedWriter(new FileWriter("R:\\Lab Folder\\HLA\\Melinda_P\\Development\\cwd" + (oldAllelesNewVersion.replace(".", "")).replace(".","") + "_g-groups.txt"));
 //                BufferedWriter cwdFile = new BufferedWriter(new FileWriter("/Users/katrinaeaton/NewFolder/CWD/" + (oldAllelesNewVersion.replace(".", "")).replace(".","") + "_g-groups.txt"));
@@ -723,7 +727,7 @@ public class pgroups extends SwingWorker<StatusBar, Void> {
 //--START write UPDATED CWD ALLELES file     
         if (makeAlleles){     
             try {       
-        setProgress(60);
+//        setProgress(60);
                 BufferedWriter Newcwdfile = new BufferedWriter(new FileWriter(directory[0] + System.getProperty("file.separator") + "cwd" + (oldAllelesNewVersion.replace(".", "")).replace(".","") + "_alleles.txt"));
     //             BufferedWriter Newcwdfile = new BufferedWriter(new FileWriter("/Users/katrinaeaton/NewFolder/CWD/"   + (oldAllelesNewVersion.replace(".", "")).replace(".","") + "_alleles.txt"));
 
@@ -772,7 +776,7 @@ public class pgroups extends SwingWorker<StatusBar, Void> {
 
             OldPgroupSourceName = OldPgroup.getFile().substring(6);
             try {  
-        setProgress(80);
+//        setProgress(80);
                 BufferedWriter NewPgrpcwdfile = new BufferedWriter(new FileWriter(directory[0] + System.getProperty("file.separator") + "cwd"  + (oldAllelesNewVersion.replace(".", "")).replace(".","") + "_p-groups.txt"));
                 NewPgrpcwdfile.write("# Categories for P Groups in the CWD " + oldAllelesNewVersion + " Catalogue" + CRet);
                 NewPgrpcwdfile.write("# Derived from: " + oldAllelesSourceName + " version:" + oldAllelesSourceVersion + " and "  + OldPgroupSourceName + " version:" + OldPgroupSourceVersion + " Dated:" + OldPgroupSourceDate + "\t" + "\t"  + CRet);

@@ -45,13 +45,17 @@ public class Unzip {
     }
     
     private void extractFile(ZipInputStream zipIn, String filePath) throws IOException {
-        BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(filePath));
-        byte[] bytesIn = new byte[BUFFER_SIZE];
-        int read = 0;
-        while ((read = zipIn.read(bytesIn)) != -1) {
-            bos.write(bytesIn, 0, read);
+        try{
+            BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(filePath));
+            byte[] bytesIn = new byte[BUFFER_SIZE];
+            int read = 0;
+            while ((read = zipIn.read(bytesIn)) != -1) {
+                bos.write(bytesIn, 0, read);
+            }
+            bos.close();
+        } catch (Exception ex) {
+            System.out.println(ex);
         }
-        bos.close();
     }
     
     public void unzipTheFile() throws IOException {
@@ -102,3 +106,14 @@ public class Unzip {
 //        }
 //        zipIn.close();
 //    }
+
+//    private void extractFile(ZipInputStream zipIn, String filePath) throws IOException {
+//        BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(filePath));
+//        byte[] bytesIn = new byte[BUFFER_SIZE];
+//        int read = 0;
+//        while ((read = zipIn.read(bytesIn)) != -1) {
+//            bos.write(bytesIn, 0, read);
+//        }
+//        bos.close();
+//    }
+ //-----end of trying to unzip xml 
