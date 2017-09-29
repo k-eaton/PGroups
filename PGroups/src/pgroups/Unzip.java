@@ -18,10 +18,10 @@ import java.util.zip.ZipInputStream;
  */
 public class Unzip {
     
-    public String destDirectory;
     public File destDir;
-    public String filePath;
+    public String destDirectory;
     public ZipEntry entry;
+    public String filePath;
     public ZipInputStream zipIn;
     
     public final int BUFFER_SIZE = 4096;

@@ -438,7 +438,9 @@ public class pgroups extends SwingWorker<StatusBar, Void> {
         saveUrl.saveTheUrl();
     setProgress(35);
     
-        unzip(directory[0] + System.getProperty("file.separator") + "hla_ambigs.xml.zip",directory[0]);
+        Unzip unzipFile = new Unzip(directory[0] + System.getProperty("file.separator") + "hla_ambigs.xml.zip",directory[0]);
+        unzipFile.unzipTheFile();
+//        unzip(directory[0] + System.getProperty("file.separator") + "hla_ambigs.xml.zip",directory[0]);
     setProgress(40);
 
 //        unzip("R:\\Lab Folder\\HLA\\Melinda_P\\Development\\hla_ambigs.xml.zip","R:\\Lab Folder\\HLA\\Melinda_P\\Development");
