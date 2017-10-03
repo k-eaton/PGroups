@@ -377,7 +377,7 @@ public class pgroups extends SwingWorker<Void, String> {
             lineNumber++;
         } 
         scnr.close();
-//    setText("status");
+//    publish("status");
     setProgress(10);
         //System.out.println("-----------1-----------------");
         
