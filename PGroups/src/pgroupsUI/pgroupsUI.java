@@ -14,6 +14,8 @@ import pgroups.*;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.*;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 //import java.util.EventListener.*;
 //import javax.swing.JFileChooser;
 import javax.swing.SwingWorker;
@@ -367,6 +369,7 @@ public class pgroupsUI extends javax.swing.JFrame {
                     
                     if (name.equals("progress")) {
                         int progress = (int) evt.getNewValue();
+//                        String status = (String) evt.getText();
 //                        String test = fileGenerator.process();
                         jProgressBar1.setValue(progress);
                         jProgressBar1.setString("Your total is " + progress);

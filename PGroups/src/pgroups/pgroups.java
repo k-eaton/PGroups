@@ -5,11 +5,11 @@
  */
 package pgroups;
 
-import pgroupsUI.*;
-import java.awt.*;
+//import pgroupsUI.*;
+//import java.awt.*;
 import java.awt.Desktop;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+//import java.awt.event.ActionEvent;
+//import java.awt.event.ActionListener;
 //import java.beans.PropertyChangeEvent;
 //import java.beans.PropertyChangeListener;
 //import java.io.BufferedInputStream;
@@ -25,8 +25,8 @@ import java.io.IOException;
 import java.net.URL;
 //import java.nio.file.Files;
 import java.text.ParseException;
-import java.util.*;
-import java.util.EventObject;
+//import java.util.*;
+//import java.util.EventObject;
 import java.util.HashMap;
 import java.util.Iterator;
 //import java.util.List;
@@ -36,8 +36,9 @@ import java.util.SortedSet;
 import java.util.TreeSet;
 //import java.util.zip.ZipEntry;
 //import java.util.zip.ZipInputStream;
-import javax.swing.*;
+//import javax.swing.*;
 import javax.swing.SwingWorker;
+import javax.swing.text.JTextComponent;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -309,22 +310,6 @@ public class pgroups extends SwingWorker<Void, String> {
 ////            return results;
 //        }
 //    }
-    
-//    protected void process(List<String> chunks) {
-//        for (String text : chunks) {
-//            panel.add(new JButton(new AbstractAction(text) {
-//                @Override
-//                public void actionPerformed(ActionEvent e) {
-//                    panel.remove((JButton) e.getSource());
-//                    panel.revalidate();
-//                    panel.repaint();
-//                }
-//            }));
-//        }
-//        panel.revalidate();
-//        panel.repaint();
-//    }
-
 
     @SuppressWarnings("empty-statement")
     @Override
@@ -392,7 +377,7 @@ public class pgroups extends SwingWorker<Void, String> {
             lineNumber++;
         } 
         scnr.close();
-    publish("status");
+//    setText("status");
     setProgress(10);
         //System.out.println("-----------1-----------------");
         
