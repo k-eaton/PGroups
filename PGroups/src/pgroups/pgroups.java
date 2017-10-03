@@ -6,28 +6,38 @@
 package pgroups;
 
 import pgroupsUI.*;
+import java.awt.*;
 import java.awt.Desktop;
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+//import java.beans.PropertyChangeEvent;
+//import java.beans.PropertyChangeListener;
+//import java.io.BufferedInputStream;
+//import java.io.BufferedOutputStream;
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileInputStream;
+//import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
+//import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.net.MalformedURLException;
+//import java.net.MalformedURLException;
 import java.net.URL;
-import java.nio.file.Files;
+//import java.nio.file.Files;
 import java.text.ParseException;
+import java.util.*;
+import java.util.EventObject;
 import java.util.HashMap;
 import java.util.Iterator;
+//import java.util.List;
 import java.util.Scanner;
 import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipInputStream;
+//import java.util.zip.ZipEntry;
+//import java.util.zip.ZipInputStream;
+import javax.swing.*;
+import javax.swing.SwingWorker;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -37,22 +47,30 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
-
 /**
- *
- * @author katrinaeaton
+ * @author Katrina Eaton & Melinda Perez
  */
-public class pgroups {
+
+//public class pgroups extends SwingWorker<StatusBar, Void> {
+public class pgroups extends SwingWorker<Void, String> {
+
+
+    private boolean[] runMe;
+    private String[] directory;
     
-    public pgroups(String args[], boolean[] toggles ) {
-        String xmlDirectory = args[0];
-        System.out.println(xmlDirectory + " initialization (not main)");
-        System.out.println(args[1]);
-        System.out.println("Alleles = " + toggles[0]);
-        System.out.println("GGroups = " + toggles[1]);
-        System.out.println("PGroups = " + toggles[2]);
-        
+    //---All Urls used to get Files---
+    private final URL OldPgroup = new URL("https://raw.githubusercontent.com/ANHIG/IMGTHLA/Latest/wmda/hla_nom_p.txt");  //hla_nom_p.txt
+    private final URL oldAlleles = new URL("http://igdawg.org/pubs/cwd200_alleles.txt"); //cwd200_alleles.txt
+    private final URL ALhistory = new URL("https://raw.githubusercontent.com/jrob119/IMGTHLA/Latest/Allelelist_history.txt"); //Allelelist_history.txt
+    private final URL Versionupdatetable = new URL("http://igdawg.org/pubs/cwdv.upd");  //version_update_table.txt
+    private final String ambigsXMLsource = "https://raw.githubusercontent.com/jrob119/IMGTHLA/Latest/xml/hla_ambigs.xml.zip"; //source path to hla_ambigs.xml.zip
+
+    public pgroups(String args[], boolean[] toggles ) throws IOException {
+        runMe = toggles;
+        directory = args;
     }
+    
+    
 
 /**
  *
@@ -155,85 +173,95 @@ public class pgroups {
      * @param urlString
      * @throws MalformedURLException
      * @throws IOException
+     * 
+     * moved to class SaveUrl
      */
     
-   
-    public static void saveUrl(final String filename, final String urlString)
-        throws MalformedURLException, IOException {
-        BufferedInputStream in = null;
-        FileOutputStream fout = null;
-        try {
-            in = new BufferedInputStream(new URL(urlString).openStream());
-            fout = new FileOutputStream(filename);
-
-            final byte data[] = new byte[1024];
-            int count;
-            while ((count = in.read(data, 0, 1024)) != -1) {
-                fout.write(data, 0, count);
-            }
-        } finally {
-            if (in != null) {
-                in.close();
-            }
-            if (fout != null) {
-                fout.close();
-            }
-        }
-    }
+//    public static void saveUrl(final String filename, final String urlString)   
+//    public void saveUrl(final String filename, final String urlString)   
+//        throws MalformedURLException, IOException {
+//        BufferedInputStream in = null;
+//        FileOutputStream fout = null;
+//        try {
+//    setProgress(35);
+//
+//            in = new BufferedInputStream(new URL(urlString).openStream());
+//            fout = new FileOutputStream(filename);
+//
+//            final byte data[] = new byte[1024];
+//            int count;
+//            while ((count = in.read(data, 0, 1024)) != -1) {
+//                fout.write(data, 0, count);
+//            }
+//        } finally {
+//    setProgress(37);    
+//            if (in != null) {
+//                in.close();
+//    setProgress(38);
+//            }
+//            if (fout != null) {
+//                fout.close();
+//    setProgress(39);
+//            }
+//        }
+//    }
     
  
     
   
     //-----Start of trying to unzip xml  
-    private static final int BUFFER_SIZE = 4096;
+//    private static final int BUFFER_SIZE = 4096;
     
     /**
-     *
+     * Moved to class Unzip
      * @param zipFilePath
      * @param destDirectory
      * @throws IOException
      */
-    public static void unzip(String zipFilePath, String destDirectory) throws IOException {
-        File destDir = new File(destDirectory);
-        if (!destDir.exists()) {
-            destDir.mkdir();
-        }
-        ZipInputStream zipIn = new ZipInputStream(new FileInputStream(zipFilePath));
-        ZipEntry entry = zipIn.getNextEntry();
-        // iterates over entries in the zip file
-        
-        while (entry != null) {
-            String filePath = destDirectory + File.separator + entry.getName();
-            
-            if (!entry.isDirectory()) {
-                // if the entry is a file, extracts it
-                extractFile(zipIn, filePath);
-            } else {
-                // if the entry is a directory, make the directory
-                File dir = new File(filePath);
-                dir.mkdir();
-            }
-            zipIn.closeEntry();
-            entry = zipIn.getNextEntry();
-        }
-        zipIn.close();
-    }
+//    public static void unzip(String zipFilePath, String destDirectory) throws IOException {
+//    public void unzip(String zipFilePath, String destDirectory) throws IOException {
+//        File destDir = new File(destDirectory);
+//        if (!destDir.exists()) {
+//            destDir.mkdir();
+//        }
+//        ZipInputStream zipIn = new ZipInputStream(new FileInputStream(zipFilePath));
+//        ZipEntry entry = zipIn.getNextEntry();
+//        // iterates over entries in the zip file
+//        
+//        while (entry != null) {
+//            String filePath = destDirectory + File.separator + entry.getName();
+//            
+//            if (!entry.isDirectory()) {
+//                // if the entry is a file, extracts it
+//                extractFile(zipIn, filePath);
+//            } else {
+//                // if the entry is a directory, make the directory
+//                File dir = new File(filePath);
+//                dir.mkdir();
+//            }
+//            zipIn.closeEntry();
+//            entry = zipIn.getNextEntry();
+//        }
+//        zipIn.close();
+//    }
     /**
+     * moved to class Unzip
      * Extracts a zip entry (file entry)
      * @param zipIn
      * @param filePath
      * @throws IOException
      */
-    private static void extractFile(ZipInputStream zipIn, String filePath) throws IOException {
-        BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(filePath));
-        byte[] bytesIn = new byte[BUFFER_SIZE];
-        int read = 0;
-        while ((read = zipIn.read(bytesIn)) != -1) {
-            bos.write(bytesIn, 0, read);
-        }
-        bos.close();
-    }
- //-----end of trying to unzip xml 
+//    private static void extractFile(ZipInputStream zipIn, String filePath) throws IOException {
+//    private void extractFile(ZipInputStream zipIn, String filePath) throws IOException {
+//        BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(filePath));
+//        byte[] bytesIn = new byte[BUFFER_SIZE];
+//        int read = 0;
+//        while ((read = zipIn.read(bytesIn)) != -1) {
+//            bos.write(bytesIn, 0, read);
+//        }
+//        bos.close();
+//    }
+// //-----end of trying to unzip xml 
     /*
  public class GlobalVariables{
          String line; 
@@ -270,15 +298,48 @@ public class pgroups {
      * @throws ParserConfigurationException
      * @throws ParseException
      */
-    @SuppressWarnings("empty-statement") 
-    public static void main(String[] args, boolean[] toggles) throws FileNotFoundException, SAXException, IOException, ParserConfigurationException, ParseException{
-       //---All Urls used to get Files---
+    
+//    @Override
+//    public void process() {
+//        protected void actionPerformed(ActionEvent e) {
+//            Object results = e.getSource();
+////                    panel.revalidate();
+////                    panel.repaint();
+//            System.out.println(results);
+////            return results;
+//        }
+//    }
+    
+//    protected void process(List<String> chunks) {
+//        for (String text : chunks) {
+//            panel.add(new JButton(new AbstractAction(text) {
+//                @Override
+//                public void actionPerformed(ActionEvent e) {
+//                    panel.remove((JButton) e.getSource());
+//                    panel.revalidate();
+//                    panel.repaint();
+//                }
+//            }));
+//        }
+//        panel.revalidate();
+//        panel.repaint();
+//    }
+
+
+    @SuppressWarnings("empty-statement")
+    @Override
+//    protected StatusBar doInBackground()throws FileNotFoundException, SAXException, IOException, ParserConfigurationException, ParseException{
+    protected Void doInBackground()throws FileNotFoundException, SAXException, IOException, ParserConfigurationException, ParseException{
+//    public static void main() throws FileNotFoundException, SAXException, IOException, ParserConfigurationException, ParseException{
+//    public static void main(String[] args, boolean[] toggles) throws FileNotFoundException, SAXException, IOException, ParserConfigurationException, ParseException{
+
+//---All Urls used to get Files---
     //  URL OldPgroup = new URL("http://hla.alleles.org/wmda/hla_nom_p.txt");  //hla_nom_p.txt
-        URL OldPgroup = new URL("https://raw.githubusercontent.com/ANHIG/IMGTHLA/Latest/wmda/hla_nom_p.txt");  //hla_nom_p.txt
-        URL oldAlleles = new URL("http://igdawg.org/pubs/cwd200_alleles.txt"); //cwd200_alleles.txt
-        URL ALhistory = new URL("https://raw.githubusercontent.com/jrob119/IMGTHLA/Latest/Allelelist_history.txt"); //Allelelist_history.txt
-        URL Versionupdatetable = new URL("http://igdawg.org/pubs/cwdv.upd");  //version_update_table.txt
-        String ambigsXMLsource = "https://raw.githubusercontent.com/jrob119/IMGTHLA/Latest/xml/hla_ambigs.xml.zip"; //source path to hla_ambigs.xml.zip
+//        URL OldPgroup = new URL("https://raw.githubusercontent.com/ANHIG/IMGTHLA/Latest/wmda/hla_nom_p.txt");  //hla_nom_p.txt
+//        URL oldAlleles = new URL("http://igdawg.org/pubs/cwd200_alleles.txt"); //cwd200_alleles.txt
+//        URL ALhistory = new URL("https://raw.githubusercontent.com/jrob119/IMGTHLA/Latest/Allelelist_history.txt"); //Allelelist_history.txt
+//        URL Versionupdatetable = new URL("http://igdawg.org/pubs/cwdv.upd");  //version_update_table.txt
+//        String ambigsXMLsource = "https://raw.githubusercontent.com/jrob119/IMGTHLA/Latest/xml/hla_ambigs.xml.zip"; //source path to hla_ambigs.xml.zip
       
  //---All Hashmaps---
         HashMap<String, String> AlleleList = new HashMap<>(); // contains the ACC#s and reference allele names for the current database release version = ALhistory file
@@ -296,11 +357,8 @@ public class pgroups {
         String xmlSourceNameConvert;
         Integer xmlSourceNameIndex;
         
-        String Xml = args[0] + System.getProperty("file.separator") + "hla_ambigs.xml.zip"; //xmlDirectory + "hla_ambigs.xml.zip";
-        System.out.println(args[0] + " (main)");
-//        String Xml = "R:\\Lab Folder\\HLA\\Melinda_P\\Development\\hla_ambigs.xml.zip"; //this is the hardcoded destination for the zip file
-//        String Xml = "/Users/katrinaeaton/NewFolder/hla_ambigs.xml.zip";
-        
+        String Xml = directory[0] + System.getProperty("file.separator") + "hla_ambigs.xml.zip"; //xmlDirectory + "hla_ambigs.xml.zip";
+
         String line; 
         int lineNumber = 1; 
         Scanner scnr;
@@ -316,9 +374,9 @@ public class pgroups {
         String[] Pdata = new String[3]; 
         String NewVersionNum;
  
-        boolean makeAlleles = toggles[0];
-        boolean makeGgroups = toggles[1];
-        boolean makePgroups = toggles[2];
+        boolean makeAlleles = runMe[0];
+        boolean makeGgroups = runMe[1];
+        boolean makePgroups = runMe[2];
 
        
         
@@ -334,6 +392,8 @@ public class pgroups {
             lineNumber++;
         } 
         scnr.close();
+    publish("status");
+    setProgress(10);
         //System.out.println("-----------1-----------------");
         
 //--end of reading Version update Table file   
@@ -342,13 +402,14 @@ public class pgroups {
         scnr = new Scanner(ALhistory.openStream()); 
         String ALhistorySourceName = new String(); 
         String ALhistorySourceVersion = new String(); 
-        String TextNewVersion = new String(); 
+//        String TextNewVersion = new String(); 
         ALhistorySourceName = ALhistory.getFile();
         FileNameList = ALhistorySourceName.split("/");
         FileNameIndex = FileNameList.length;
         ALhistorySourceName = FileNameList[FileNameIndex - 1];
         ALhistorySourceVersion = Punctuate(scnr.nextLine().split("\t")[1]);
-       
+    setProgress(20);
+    
         while (scnr.hasNextLine()) {
             line = scnr.nextLine();
             String[] Data = line.split("\t");
@@ -358,6 +419,8 @@ public class pgroups {
             AlleleList.put(Data[0], Data[ALcolumn]);
             lineNumber++;
         }
+    publish("Status 2");
+    setProgress(25);
         scnr.close(); // I think we need to close the scanner in the reading of the versionupdatetable
 //-- Finished reading from the Allelelist_history file
         
@@ -397,6 +460,7 @@ public class pgroups {
           // System.out.println("-----------2----------------"); //Remove
         }
         scnr.close();
+    setProgress(30);
 //--- finished reading from cwd200_alleles.txt
     
 //--- START Downloading/unzip/READING xml FILE    
@@ -406,17 +470,18 @@ public class pgroups {
        
      // saveUrl(Xml,"https://raw.githubusercontent.com/jrob119/IMGTHLA/Latest/xml/hla_ambigs.xml.zip" );
 // 12-04-2015 commented out the above and added a new variable at the top for the source of the hla_ambigs.xml.zip file        
-        saveUrl(Xml,ambigsXMLsource );
-            
-      // }
-        unzip(args[0] + System.getProperty("file.separator") + "hla_ambigs.xml.zip",args[0]);
+//        saveUrl(Xml, ambigsXMLsource);
+        SaveUrl saveUrl = new SaveUrl(Xml, ambigsXMLsource);
+        saveUrl.saveTheUrl();
+        
+    setProgress(35);
+    
+        Unzip unzipFile = new Unzip(directory[0] + System.getProperty("file.separator") + "hla_ambigs.xml.zip",directory[0]);
+        unzipFile.unzipTheFile();
+        
+    setProgress(40);
 
-//        unzip("R:\\Lab Folder\\HLA\\Melinda_P\\Development\\hla_ambigs.xml.zip","R:\\Lab Folder\\HLA\\Melinda_P\\Development");
-//        unzip("/Users/katrinaeaton/NewFolder/hla_ambigs.xml.zip","/Users/katrinaeaton/NewFolder/");
-
-        Xml = args[0] + System.getProperty("file.separator") + "hla_ambigs.xml";
-//        Xml = "R:\\Lab Folder\\HLA\\Melinda_P\\Development\\hla_ambigs.xml";
-//        Xml = "/Users/katrinaeaton/NewFolder/hla_ambigs.xml";
+        Xml = directory[0] + System.getProperty("file.separator") + "hla_ambigs.xml";
 
         String xmlSourceVersion = new String(); 
         String xmlSourceDate = new String(); 
@@ -450,6 +515,8 @@ public class pgroups {
         String gGroupName = new String(); 
         String gGroupGID = new String();  
         // System.out.println("----------3-----------------"); // Remove         //    System.out.println("----------3-----------------");          //    System.out.println("----------3-----------------");          //    System.out.println("----------3-----------------");   
+
+    setProgress(50);
 
         for (int i = 0; i < nLists.getLength(); i++) {
             Node nNodes = nLists.item(i); 
@@ -502,6 +569,8 @@ public class pgroups {
                 System.out.println("NO CHILD FOUND for: "+ nLists);
             }  
             //ChildNode ends
+
+    setProgress(60);
             
             if ("".equals(CurrentCWDStatus)){    // cwdStat should never be 'null' it should either have a C or WD value or ""
                 nNodes.getNextSibling();   // yes: go on to next nNode
@@ -541,7 +610,8 @@ public class pgroups {
  //--FINISH UPDATED CWD ALLELES LIST          //--FINISH UPDATED CWD ALLELES LIST          //--FINISH UPDATED CWD ALLELES LIST          //--FINISH UPDATED CWD ALLELES LIST         
        
 
-     
+    setProgress(70);
+
 //---Read from hla_nom_p.txt   <--Pgroup    
         //if (makePgroups){
         //   System.out.println("--Im in HLA_nom_p----"); // remove
@@ -584,7 +654,9 @@ public class pgroups {
         scnr.nextLine();          //skips: repository: https://raw.githubusercontent.com/ANHIG/IMGTHLA/Latest/wmda/hla_nom_p.txt
 
         scnr.nextLine();          //skips: # author: WHO, Steven G. E. Marsh (steven.marsh@ucl.ac.uk)   
-             
+
+    setProgress(80);        
+        
         while(scnr.hasNextLine()){
             line = scnr.nextLine();
                      
@@ -625,7 +697,7 @@ public class pgroups {
         
   //--START delete xml & .zip file here
         boolean deleted; 
-        File xmlDown = new File(args[0] + System.getProperty("file.separator") + "hla_ambigs.xml.zip"); //#1
+        File xmlDown = new File(directory[0] + System.getProperty("file.separator") + "hla_ambigs.xml.zip"); //#1
 //        File xmlDown = new File("R:\\Lab Folder\\HLA\\Melinda_P\\Development\\hla_ambigs.xml.zip"); //#1
 //        File xmlDown = new File("/Users/katrinaeaton/hla_ambigs.xml.zip"); //#1
 
@@ -653,7 +725,8 @@ public class pgroups {
             SSkeysIt = SSkeys.iterator();
     //   System.out.println("-----------4-----------------");   
             try{
-                BufferedWriter cwdFile = new BufferedWriter(new FileWriter(args[0] + System.getProperty("file.separator") + "cwd" + (oldAllelesNewVersion.replace(".", "")).replace(".","") + "_g-groups.txt"));
+//        setProgress(50);
+                BufferedWriter cwdFile = new BufferedWriter(new FileWriter(directory[0] + System.getProperty("file.separator") + "cwd" + (oldAllelesNewVersion.replace(".", "")).replace(".","") + "_g-groups.txt"));
 //                BufferedWriter cwdFile = new BufferedWriter(new FileWriter("R:\\Lab Folder\\HLA\\Melinda_P\\Development\\cwd" + (oldAllelesNewVersion.replace(".", "")).replace(".","") + "_g-groups.txt"));
 //                BufferedWriter cwdFile = new BufferedWriter(new FileWriter("/Users/katrinaeaton/NewFolder/CWD/" + (oldAllelesNewVersion.replace(".", "")).replace(".","") + "_g-groups.txt"));
 
@@ -669,10 +742,11 @@ public class pgroups {
                 cwdFile.close();  
                 
                 // Open the file if the user chooses to
-                if (toggles[3] == true) {
-                    String ggroupsFileLocation = args[0] 
+                if (runMe[3] == true) {
+                    String ggroupsFileLocation = directory[0] 
                             + System.getProperty("file.separator") 
                             + "cwd" 
+                            // finds proper version in file name
                             + (oldAllelesNewVersion.replace(".", "")).replace(".","")
                             + "_g-groups.txt";
                     
@@ -688,8 +762,9 @@ public class pgroups {
           
 //--START write UPDATED CWD ALLELES file     
         if (makeAlleles){     
-            try {         
-                BufferedWriter Newcwdfile = new BufferedWriter(new FileWriter(args[0] + System.getProperty("file.separator") + "cwd" + (oldAllelesNewVersion.replace(".", "")).replace(".","") + "_alleles.txt"));
+            try {       
+//        setProgress(60);
+                BufferedWriter Newcwdfile = new BufferedWriter(new FileWriter(directory[0] + System.getProperty("file.separator") + "cwd" + (oldAllelesNewVersion.replace(".", "")).replace(".","") + "_alleles.txt"));
     //             BufferedWriter Newcwdfile = new BufferedWriter(new FileWriter("/Users/katrinaeaton/NewFolder/CWD/"   + (oldAllelesNewVersion.replace(".", "")).replace(".","") + "_alleles.txt"));
 
                 Newcwdfile.write("# HLA Alleles in the CWD "+ oldAllelesNewVersion + " Catalogue" + "\t" + "\t" + "\t" + "\t" + CRet); //HLA Alleles in the CWD 2.0.0 Catalogue	
@@ -707,10 +782,11 @@ public class pgroups {
                 } Newcwdfile.close();
                 
                 // Open the file if the user chooses to
-                if (toggles[3] == true) {
-                    String allelesFileLocation = args[0] 
+                if (runMe[3] == true) {
+                    String allelesFileLocation = directory[0] 
                             + System.getProperty("file.separator") 
                             + "cwd" 
+                            // finds proper version in file name
                             + (oldAllelesNewVersion.replace(".", "")).replace(".","")
                             + "_alleles.txt";
                     
@@ -736,7 +812,8 @@ public class pgroups {
 
             OldPgroupSourceName = OldPgroup.getFile().substring(6);
             try {  
-                BufferedWriter NewPgrpcwdfile = new BufferedWriter(new FileWriter(args[0] + System.getProperty("file.separator") + "cwd"  + (oldAllelesNewVersion.replace(".", "")).replace(".","") + "_p-groups.txt"));
+//        setProgress(80);
+                BufferedWriter NewPgrpcwdfile = new BufferedWriter(new FileWriter(directory[0] + System.getProperty("file.separator") + "cwd"  + (oldAllelesNewVersion.replace(".", "")).replace(".","") + "_p-groups.txt"));
                 NewPgrpcwdfile.write("# Categories for P Groups in the CWD " + oldAllelesNewVersion + " Catalogue" + CRet);
                 NewPgrpcwdfile.write("# Derived from: " + oldAllelesSourceName + " version:" + oldAllelesSourceVersion + " and "  + OldPgroupSourceName + " version:" + OldPgroupSourceVersion + " Dated:" + OldPgroupSourceDate + "\t" + "\t"  + CRet);
                 NewPgrpcwdfile.write("Locus" + " IMGT/HLA" + ALhistorySourceVersion  + "\t"  + "P Group" + "\t"  + "CWD " + oldSourceVersion + "Category"+ "\t"  + "Pid" + CRet);
@@ -754,10 +831,11 @@ public class pgroups {
                 NewPgrpcwdfile.close();
                 
                 // Open the file if the user chooses to
-                if (toggles[3] == true) {
-                    String pgroupsFileLocation = args[0] 
+                if (runMe[3] == true) {
+                    String pgroupsFileLocation = directory[0] 
                             + System.getProperty("file.separator") 
                             + "cwd" 
+                            // finds proper version in file name
                             + (oldAllelesNewVersion.replace(".", "")).replace(".","")
                             + "_p-groups.txt";
                     
@@ -771,6 +849,8 @@ public class pgroups {
             } catch (IOException e) {}
 
         }
-//--FINISH write file: cwd210_P-groups.txt     
+//--FINISH write file: cwd210_P-groups.txt    
+    setProgress(100);
+        return null;
     }
 }
