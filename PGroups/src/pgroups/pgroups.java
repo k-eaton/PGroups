@@ -6,30 +6,37 @@
 package pgroups;
 
 import pgroupsUI.*;
+import java.awt.*;
 import java.awt.Desktop;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+//import java.beans.PropertyChangeEvent;
+//import java.beans.PropertyChangeListener;
 //import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
+//import java.io.BufferedOutputStream;
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileInputStream;
+//import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
+//import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.net.MalformedURLException;
+//import java.net.MalformedURLException;
 import java.net.URL;
 //import java.nio.file.Files;
 import java.text.ParseException;
+import java.util.*;
+import java.util.EventObject;
 import java.util.HashMap;
 import java.util.Iterator;
+//import java.util.List;
 import java.util.Scanner;
 import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipInputStream;
+//import java.util.zip.ZipEntry;
+//import java.util.zip.ZipInputStream;
+import javax.swing.*;
 import javax.swing.SwingWorker;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -44,7 +51,9 @@ import org.xml.sax.SAXException;
  * @author Katrina Eaton & Melinda Perez
  */
 
-public class pgroups extends SwingWorker<StatusBar, Void> {
+//public class pgroups extends SwingWorker<StatusBar, Void> {
+public class pgroups extends SwingWorker<Void, String> {
+
 
     private boolean[] runMe;
     private String[] directory;
@@ -290,12 +299,37 @@ public class pgroups extends SwingWorker<StatusBar, Void> {
      * @throws ParseException
      */
     
-
+//    @Override
+//    public void process() {
+//        protected void actionPerformed(ActionEvent e) {
+//            Object results = e.getSource();
+////                    panel.revalidate();
+////                    panel.repaint();
+//            System.out.println(results);
+////            return results;
+//        }
+//    }
+    
+//    protected void process(List<String> chunks) {
+//        for (String text : chunks) {
+//            panel.add(new JButton(new AbstractAction(text) {
+//                @Override
+//                public void actionPerformed(ActionEvent e) {
+//                    panel.remove((JButton) e.getSource());
+//                    panel.revalidate();
+//                    panel.repaint();
+//                }
+//            }));
+//        }
+//        panel.revalidate();
+//        panel.repaint();
+//    }
 
 
     @SuppressWarnings("empty-statement")
     @Override
-    protected StatusBar doInBackground()throws FileNotFoundException, SAXException, IOException, ParserConfigurationException, ParseException{
+//    protected StatusBar doInBackground()throws FileNotFoundException, SAXException, IOException, ParserConfigurationException, ParseException{
+    protected Void doInBackground()throws FileNotFoundException, SAXException, IOException, ParserConfigurationException, ParseException{
 //    public static void main() throws FileNotFoundException, SAXException, IOException, ParserConfigurationException, ParseException{
 //    public static void main(String[] args, boolean[] toggles) throws FileNotFoundException, SAXException, IOException, ParserConfigurationException, ParseException{
 
@@ -358,6 +392,7 @@ public class pgroups extends SwingWorker<StatusBar, Void> {
             lineNumber++;
         } 
         scnr.close();
+    publish("status");
     setProgress(10);
         //System.out.println("-----------1-----------------");
         
@@ -367,7 +402,7 @@ public class pgroups extends SwingWorker<StatusBar, Void> {
         scnr = new Scanner(ALhistory.openStream()); 
         String ALhistorySourceName = new String(); 
         String ALhistorySourceVersion = new String(); 
-        String TextNewVersion = new String(); 
+//        String TextNewVersion = new String(); 
         ALhistorySourceName = ALhistory.getFile();
         FileNameList = ALhistorySourceName.split("/");
         FileNameIndex = FileNameList.length;
@@ -384,6 +419,7 @@ public class pgroups extends SwingWorker<StatusBar, Void> {
             AlleleList.put(Data[0], Data[ALcolumn]);
             lineNumber++;
         }
+    publish("Status 2");
     setProgress(25);
         scnr.close(); // I think we need to close the scanner in the reading of the versionupdatetable
 //-- Finished reading from the Allelelist_history file

@@ -24,6 +24,7 @@ import javax.swing.SwingWorker;
  *
  * @author Katrina Eaton
  */
+//public class pgroupsUI extends javax.swing.JFrame {
 public class pgroupsUI extends javax.swing.JFrame {
 
     
@@ -319,6 +320,10 @@ public class pgroupsUI extends javax.swing.JFrame {
         
     }//GEN-LAST:event_SelectDirectoryButtonActionPerformed
 
+    protected void process(String v) {
+      System.out.println("process() receiving values: "+v);
+    }
+    
     private void StartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_StartActionPerformed
         // TODO add your handling code here:
         try 
@@ -349,10 +354,12 @@ public class pgroupsUI extends javax.swing.JFrame {
 //            StatusBar countDown = new StatusBar();
 //            countDown.main();
 //            countDown.addPropertyChangeListener(new PropertyChangeListener() {
-        
+
             fileGenerator.addPropertyChangeListener(new PropertyChangeListener() {
                 @Override
                 public void propertyChange(PropertyChangeEvent evt){
+                    
+//                            String[] test =     process();
                     
                     String name = evt.getPropertyName();
                     
@@ -360,6 +367,7 @@ public class pgroupsUI extends javax.swing.JFrame {
                     
                     if (name.equals("progress")) {
                         int progress = (int) evt.getNewValue();
+                        String test = fileGenerator.process();
                         jProgressBar1.setValue(progress);
                         jProgressBar1.setString("Your total is " + progress);
                         repaint();

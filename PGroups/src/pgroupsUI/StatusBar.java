@@ -5,9 +5,12 @@
  */
 package pgroupsUI;
 
+// Test file for Progress bar, now defunct.
+
 import java.beans.PropertyChangeEvent;
 import javax.swing.SwingWorker;
 import pgroups.pgroups;
+
 
 /**
  *
