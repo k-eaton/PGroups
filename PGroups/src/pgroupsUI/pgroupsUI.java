@@ -367,7 +367,7 @@ public class pgroupsUI extends javax.swing.JFrame {
                     
                     if (name.equals("progress")) {
                         int progress = (int) evt.getNewValue();
-                        String test = fileGenerator.process();
+//                        String test = fileGenerator.process();
                         jProgressBar1.setValue(progress);
                         jProgressBar1.setString("Your total is " + progress);
                         repaint();
