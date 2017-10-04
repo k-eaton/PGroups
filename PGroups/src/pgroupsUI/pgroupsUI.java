@@ -7,17 +7,11 @@ package pgroupsUI;
 
 import pgroups.*;
 
-//import java.awt.event.ActionEvent;
-//import java.awt.event.ActionListener;
-//import java.awt.event.ItemEvent;
-//import java.awt.event.ItemListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
-//import java.util.EventListener.*;
-//import javax.swing.JFileChooser;
 import javax.swing.SwingWorker;
 
 
@@ -26,7 +20,6 @@ import javax.swing.SwingWorker;
  *
  * @author Katrina Eaton
  */
-//public class pgroupsUI extends javax.swing.JFrame {
 public class pgroupsUI extends javax.swing.JFrame {
 
     
@@ -231,78 +224,21 @@ public class pgroupsUI extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void AllelesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AllelesActionPerformed
-        // TODO add your handling code here:
-        
-//        Alleles.addItemListener(new ItemListener() {
-////            @Override
-//            public void itemStateChanged(ItemEvent e) {
-//                System.out.println(e.getStateChange() == ItemEvent.SELECTED
-//                    ? "SELECTED" : "DESELECTED");
-//                
-//                if(e.getStateChange() == ItemEvent.SELECTED) {
-//                    AllCWD.setSelected(false);
-//                }
-//            }
-//        });
+
     }//GEN-LAST:event_AllelesActionPerformed
 
     private void GGroupsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GGroupsActionPerformed
-        // TODO add your handling code here:
-//        
-//        GGroups.addItemListener(new ItemListener() {
-////            @Override
-//            public void itemStateChanged(ItemEvent e) {
-//                System.out.println(e.getStateChange() == ItemEvent.SELECTED
-//                    ? "SELECTED" : "DESELECTED");
-//                
-//                if(e.getStateChange() == ItemEvent.SELECTED) {
-//                    AllCWD.setSelected(false);
-//                }
-//            }
-//        });
+
     }//GEN-LAST:event_GGroupsActionPerformed
 
     private void PGroupsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PGroupsActionPerformed
-        // TODO add your handling code here:
-        
-//        PGroups.addItemListener(new ItemListener() {
-////            @Override
-//            public void itemStateChanged(ItemEvent e) {
-//                System.out.println(e.getStateChange() == ItemEvent.SELECTED
-//                    ? "SELECTED" : "DESELECTED");
-//                
-//                if(e.getStateChange() == ItemEvent.SELECTED) {
-//                    AllCWD.setSelected(false);
-//                }
-//            }
-//        });
-
-//      Saving residual code from AllCWD checkbox
-
-//        AllCWD.addItemListener(new ItemListener() {
-//            @Override
-//            public void itemStateChanged(ItemEvent e) {
-//                System.out.println(e.getStateChange() == ItemEvent.SELECTED
-//                    ? "SELECTED" : "DESELECTED");
-//                
-//                if(e.getStateChange() == ItemEvent.SELECTED) {
-//                    PGroups.setSelected(false);
-//                    GGroups.setSelected(false);
-//                    Alleles.setSelected(false);
-//                }
-//            }
-//        });
 
     }//GEN-LAST:event_PGroupsActionPerformed
 
     private void ShowFilesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ShowFilesActionPerformed
-        // TODO add your handling code here:
-//        showFiles = ShowFiles.isSelected();
-        System.out.println("Show me those files again?!");
     }//GEN-LAST:event_ShowFilesActionPerformed
 
     private void SelectDirectoryButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SelectDirectoryButtonActionPerformed
-        // TODO add your handling code here:
         
         int option = DirectoryChooser.showOpenDialog(this);
         File directory = DirectoryChooser.getSelectedFile();
@@ -321,9 +257,8 @@ public class pgroupsUI extends javax.swing.JFrame {
     }
     
     private void StartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_StartActionPerformed
-        // TODO add your handling code here:
-        try 
-        {
+
+        try {
             String location;
             location = SaveDirectoryLabel.getText();
             
@@ -334,66 +269,30 @@ public class pgroupsUI extends javax.swing.JFrame {
             
             boolean[] whatWeAreRunning = {allelesToggle, ggroupsToggle, pgroupsToggle, showMeTheFiles};
             
-            System.out.println("Send those bad ass files to " + location);
             String[] passMeOn = {location, "test"};
             
-            
-//            Variables passedOnData = new Variables(whatWeAreRunning, passMeOn);
             pgroups fileGenerator = new pgroups(passMeOn, whatWeAreRunning);
-//            pgroups fileGenerator = new pgroups(passedOnData.getDirectory(), passedOnData.getRunMe());
-
-//            fileGenerator.main(passMeOn, whatWeAreRunning);
-//            fileGenerator.main();
             
-        /* StatusBar Testing */
-            
-//            StatusBar countDown = new StatusBar();
-//            countDown.main();
-//            countDown.addPropertyChangeListener(new PropertyChangeListener() {
-
             fileGenerator.addPropertyChangeListener(new PropertyChangeListener() {
                 @Override
                 public void propertyChange(PropertyChangeEvent evt){
-                    
-//                            String[] test =     process();
-                    
                     String name = evt.getPropertyName();
-                    
-                    System.out.println("property change");
-                    
                     if (name.equals("progress")) {
                         int progress = (int) evt.getNewValue();
-//                        String status = (String) evt.getText();
 //                        String test = fileGenerator.process();
                         jProgressBar1.setValue(progress);
-                        jProgressBar1.setString("Your total is " + progress);
+//                        jProgressBar1.setString("Your total is " + progress);
                         repaint();
                     }
-                     
-//                    } else if (name.equals("state")) {
-//                        SwingWorker.StateValue state = (SwingWorker.StateValue) evt.getNewValue();
-//                    }
                 }
-                
             });
             
-            
-//            countDown.execute();
             fileGenerator.execute();
-
             
-        /* End StatusBar Testing */
-            
-        }
-//        catch (FileNotFoundException ex){
-//            System.out.println(ex + " File not found.");
-//        }
-        catch (Exception ex)
-        {
+        } catch (Exception ex) {
             System.out.println(ex);
         }
         
-
     }//GEN-LAST:event_StartActionPerformed
 
     private void CancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CancelActionPerformed
