@@ -65,7 +65,6 @@ public class pgroupsUI extends javax.swing.JFrame {
         Start = new javax.swing.JButton();
         Cancel = new javax.swing.JButton();
         jProgressBar1 = new javax.swing.JProgressBar();
-        DownloadPB = new javax.swing.JProgressBar();
 
         DirectoryChooser.setFileSelectionMode(javax.swing.JFileChooser.DIRECTORIES_ONLY);
 
@@ -159,8 +158,6 @@ public class pgroupsUI extends javax.swing.JFrame {
         jProgressBar1.setFocusable(false);
         jProgressBar1.setStringPainted(true);
 
-        DownloadPB.setStringPainted(true);
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -196,8 +193,7 @@ public class pgroupsUI extends javax.swing.JFrame {
                         .addComponent(Start, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(Cancel, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(DownloadPB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(124, 124, 124))
         );
         layout.setVerticalGroup(
@@ -222,11 +218,9 @@ public class pgroupsUI extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(51, 51, 51)
                         .addComponent(ShowFiles, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
                 .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(DownloadPB, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(31, 31, 31)
+                .addGap(28, 28, 28)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(Start)
                     .addComponent(Cancel))
@@ -450,7 +444,6 @@ public class pgroupsUI extends javax.swing.JFrame {
     private javax.swing.JCheckBox Alleles;
     private javax.swing.JButton Cancel;
     private javax.swing.JFileChooser DirectoryChooser;
-    private javax.swing.JProgressBar DownloadPB;
     private javax.swing.JCheckBox GGroups;
     private javax.swing.JCheckBox PGroups;
     private javax.swing.JLabel SaveDirectoryLabel;
