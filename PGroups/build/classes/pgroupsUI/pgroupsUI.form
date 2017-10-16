@@ -76,7 +76,6 @@
                       <Component id="Cancel" min="-2" pref="75" max="-2" attributes="0"/>
                   </Group>
                   <Component id="jProgressBar1" alignment="2" min="-2" max="-2" attributes="0"/>
-                  <Component id="DownloadPB" alignment="2" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="124" max="-2" attributes="0"/>
           </Group>
@@ -107,11 +106,9 @@
                       <Component id="ShowFiles" min="-2" pref="30" max="-2" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace max="32767" attributes="0"/>
+              <EmptySpace pref="34" max="32767" attributes="0"/>
               <Component id="jProgressBar1" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
-              <Component id="DownloadPB" min="-2" pref="19" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="Start" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="Cancel" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -241,11 +238,6 @@
           <Color id="Wait Cursor"/>
         </Property>
         <Property name="focusable" type="boolean" value="false"/>
-        <Property name="stringPainted" type="boolean" value="true"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JProgressBar" name="DownloadPB">
-      <Properties>
         <Property name="stringPainted" type="boolean" value="true"/>
       </Properties>
     </Component>
