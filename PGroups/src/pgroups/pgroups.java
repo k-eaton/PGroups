@@ -18,6 +18,7 @@ import java.util.Iterator;
 import java.util.Scanner;
 import java.util.Set;
 import java.util.SortedSet;
+import java.util.TreeMap;
 import java.util.TreeSet;
 import javax.swing.SwingWorker;
 import javax.swing.text.JTextComponent;
@@ -197,7 +198,7 @@ public class pgroups extends SwingWorker<Void, String> {
         HashMap<String, String> ReverseHash = new HashMap<>();  // for the purpose of sorting by allele name
         HashMap<String, String> Allcwdgroups = new HashMap<>();  // Steve's version
         HashMap<String, String> Allpgroups = new HashMap<>(); // key=Pgroup name; value = CWDstatus (C, WD, or NONE) + PID
-        HashMap<String, String> updatetable = new HashMap<>();
+        TreeMap<String, String> updatetable = new TreeMap<>();
 
 //---General Variables---
         String FileNameList[]; 
@@ -339,6 +340,7 @@ public class pgroups extends SwingWorker<Void, String> {
         if (nSource.item(0).getNodeType() == Node.ELEMENT_NODE) { // assumes source documentation only occurs once in the xml file. 
             Element eSource = (Element) nSource.item(0);
             xmlSourceVersion = eSource.getAttribute("currentRelease");
+            System.out.println(xmlSourceVersion);
             xmlSourceDate = eSource.getAttribute("date");       
         } 
         
