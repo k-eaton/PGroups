@@ -43,9 +43,9 @@ public class pgroups extends SwingWorker<Void, String> {
     //---All Urls used to get Files---
     private final URL OldPgroup = new URL("https://raw.githubusercontent.com/ANHIG/IMGTHLA/Latest/wmda/hla_nom_p.txt");  //hla_nom_p.txt
     private final URL oldAlleles = new URL("http://igdawg.org/pubs/cwd200_alleles.txt"); //cwd200_alleles.txt
-    private final URL ALhistory = new URL("https://raw.githubusercontent.com/jrob119/IMGTHLA/Latest/Allelelist_history.txt"); //Allelelist_history.txt
+    private final URL ALhistory = new URL("https://raw.githubusercontent.com/ANHIG/IMGTHLA/Latest/Allelelist_history.txt"); //Allelelist_history.txt
     private final URL Versionupdatetable = new URL("http://igdawg.org/pubs/cwdv.upd");  //version_update_table.txt
-    private final String ambigsXMLsource = "https://raw.githubusercontent.com/jrob119/IMGTHLA/Latest/xml/hla_ambigs.xml.zip"; //source path to hla_ambigs.xml.zip
+    private final String ambigsXMLsource = "https://github.com/ANHIG/IMGTHLA/blob/Latest/xml/hla_ambigs.xml.zip?raw=true"; //source path to hla_ambigs.xml.zip
 
     public pgroups(String args[], boolean[] toggles ) throws IOException {
         runMe = toggles;
@@ -239,6 +239,8 @@ public class pgroups extends SwingWorker<Void, String> {
             updatetable.put(NewVersionNum.split("\t")[0], NewVersionNum.split("\t")[1]);
             lineNumber++;
         } 
+        System.out.println(updatetable);
+
         scnr.close();
 //    publish("status");
     setProgress(10);
@@ -555,11 +557,15 @@ public class pgroups extends SwingWorker<Void, String> {
            
 //--START write cwd Ggroups file     
         if (makeGgroups){
+            System.out.println("Running G-Groups");
             String gGroupLocus; // need to catch the locus for the file
             SSkeys = new TreeSet<>(Allcwdgroups.keySet());
             SSkeysIt = SSkeys.iterator();
             try{
-                BufferedWriter cwdFile = new BufferedWriter(new FileWriter(directory[0] + System.getProperty("file.separator") + "cwd" + (oldAllelesNewVersion.replace(".", "")).replace(".","") + "_g-groups.txt"));
+            System.out.println("Running G-Groups before create file");
+
+                BufferedWriter cwdFile = new BufferedWriter(new FileWriter(directory[0] + System.getProperty("file.separator") + "cwd" + "Test"));//(oldAllelesNewVersion.replace(".", "")).replace(".","") + "_g-groups.txt"));
+            System.out.println("create G-Groups file");
 
                 cwdFile.write("# Categories for G Groups in the CWD "+ oldAllelesNewVersion + " Catalogue" + CRet);
                 cwdFile.write("# Derived from: " + oldAllelesSourceName + " version:" + oldAllelesSourceVersion + " and " + xmlSourceName + " version:" + xmlSourceVersion + " Dated:" + xmlSourceDate + CRet);
@@ -587,7 +593,10 @@ public class pgroups extends SwingWorker<Void, String> {
                     File fileToOpen = new File(ggroupsFileLocation);
                     Desktop.getDesktop().open(fileToOpen);
                 }
-            } catch (IOException e) {}  
+            } catch (IOException e) {
+                        System.out.println(e);
+
+            }  
         }
 //--FINISH write file: cwd210_g-groups.txt
           
@@ -595,6 +604,8 @@ public class pgroups extends SwingWorker<Void, String> {
         if (makeAlleles){     
             try {       
 //        setProgress(60);
+            System.out.println("Running Alleles");
+
                 BufferedWriter Newcwdfile = new BufferedWriter(new FileWriter(directory[0] + System.getProperty("file.separator") + "cwd" + (oldAllelesNewVersion.replace(".", "")).replace(".","") + "_alleles.txt"));
     //             BufferedWriter Newcwdfile = new BufferedWriter(new FileWriter("/Users/katrinaeaton/NewFolder/CWD/"   + (oldAllelesNewVersion.replace(".", "")).replace(".","") + "_alleles.txt"));
 
@@ -627,12 +638,16 @@ public class pgroups extends SwingWorker<Void, String> {
                     File fileToOpen = new File(allelesFileLocation);
                     Desktop.getDesktop().open(fileToOpen);
                 }
-            } catch (IOException e) {} 
+            } catch (IOException e) {
+                        System.out.println(e);
+            } 
         }
 //--FINISH MAKE UPDATED CWD ALLELES FILE
  
 //--START write file: cwd210_P-groups.txt    
         if(makePgroups){  
+            System.out.println("Running P-Groups");
+
             SSkeys = new TreeSet<>(Allpgroups.keySet());
             SSkeysIt =  SSkeys.iterator();
             lineNumber = 0;               
@@ -673,7 +688,9 @@ public class pgroups extends SwingWorker<Void, String> {
                     Desktop.getDesktop().open(fileToOpen);
                 }
 
-            } catch (IOException e) {}
+            } catch (IOException e) {
+                System.out.println(e);
+            }
 
         }
 //--FINISH write file: cwd210_P-groups.txt    
