@@ -340,7 +340,7 @@ public class pgroups extends SwingWorker<Void, String> {
         if (nSource.item(0).getNodeType() == Node.ELEMENT_NODE) { // assumes source documentation only occurs once in the xml file. 
             Element eSource = (Element) nSource.item(0);
             xmlSourceVersion = eSource.getAttribute("currentRelease");
-            System.out.println(xmlSourceVersion);
+            System.out.println("xmlSourceVersion = " + xmlSourceVersion);
             xmlSourceDate = eSource.getAttribute("date");       
         } 
         
@@ -352,7 +352,7 @@ public class pgroups extends SwingWorker<Void, String> {
         xmlSourceNameList = xmlSourceNameConvert.split("/");
         xmlSourceNameIndex = xmlSourceNameList.length;
         xmlSourceName = xmlSourceNameList[xmlSourceNameIndex-1];
-        System.out.println(xmlSourceName);
+        System.out.println("xmlSourceName = " + xmlSourceName);
             
         oldAllelesNewVersion = updatetable.get(xmlSourceVersion);         
         String gGroupName = new String(); 
