@@ -336,7 +336,7 @@ public class pgroups extends SwingWorker<Void, String> {
         
     setProgress(45);
     
-        NodeList nSource = docs.getElementsByTagName("tns:releaseVersion"); //SM-07/03/2015 This section is new, for pulling documentation of the source files//SM-07/03/2015 This section is new, for pulling documentation of the source files//SM-07/03/2015 This section is new, for pulling documentation of the source files//SM-07/03/2015 This section is new, for pulling documentation of the source files
+        NodeList nSource = docs.getElementsByTagName("tns:releaseVersion"); //SM-07/03/2015 This section is new, for pulling documentation of the source files
         if (nSource.item(0).getNodeType() == Node.ELEMENT_NODE) { // assumes source documentation only occurs once in the xml file. 
             Element eSource = (Element) nSource.item(0);
             xmlSourceVersion = eSource.getAttribute("currentRelease");
