@@ -355,7 +355,11 @@ public class pgroups extends SwingWorker<Void, String> {
         xmlSourceName = xmlSourceNameList[xmlSourceNameIndex-1];
         System.out.println("xmlSourceName = " + xmlSourceName);
             
-        oldAllelesNewVersion = updatetable.get(xmlSourceVersion);         
+        if (StringUtils.isNotBlank(updatetable.get(xmlSourceVersion))){         
+            oldAllelesNewVersion = updatetable.get(xmlSourceVersion);
+        } else {
+            oldAllelesNewVersion = "unknown_version";
+        }
         String gGroupName = new String(); 
         String gGroupGID = new String();  
 
@@ -568,12 +572,12 @@ public class pgroups extends SwingWorker<Void, String> {
                 System.out.println("Running G-Groups before create file");
                 System.out.println(oldAllelesNewVersion);
                 BufferedWriter cwdFile;
-                if (StringUtils.isNotBlank(oldAllelesNewVersion)){
-                    cwdFile = new BufferedWriter(new FileWriter(directory[0] + System.getProperty("file.separator") + "cwd" + (oldAllelesNewVersion.replace(".", "")).replace(".","") + "_g-groups.txt"));
-                System.out.println("create G-Groups file");
-                } else {
-                    cwdFile = new BufferedWriter(new FileWriter(directory[0] + System.getProperty("file.separator") + "cwd000_g-groups.txt"));
-                }
+//                if (StringUtils.isNotBlank(oldAllelesNewVersion)){
+                    cwdFile = new BufferedWriter(new FileWriter(directory[0] + System.getProperty("file.separator") + "cwd_" + (oldAllelesNewVersion.replace(".", "")).replace(".","") + "_g-groups.txt"));
+//                System.out.println("create G-Groups file");
+//                } else {
+//                    cwdFile = new BufferedWriter(new FileWriter(directory[0] + System.getProperty("file.separator") + "cwd000_g-groups.txt"));
+//                }
                 cwdFile.write("# Categories for G Groups in the CWD "+ oldAllelesNewVersion + " Catalogue" + CRet);
                 cwdFile.write("# Derived from: " + oldAllelesSourceName + " version:" + oldAllelesSourceVersion + " and " + xmlSourceName + " version:" + xmlSourceVersion + " Dated:" + xmlSourceDate + CRet);
                 cwdFile.write("Locus" + "\t" + "IMGT/HLA " + xmlSourceVersion + " G Group" + "\t" + "CWD " + oldAllelesNewVersion + "Status" + "\t" + "GID" + CRet);
@@ -613,12 +617,12 @@ public class pgroups extends SwingWorker<Void, String> {
 //        setProgress(60);
             System.out.println("Running Alleles");
                 BufferedWriter cwdFile;
-                if (StringUtils.isNotBlank(oldAllelesNewVersion)){
-                    cwdFile = new BufferedWriter(new FileWriter(directory[0] + System.getProperty("file.separator") + "cwd" + (oldAllelesNewVersion.replace(".", "")).replace(".","") + "_alleles.txt"));
+//                if (StringUtils.isNotBlank(oldAllelesNewVersion)){
+                    cwdFile = new BufferedWriter(new FileWriter(directory[0] + System.getProperty("file.separator") + "cwd_" + (oldAllelesNewVersion.replace(".", "")).replace(".","") + "_alleles.txt"));
     //             BufferedWriter Newcwdfile = new BufferedWriter(new FileWriter("/Users/katrinaeaton/NewFolder/CWD/"   + (oldAllelesNewVersion.replace(".", "")).replace(".","") + "_alleles.txt"));
-                } else {
-                    cwdFile = new BufferedWriter(new FileWriter(directory[0] + System.getProperty("file.separator") + "cwd000_alleles.txt"));
-                }
+//                } else {
+//                    cwdFile = new BufferedWriter(new FileWriter(directory[0] + System.getProperty("file.separator") + "cwd000_alleles.txt"));
+//                }
                 cwdFile.write("# HLA Alleles in the CWD "+ oldAllelesNewVersion + " Catalogue" + "\t" + "\t" + "\t" + "\t" + CRet); //HLA Alleles in the CWD 2.0.0 Catalogue	
                 cwdFile.write("# Derived from: " + oldAllelesSourceName + " version:" + oldAllelesSourceVersion + " and "  + ALhistorySourceName + " version:" + ALhistorySourceVersion + "\t" + "\t" + "\t" + "\t" + CRet);
                 cwdFile.write("Locus" + "\t" + "IMGT/HLA Accession Number " + ALhistorySourceVersion + "\t" + "Allele" + "\t" + "CWD " + oldAllelesNewVersion + " Category" + "\t" + "Name Extended from IMGT/HLA " + oldSourceVersion + " to " + ALhistorySourceVersion + CRet);
@@ -654,7 +658,7 @@ public class pgroups extends SwingWorker<Void, String> {
         }
 //--FINISH MAKE UPDATED CWD ALLELES FILE
  
-//--START write file: cwd210_P-groups.txt    
+//--START write file: cwdXXX_P-groups.txt    
         if(makePgroups){  
             System.out.println("Running P-Groups");
 
@@ -666,11 +670,11 @@ public class pgroups extends SwingWorker<Void, String> {
             try {  
 //        setProgress(80);
                 BufferedWriter cwdFile;
-                if (StringUtils.isNotBlank(oldAllelesNewVersion)){
-                    cwdFile = new BufferedWriter(new FileWriter(directory[0] + System.getProperty("file.separator") + "cwd"  + (oldAllelesNewVersion.replace(".", "")).replace(".","") + "_p-groups.txt"));
-                } else {
-                    cwdFile = new BufferedWriter(new FileWriter(directory[0] + System.getProperty("file.separator") + "cwd000_p-groups.txt"));
-                }
+//                if (StringUtils.isNotBlank(oldAllelesNewVersion)){
+                    cwdFile = new BufferedWriter(new FileWriter(directory[0] + System.getProperty("file.separator") + "cwd_"  + (oldAllelesNewVersion.replace(".", "")).replace(".","") + "_p-groups.txt"));
+//                } else {
+//                    cwdFile = new BufferedWriter(new FileWriter(directory[0] + System.getProperty("file.separator") + "cwd000_p-groups.txt"));
+//                }
                 cwdFile.write("# Categories for P Groups in the CWD " + oldAllelesNewVersion + " Catalogue" + CRet);
                 cwdFile.write("# Derived from: " + oldAllelesSourceName + " version:" + oldAllelesSourceVersion + " and "  + OldPgroupSourceName + " version:" + OldPgroupSourceVersion + " Dated:" + OldPgroupSourceDate + "\t" + "\t"  + CRet);
                 cwdFile.write("Locus" + " IMGT/HLA" + ALhistorySourceVersion  + "\t"  + "P Group" + "\t"  + "CWD " + oldSourceVersion + "Category"+ "\t"  + "Pid" + CRet);
