@@ -25,6 +25,7 @@ import javax.swing.text.JTextComponent;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+import org.apache.commons.lang3.StringUtils;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -564,12 +565,15 @@ public class pgroups extends SwingWorker<Void, String> {
             SSkeys = new TreeSet<>(Allcwdgroups.keySet());
             SSkeysIt = SSkeys.iterator();
             try{
-            System.out.println("Running G-Groups before create file");
-            System.out.println(oldAllelesNewVersion);
-//                if (oldAllelesNewVersion){
-                BufferedWriter cwdFile = new BufferedWriter(new FileWriter(directory[0] + System.getProperty("file.separator") + "cwd" + "Test"));//(oldAllelesNewVersion.replace(".", "")).replace(".","") + "_g-groups.txt"));
-            System.out.println("create G-Groups file");
-
+                System.out.println("Running G-Groups before create file");
+                System.out.println(oldAllelesNewVersion);
+                BufferedWriter cwdFile;
+                if (StringUtils.isNotBlank(oldAllelesNewVersion)){
+                    cwdFile = new BufferedWriter(new FileWriter(directory[0] + System.getProperty("file.separator") + "cwd" + (oldAllelesNewVersion.replace(".", "")).replace(".","") + "_g-groups.txt"));
+                System.out.println("create G-Groups file");
+                } else {
+                    cwdFile = new BufferedWriter(new FileWriter(directory[0] + System.getProperty("file.separator") + "cwd000_g-groups.txt"));
+                }
                 cwdFile.write("# Categories for G Groups in the CWD "+ oldAllelesNewVersion + " Catalogue" + CRet);
                 cwdFile.write("# Derived from: " + oldAllelesSourceName + " version:" + oldAllelesSourceVersion + " and " + xmlSourceName + " version:" + xmlSourceVersion + " Dated:" + xmlSourceDate + CRet);
                 cwdFile.write("Locus" + "\t" + "IMGT/HLA " + xmlSourceVersion + " G Group" + "\t" + "CWD " + oldAllelesNewVersion + "Status" + "\t" + "GID" + CRet);
