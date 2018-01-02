@@ -565,7 +565,8 @@ public class pgroups extends SwingWorker<Void, String> {
             SSkeysIt = SSkeys.iterator();
             try{
             System.out.println("Running G-Groups before create file");
-
+            System.out.println(oldAllelesNewVersion);
+//                if (oldAllelesNewVersion){
                 BufferedWriter cwdFile = new BufferedWriter(new FileWriter(directory[0] + System.getProperty("file.separator") + "cwd" + "Test"));//(oldAllelesNewVersion.replace(".", "")).replace(".","") + "_g-groups.txt"));
             System.out.println("create G-Groups file");
 
