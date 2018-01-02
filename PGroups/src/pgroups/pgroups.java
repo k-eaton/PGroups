@@ -586,7 +586,7 @@ public class pgroups extends SwingWorker<Void, String> {
                 cwdFile.close();  
                 
                 // Open the file if the user chooses to
-                if (runMe[3] == true) {
+                if (runMe[3]) {
                     String ggroupsFileLocation = directory[0] 
                             + System.getProperty("file.separator") 
                             + "cwd" 
@@ -612,13 +612,16 @@ public class pgroups extends SwingWorker<Void, String> {
             try {       
 //        setProgress(60);
             System.out.println("Running Alleles");
-
-                BufferedWriter Newcwdfile = new BufferedWriter(new FileWriter(directory[0] + System.getProperty("file.separator") + "cwd" + (oldAllelesNewVersion.replace(".", "")).replace(".","") + "_alleles.txt"));
+                BufferedWriter cwdFile;
+                if (StringUtils.isNotBlank(oldAllelesNewVersion)){
+                    cwdFile = new BufferedWriter(new FileWriter(directory[0] + System.getProperty("file.separator") + "cwd" + (oldAllelesNewVersion.replace(".", "")).replace(".","") + "_alleles.txt"));
     //             BufferedWriter Newcwdfile = new BufferedWriter(new FileWriter("/Users/katrinaeaton/NewFolder/CWD/"   + (oldAllelesNewVersion.replace(".", "")).replace(".","") + "_alleles.txt"));
-
-                Newcwdfile.write("# HLA Alleles in the CWD "+ oldAllelesNewVersion + " Catalogue" + "\t" + "\t" + "\t" + "\t" + CRet); //HLA Alleles in the CWD 2.0.0 Catalogue	
-                Newcwdfile.write("# Derived from: " + oldAllelesSourceName + " version:" + oldAllelesSourceVersion + " and "  + ALhistorySourceName + " version:" + ALhistorySourceVersion + "\t" + "\t" + "\t" + "\t" + CRet);
-                Newcwdfile.write("Locus" + "\t" + "IMGT/HLA Accession Number " + ALhistorySourceVersion + "\t" + "Allele" + "\t" + "CWD " + oldAllelesNewVersion + " Category" + "\t" + "Name Extended from IMGT/HLA " + oldSourceVersion + " to " + ALhistorySourceVersion + CRet);
+                } else {
+                    cwdFile = new BufferedWriter(new FileWriter(directory[0] + System.getProperty("file.separator") + "cwd000_alleles.txt"));
+                }
+                cwdFile.write("# HLA Alleles in the CWD "+ oldAllelesNewVersion + " Catalogue" + "\t" + "\t" + "\t" + "\t" + CRet); //HLA Alleles in the CWD 2.0.0 Catalogue	
+                cwdFile.write("# Derived from: " + oldAllelesSourceName + " version:" + oldAllelesSourceVersion + " and "  + ALhistorySourceName + " version:" + ALhistorySourceVersion + "\t" + "\t" + "\t" + "\t" + CRet);
+                cwdFile.write("Locus" + "\t" + "IMGT/HLA Accession Number " + ALhistorySourceVersion + "\t" + "Allele" + "\t" + "CWD " + oldAllelesNewVersion + " Category" + "\t" + "Name Extended from IMGT/HLA " + oldSourceVersion + " to " + ALhistorySourceVersion + CRet);
                 lineNumber = 0;
 
                 SSkeys = new TreeSet<>(ReverseHash.keySet()); // all keys (allelenames) for reverse hash sorted by allelenames
@@ -626,9 +629,9 @@ public class pgroups extends SwingWorker<Void, String> {
                 while (RHkeysIt.hasNext()) {                     
                     key = ReverseHash.get(RHkeysIt.next()).split("\t")[0];  // "real key" here would have to be split away from updated CWD status
                     Locusletter = Allcwdalleles.get(key).split("\t")[0].substring(0, Allcwdalleles.get(key).split("\t")[0].indexOf("*"));
-                    Newcwdfile.write(Locusletter + "\t" + key + "\t" + Updatedcwdalleles.get(key).split("\t")[0] + "\t" + Allcwdalleles.get(key).split("\t")[1] + "\t" + Updatedcwdalleles.get(key).split("\t")[1] + CRet);
+                    cwdFile.write(Locusletter + "\t" + key + "\t" + Updatedcwdalleles.get(key).split("\t")[0] + "\t" + Allcwdalleles.get(key).split("\t")[1] + "\t" + Updatedcwdalleles.get(key).split("\t")[1] + CRet);
                     lineNumber++;
-                } Newcwdfile.close();
+                } cwdFile.close();
                 
                 // Open the file if the user chooses to
                 if (runMe[3] == true) {
@@ -662,10 +665,15 @@ public class pgroups extends SwingWorker<Void, String> {
             OldPgroupSourceName = OldPgroup.getFile().substring(6);
             try {  
 //        setProgress(80);
-                BufferedWriter NewPgrpcwdfile = new BufferedWriter(new FileWriter(directory[0] + System.getProperty("file.separator") + "cwd"  + (oldAllelesNewVersion.replace(".", "")).replace(".","") + "_p-groups.txt"));
-                NewPgrpcwdfile.write("# Categories for P Groups in the CWD " + oldAllelesNewVersion + " Catalogue" + CRet);
-                NewPgrpcwdfile.write("# Derived from: " + oldAllelesSourceName + " version:" + oldAllelesSourceVersion + " and "  + OldPgroupSourceName + " version:" + OldPgroupSourceVersion + " Dated:" + OldPgroupSourceDate + "\t" + "\t"  + CRet);
-                NewPgrpcwdfile.write("Locus" + " IMGT/HLA" + ALhistorySourceVersion  + "\t"  + "P Group" + "\t"  + "CWD " + oldSourceVersion + "Category"+ "\t"  + "Pid" + CRet);
+                BufferedWriter cwdFile;
+                if (StringUtils.isNotBlank(oldAllelesNewVersion)){
+                    cwdFile = new BufferedWriter(new FileWriter(directory[0] + System.getProperty("file.separator") + "cwd"  + (oldAllelesNewVersion.replace(".", "")).replace(".","") + "_p-groups.txt"));
+                } else {
+                    cwdFile = new BufferedWriter(new FileWriter(directory[0] + System.getProperty("file.separator") + "cwd000_p-groups.txt"));
+                }
+                cwdFile.write("# Categories for P Groups in the CWD " + oldAllelesNewVersion + " Catalogue" + CRet);
+                cwdFile.write("# Derived from: " + oldAllelesSourceName + " version:" + oldAllelesSourceVersion + " and "  + OldPgroupSourceName + " version:" + OldPgroupSourceVersion + " Dated:" + OldPgroupSourceDate + "\t" + "\t"  + CRet);
+                cwdFile.write("Locus" + " IMGT/HLA" + ALhistorySourceVersion  + "\t"  + "P Group" + "\t"  + "CWD " + oldSourceVersion + "Category"+ "\t"  + "Pid" + CRet);
 
                 while(SSkeysIt.hasNext()) {
                     lineNumber++;
@@ -673,11 +681,11 @@ public class pgroups extends SwingWorker<Void, String> {
 
                     if( !Allpgroups.get(key).split("\t")[0].equals("NONE")){
                         Locusletter = key.substring(0, key.indexOf("*"));
-                        NewPgrpcwdfile.write(Locusletter + "\t" + key + "\t" + Allpgroups.get(key).split("\t")[0] + "\t" + Allpgroups.get(key).split("\t")[1] + CRet);
+                        cwdFile.write(Locusletter + "\t" + key + "\t" + Allpgroups.get(key).split("\t")[0] + "\t" + Allpgroups.get(key).split("\t")[1] + CRet);
                     }
                     lineNumber++;        
                 }
-                NewPgrpcwdfile.close();
+                cwdFile.close();
                 
                 // Open the file if the user chooses to
                 if (runMe[3] == true) {
