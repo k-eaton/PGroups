@@ -13,6 +13,7 @@ import java.io.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.SwingWorker;
+import org.apache.commons.io.FileUtils;
 
 
 
@@ -302,6 +303,17 @@ public class pgroupsUI extends javax.swing.JFrame {
 
     private void CancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CancelActionPerformed
         // TODO add your handling code here:   
+        File xmlDown = new File(SaveDirectoryLabel.getText() 
+                + System.getProperty("file.separator") + "hla_ambigs.xml");
+        File xmlDownZip = new File(SaveDirectoryLabel.getText() 
+                + System.getProperty("file.separator") + "hla_ambigs.xml.zip");
+        try {
+            FileUtils.forceDelete(xmlDownZip);        
+            FileUtils.forceDelete(xmlDown);        
+        } catch (Exception ex) {
+            System.out.println(ex);
+        }
+
         System.exit(0);
     }//GEN-LAST:event_CancelActionPerformed
 
