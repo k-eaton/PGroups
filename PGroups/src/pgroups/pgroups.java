@@ -568,14 +568,13 @@ public class pgroups extends SwingWorker<Void, String> {
             String gGroupLocus; // need to catch the locus for the file
             SSkeys = new TreeSet<>(Allcwdgroups.keySet());
             SSkeysIt = SSkeys.iterator();
-            try{
-                System.out.println("Running G-Groups before create file");
-                System.out.println(oldAllelesNewVersion);
-                BufferedWriter cwdFile;
-                cwdFile = new BufferedWriter(new FileWriter(directory[0] 
+            String fileName = (directory[0] 
                         + System.getProperty("file.separator") + "cwd_" 
                         + (oldAllelesNewVersion.replaceAll("\\.", "")) 
-                        + "_g-groups.txt"));
+                        + "_g-groups.txt");
+            try{
+                BufferedWriter cwdFile = new BufferedWriter(new FileWriter(fileName));
+                
                 cwdFile.write("# Categories for G Groups in the CWD "
                         + oldAllelesNewVersion + " Catalogue" + CRet);
                 cwdFile.write("# Derived from: " + oldAllelesSourceName 
@@ -597,18 +596,7 @@ public class pgroups extends SwingWorker<Void, String> {
                 
                 // Open the file if the user chooses to
                 if (runMe[3]) {
-                    String ggroupsFileLocation = directory[0] 
-                            + System.getProperty("file.separator") 
-                            + "cwd_" 
-                            // finds proper version in file name
-                            + (oldAllelesNewVersion.replaceAll("\\.", ""))
-                            + "_g-groups.txt";
-                    
-                    // I know I should be able to consolodate these two lines,
-                    // but the program no longer recognizes File as an object
-                    // when I do.
-                    File fileToOpen = new File(ggroupsFileLocation);
-                    Desktop.getDesktop().open(fileToOpen);
+                    Desktop.getDesktop().open(new File(fileName));
                 }
             } catch (IOException e) {
                         System.out.println(e);
@@ -618,15 +606,14 @@ public class pgroups extends SwingWorker<Void, String> {
 //--FINISH write file: cwd210_g-groups.txt
           
 //--START write UPDATED CWD ALLELES file     
-        if (makeAlleles){     
+        if (makeAlleles){ 
+            String fileName = (directory[0] 
+                    + System.getProperty("file.separator") + "cwd_" 
+                    + (oldAllelesNewVersion.replaceAll("\\.", "")) 
+                    + "_alleles.txt");
             try {       
-//        setProgress(60);
-            System.out.println("Running Alleles");
-                BufferedWriter cwdFile;
-                cwdFile = new BufferedWriter(new FileWriter(directory[0] 
-                        + System.getProperty("file.separator") + "cwd_" 
-                        + (oldAllelesNewVersion.replaceAll("\\.", "")) 
-                        + "_alleles.txt"));
+                BufferedWriter cwdFile = new BufferedWriter(new FileWriter(fileName));
+                
                 //HLA Alleles in the CWD 2.0.0 Catalogue
                 cwdFile.write("# HLA Alleles in the CWD "+ oldAllelesNewVersion 
                         + " Catalogue" + "\t" + "\t" + "\t" + "\t" + CRet); 	
@@ -661,18 +648,7 @@ public class pgroups extends SwingWorker<Void, String> {
                 
                 // Open the file if the user chooses to
                 if (runMe[3] == true) {
-                    String allelesFileLocation = directory[0] 
-                            + System.getProperty("file.separator") 
-                            + "cwd_" 
-                            // finds proper version in file name
-                            + (oldAllelesNewVersion.replaceAll("\\.", ""))
-                            + "_alleles.txt";
-                    
-                    // I know I should be able to consolodate these two lines,
-                    // but the program no longer recognizes File as an object
-                    // when I do.
-                    File fileToOpen = new File(allelesFileLocation);
-                    Desktop.getDesktop().open(fileToOpen);
+                    Desktop.getDesktop().open(new File(fileName));
                 }
             } catch (IOException e) {
                         System.out.println(e);
@@ -694,13 +670,8 @@ public class pgroups extends SwingWorker<Void, String> {
                         + (oldAllelesNewVersion.replaceAll("\\.", "")) 
                         + "_p-groups.txt");
             try {  
-//        setProgress(80);
-                BufferedWriter cwdFile;
-                cwdFile = new BufferedWriter(new FileWriter(fileName));
-//                cwdFile = new BufferedWriter(new FileWriter(directory[0] 
-//                        + System.getProperty("file.separator") + "cwd_"  
-//                        + (oldAllelesNewVersion.replaceAll("\\.", "")) 
-//                        + "_p-groups.txt"));
+                BufferedWriter cwdFile = new BufferedWriter(new FileWriter(fileName));
+                
                 cwdFile.write("# Categories for P Groups in the CWD " 
                         + oldAllelesNewVersion + " Catalogue" + CRet);
                 cwdFile.write("# Derived from: " + oldAllelesSourceName 
@@ -728,13 +699,7 @@ public class pgroups extends SwingWorker<Void, String> {
                 
                 // Open the file if the user chooses to
                 if (runMe[3] == true) {
-                    // I know I should be able to consolodate these two lines,
-                    // but the program no longer recognizes File as an object
-                    // when I do.
-                    File fileToOpen = new File(fileName);
                     Desktop.getDesktop().open(new File(fileName));
-//                    Desktop.getDesktop().open(fileToOpen);
-
                 }
 
             } catch (IOException e) {
