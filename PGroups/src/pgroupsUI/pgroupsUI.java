@@ -44,6 +44,7 @@ public class pgroupsUI extends javax.swing.JFrame {
 
         DirectoryChooser = new javax.swing.JFileChooser();
         jCheckBox1 = new javax.swing.JCheckBox();
+        jOptionPane1 = new javax.swing.JOptionPane();
         jPanel1 = new javax.swing.JPanel();
         Alleles = new javax.swing.JCheckBox();
         GGroups = new javax.swing.JCheckBox();
@@ -267,28 +268,32 @@ public class pgroupsUI extends javax.swing.JFrame {
             boolean pgroupsToggle = PGroups.isSelected();
             boolean showMeTheFiles = ShowFiles.isSelected();
             
-            boolean[] whatWeAreRunning = {allelesToggle, ggroupsToggle, pgroupsToggle, showMeTheFiles};
+            if (!allelesToggle && !ggroupsToggle && !pgroupsToggle){
+                jOptionPane1.showMessageDialog(this, "No options are selected");
+            } else {
             
-            String[] passMeOn = {location, "test"};
-            
-            pgroups fileGenerator = new pgroups(passMeOn, whatWeAreRunning);
-            
-            fileGenerator.addPropertyChangeListener(new PropertyChangeListener() {
-                @Override
-                public void propertyChange(PropertyChangeEvent evt){
-                    String name = evt.getPropertyName();
-                    if (name.equals("progress")) {
-                        int progress = (int) evt.getNewValue();
-//                        String test = fileGenerator.process();
-                        jProgressBar1.setValue(progress);
-//                        jProgressBar1.setString("Your total is " + progress);
-                        repaint();
+                boolean[] whatWeAreRunning = {allelesToggle, ggroupsToggle, pgroupsToggle, showMeTheFiles};
+
+                String[] passMeOn = {location, "test"};
+
+                pgroups fileGenerator = new pgroups(passMeOn, whatWeAreRunning);
+
+                fileGenerator.addPropertyChangeListener(new PropertyChangeListener() {
+                    @Override
+                    public void propertyChange(PropertyChangeEvent evt){
+                        String name = evt.getPropertyName();
+                        if (name.equals("progress")) {
+                            int progress = (int) evt.getNewValue();
+    //                        String test = fileGenerator.process();
+                            jProgressBar1.setValue(progress);
+    //                        jProgressBar1.setString("Your total is " + progress);
+                            repaint();
+                        }
                     }
-                }
-            });
-            
-            fileGenerator.execute();
-            
+                });
+
+                fileGenerator.execute();
+            }
         } catch (Exception ex) {
             System.out.println(ex);
         }
@@ -352,6 +357,7 @@ public class pgroupsUI extends javax.swing.JFrame {
     private javax.swing.JRadioButton ShowFiles;
     private javax.swing.JButton Start;
     private javax.swing.JCheckBox jCheckBox1;
+    private javax.swing.JOptionPane jOptionPane1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JProgressBar jProgressBar1;
     private javax.swing.JSeparator jSeparatorFileSave;
