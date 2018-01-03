@@ -17,40 +17,37 @@ import java.net.URL;
 
 public class SaveUrl{
     
-    public BufferedInputStream in;
-    public FileOutputStream fout;
+//    public BufferedInputStream in;
+//    public FileOutputStream fout;
     
-    public SaveUrl(String filename, String urlString)
-        throws MalformedURLException, IOException {
-            try {
-                in = new BufferedInputStream(new URL(urlString).openStream());
-                fout = new FileOutputStream(filename);
-            } catch (Exception ex) {
-                System.out.println(ex);
-            }
+    public SaveUrl() {
     }
     
-    public FileOutputStream saveTheUrl() throws MalformedURLException, IOException {
-        try {
-            System.out.println("beginning of save url");
-            final byte data[] = new byte[1024];
-            int count;
-            while ((count = in.read(data, 0, 1024)) != -1) {
-                fout.write(data, 0, count);
+    public static FileOutputStream saveTheUrl(String filename, String urlString) 
+            throws MalformedURLException, IOException {
+                BufferedInputStream in = new BufferedInputStream(new URL(urlString)
+                        .openStream());
+                FileOutputStream fout = new FileOutputStream(filename);
+                try {
+                    System.out.println("beginning of save url");
+                    final byte data[] = new byte[1024];
+                    int count;
+                    while ((count = in.read(data, 0, 1024)) != -1) {
+                        fout.write(data, 0, count);
+                    }
+                } catch (Exception ex) {
+                    System.out.println(ex);
+                } finally {
+                    if (in != null) {
+                        in.close();
+                    }
+                    if (fout != null) {
+                        fout.close();
+                    }
+                }
+                System.out.println("end of save url");
+                return fout;
             }
-        } catch (Exception ex) {
-            System.out.println(ex);
-        } finally {
-            if (in != null) {
-                in.close();
-            }
-            if (fout != null) {
-                fout.close();
-            }
-        }
-        System.out.println("end of save url");
-        return fout;
-    }
 }
 
 ////    public FileOutputStream SaveUrl(final String filename, final String urlString)

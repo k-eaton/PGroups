@@ -312,12 +312,12 @@ public class pgroups extends SwingWorker<Void, String> {
 //--- finished reading from cwd200_alleles.txt
     
 //--- START Downloading/unzip/READING xml FILE    
-        SaveUrl saveUrl = new SaveUrl(Xml, ambigsXMLsource);
-        saveUrl.saveTheUrl();
-        
+        SaveUrl.saveTheUrl(Xml, ambigsXMLsource);
     setProgress(35);
     
-        Unzip unzipFile = new Unzip(directory[0] + System.getProperty("file.separator") + "hla_ambigs.xml.zip",directory[0]);
+        Unzip unzipFile = new Unzip(directory[0] 
+                + System.getProperty("file.separator") 
+                + "hla_ambigs.xml.zip", directory[0]);
         unzipFile.unzipTheFile();
         
     setProgress(40);
@@ -536,14 +536,12 @@ public class pgroups extends SwingWorker<Void, String> {
         }   
         
         scnr.close();
-          //  System.out.println("--Im out HLA_nom_p----");
-      //} 
-  //----Finished reading from hla_nom_p.txt   //----Finished reading from hla_nom_p.txt   //----Finished reading from hla_nom_p.txt   //----Finished reading from hla_nom_p.txt 
-     
+
+  //----Finished reading from hla_nom_p.txt   
         
   //--START delete xml & .zip file here
         boolean deleted; 
-        File xmlDown = new File(directory[0] + System.getProperty("file.separator") + "hla_ambigs.xml.zip"); //#1
+        File xmlDown = new File(directory[0] + System.getProperty("file.separator") + "hla_ambigs.xml.zip");
 
         while (!xmlDown.toString().equals("")){
             System.out.println("About to delete file: " + xmlDown);
@@ -564,7 +562,6 @@ public class pgroups extends SwingWorker<Void, String> {
            
 //--START write cwd Ggroups file     
         if (makeGgroups){
-            System.out.println("Running G-Groups");
             String gGroupLocus; // need to catch the locus for the file
             SSkeys = new TreeSet<>(Allcwdgroups.keySet());
             SSkeysIt = SSkeys.iterator();
@@ -656,10 +653,8 @@ public class pgroups extends SwingWorker<Void, String> {
         }
 //--FINISH MAKE UPDATED CWD ALLELES FILE
  
-//--START write file: cwdXXX_P-groups.txt    
+//--START write file: cwd_XXX_p-groups.txt    
         if(makePgroups){  
-            System.out.println("Running P-Groups");
-
             SSkeys = new TreeSet<>(Allpgroups.keySet());
             SSkeysIt =  SSkeys.iterator();
             lineNumber = 0;               
@@ -701,13 +696,11 @@ public class pgroups extends SwingWorker<Void, String> {
                 if (runMe[3] == true) {
                     Desktop.getDesktop().open(new File(fileName));
                 }
-
             } catch (IOException e) {
                 System.out.println(e);
             }
-
         }
-//--FINISH write file: cwd210_P-groups.txt    
+//--FINISH write file: cwd_XXX_p-groups.txt    
     setProgress(100);
         return null;
     }
