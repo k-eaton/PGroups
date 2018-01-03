@@ -27,13 +27,11 @@ public class WriteFile {
         
     }
     
-    public void pGroups(String version){
-        cwdFile = new BufferedWriter(new FileWriter(directory[0] 
-                + System.getProperty("file.separator") 
-                + "cwd_"  
-                + (version.replace(".", "")).replace(".","")
-                + "_p-groups.txt"));
-        
+    public void pGroups (String fileName) throws IOException {
+        try {
+            cwdFile = new BufferedWriter(new FileWriter(fileName));
+        } catch (Exception ex) {
+            System.out.println(ex); 
+        }
     }
-    
 }

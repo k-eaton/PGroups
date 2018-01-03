@@ -689,13 +689,18 @@ public class pgroups extends SwingWorker<Void, String> {
             lineNumber = 0;               
 
             OldPgroupSourceName = OldPgroup.getFile().substring(6);
+            String fileName = (directory[0] 
+                        + System.getProperty("file.separator") + "cwd_"  
+                        + (oldAllelesNewVersion.replaceAll("\\.", "")) 
+                        + "_p-groups.txt");
             try {  
 //        setProgress(80);
                 BufferedWriter cwdFile;
-                cwdFile = new BufferedWriter(new FileWriter(directory[0] 
-                        + System.getProperty("file.separator") + "cwd_"  
-                        + (oldAllelesNewVersion.replaceAll("\\.", "")) 
-                        + "_p-groups.txt"));
+                cwdFile = new BufferedWriter(new FileWriter(fileName));
+//                cwdFile = new BufferedWriter(new FileWriter(directory[0] 
+//                        + System.getProperty("file.separator") + "cwd_"  
+//                        + (oldAllelesNewVersion.replaceAll("\\.", "")) 
+//                        + "_p-groups.txt"));
                 cwdFile.write("# Categories for P Groups in the CWD " 
                         + oldAllelesNewVersion + " Catalogue" + CRet);
                 cwdFile.write("# Derived from: " + oldAllelesSourceName 
@@ -723,18 +728,13 @@ public class pgroups extends SwingWorker<Void, String> {
                 
                 // Open the file if the user chooses to
                 if (runMe[3] == true) {
-                    String pgroupsFileLocation = directory[0] 
-                            + System.getProperty("file.separator") 
-                            + "cwd_" 
-                            // finds proper version in file name
-                            + (oldAllelesNewVersion.replaceAll("\\.", ""))
-                            + "_p-groups.txt";
-                    
                     // I know I should be able to consolodate these two lines,
                     // but the program no longer recognizes File as an object
                     // when I do.
-                    File fileToOpen = new File(pgroupsFileLocation);
-                    Desktop.getDesktop().open(fileToOpen);
+                    File fileToOpen = new File(fileName);
+                    Desktop.getDesktop().open(new File(fileName));
+//                    Desktop.getDesktop().open(fileToOpen);
+
                 }
 
             } catch (IOException e) {
