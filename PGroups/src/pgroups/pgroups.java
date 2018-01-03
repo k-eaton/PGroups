@@ -596,8 +596,7 @@ public class pgroups extends SwingWorker<Void, String> {
                     Desktop.getDesktop().open(new File(fileName));
                 }
             } catch (IOException e) {
-                        System.out.println(e);
-
+                System.out.println(e);
             }  
         }
 //--FINISH write file: cwd210_g-groups.txt
@@ -648,7 +647,7 @@ public class pgroups extends SwingWorker<Void, String> {
                     Desktop.getDesktop().open(new File(fileName));
                 }
             } catch (IOException e) {
-                        System.out.println(e);
+                System.out.println(e);
             } 
         }
 //--FINISH MAKE UPDATED CWD ALLELES FILE
