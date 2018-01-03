@@ -574,7 +574,7 @@ public class pgroups extends SwingWorker<Void, String> {
                 BufferedWriter cwdFile;
                 cwdFile = new BufferedWriter(new FileWriter(directory[0] 
                         + System.getProperty("file.separator") + "cwd_" 
-                        + (oldAllelesNewVersion.replace(".", "")).replace(".","") 
+                        + (oldAllelesNewVersion.replaceAll("\\.", "")) 
                         + "_g-groups.txt"));
                 cwdFile.write("# Categories for G Groups in the CWD "
                         + oldAllelesNewVersion + " Catalogue" + CRet);
@@ -601,7 +601,7 @@ public class pgroups extends SwingWorker<Void, String> {
                             + System.getProperty("file.separator") 
                             + "cwd_" 
                             // finds proper version in file name
-                            + (oldAllelesNewVersion.replace(".", "")).replace(".","")
+                            + (oldAllelesNewVersion.replaceAll("\\.", ""))
                             + "_g-groups.txt";
                     
                     // I know I should be able to consolodate these two lines,
@@ -625,7 +625,7 @@ public class pgroups extends SwingWorker<Void, String> {
                 BufferedWriter cwdFile;
                 cwdFile = new BufferedWriter(new FileWriter(directory[0] 
                         + System.getProperty("file.separator") + "cwd_" 
-                        + (oldAllelesNewVersion.replace(".", "")).replace(".","") 
+                        + (oldAllelesNewVersion.replaceAll("\\.", "")) 
                         + "_alleles.txt"));
                 //HLA Alleles in the CWD 2.0.0 Catalogue
                 cwdFile.write("# HLA Alleles in the CWD "+ oldAllelesNewVersion 
@@ -665,7 +665,7 @@ public class pgroups extends SwingWorker<Void, String> {
                             + System.getProperty("file.separator") 
                             + "cwd_" 
                             // finds proper version in file name
-                            + (oldAllelesNewVersion.replace(".", "")).replace(".","")
+                            + (oldAllelesNewVersion.replaceAll("\\.", ""))
                             + "_alleles.txt";
                     
                     // I know I should be able to consolodate these two lines,
@@ -691,11 +691,10 @@ public class pgroups extends SwingWorker<Void, String> {
             OldPgroupSourceName = OldPgroup.getFile().substring(6);
             try {  
 //        setProgress(80);
-                System.out.println(oldAllelesNewVersion.replace(".", ""));
                 BufferedWriter cwdFile;
                 cwdFile = new BufferedWriter(new FileWriter(directory[0] 
                         + System.getProperty("file.separator") + "cwd_"  
-                        + (oldAllelesNewVersion.replace(".", "")).replace(".","") 
+                        + (oldAllelesNewVersion.replaceAll("\\.", "")) 
                         + "_p-groups.txt"));
                 cwdFile.write("# Categories for P Groups in the CWD " 
                         + oldAllelesNewVersion + " Catalogue" + CRet);
@@ -728,7 +727,7 @@ public class pgroups extends SwingWorker<Void, String> {
                             + System.getProperty("file.separator") 
                             + "cwd_" 
                             // finds proper version in file name
-                            + (oldAllelesNewVersion.replace(".", "")).replace(".","")
+                            + (oldAllelesNewVersion.replaceAll("\\.", ""))
                             + "_p-groups.txt";
                     
                     // I know I should be able to consolodate these two lines,
