@@ -188,6 +188,12 @@ public class pgroups extends SwingWorker<Void, String> {
 //        }
 //    }
 
+    
+//    @Override
+//    public static void cancel(){
+//        cancel();
+//    }
+    
     @SuppressWarnings("empty-statement")
     @Override
     protected Void doInBackground()throws FileNotFoundException, SAXException, IOException, ParserConfigurationException, ParseException{
@@ -332,6 +338,9 @@ public class pgroups extends SwingWorker<Void, String> {
         dBuilders = dbFactorys.newDocumentBuilder();
         Document docs = dBuilders.parse(Xml);
                 //.parse(zipxmlurl);
+//        if(asynctask.iscancel()){
+//            break;
+//        }
         docs.getDocumentElement().normalize();
         NodeList nLists = docs.getElementsByTagName("tns:gGroup");
         
