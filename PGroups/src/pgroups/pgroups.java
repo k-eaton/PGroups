@@ -318,7 +318,7 @@ public class pgroups extends SwingWorker<Void, String> {
 //--- finished reading from cwd200_alleles.txt
     
 //--- START Downloading/unzip/READING xml FILE    
-        SaveUrl.saveTheUrl(Xml, ambigsXMLsource);
+//        SaveUrl.saveTheUrl(Xml, ambigsXMLsource);
     setProgress(35);
     
         Unzip unzipFile = new Unzip(directory[0] 
@@ -370,7 +370,7 @@ public class pgroups extends SwingWorker<Void, String> {
                 oldAllelesNewVersion = updatetable.get(xmlSourceVersion);
             } else {
 //                oldAllelesNewVersion = "unknown_version";
-                throw new RuntimeException("There's no verion listed in hla_ambigs.xml");
+                throw new Error("There's no verion listed in hla_ambigs.xml");
             }
         } catch (Exception ex) {
             System.out.println(ex);
@@ -718,4 +718,5 @@ public class pgroups extends SwingWorker<Void, String> {
     setProgress(100);
         return null;
     }
+    
 }
