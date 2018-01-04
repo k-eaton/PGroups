@@ -196,7 +196,7 @@ public class pgroups extends SwingWorker<Void, String> {
     
     @SuppressWarnings("empty-statement")
     @Override
-    protected Void doInBackground()throws FileNotFoundException, SAXException, IOException, ParserConfigurationException, ParseException{
+    protected Void doInBackground()throws FileNotFoundException, SAXException, IOException, ParserConfigurationException, ParseException, RuntimeException{
 
 //---All Hashmaps---
         HashMap<String, String> AlleleList = new HashMap<>(); // contains the ACC#s and reference allele names for the current database release version = ALhistory file
@@ -363,11 +363,17 @@ public class pgroups extends SwingWorker<Void, String> {
         xmlSourceNameIndex = xmlSourceNameList.length;
         xmlSourceName = xmlSourceNameList[xmlSourceNameIndex-1];
         System.out.println("xmlSourceName = " + xmlSourceName);
-            
-        if (StringUtils.isNotBlank(updatetable.get(xmlSourceVersion))){         
-            oldAllelesNewVersion = updatetable.get(xmlSourceVersion);
-        } else {
-            oldAllelesNewVersion = "unknown_version";
+        
+        oldAllelesNewVersion = "unknown_version";
+        try {
+            if (StringUtils.isNotBlank(updatetable.get(xmlSourceVersion))){         
+                oldAllelesNewVersion = updatetable.get(xmlSourceVersion);
+            } else {
+//                oldAllelesNewVersion = "unknown_version";
+                throw new RuntimeException("There's no verion listed in hla_ambigs.xml");
+            }
+        } catch (Exception ex) {
+            System.out.println(ex);
         }
         String gGroupName = new String(); 
         String gGroupGID = new String();  

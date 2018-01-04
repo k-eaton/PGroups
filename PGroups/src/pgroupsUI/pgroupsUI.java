@@ -319,25 +319,15 @@ public class pgroupsUI extends javax.swing.JFrame {
             FileUtils.forceDelete(xmlDown);        
         } catch (Exception ex) {
             System.out.println(ex);
+        } finally {
+            
         }
 
         System.exit(0);
     }//GEN-LAST:event_CancelActionPerformed
 
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
-//
-//        File xmlDown = new File(SaveDirectoryLabel.getText() 
-//                + System.getProperty("file.separator") + "hla_ambigs.xml");
-//        File xmlDownZip = new File(SaveDirectoryLabel.getText() 
-//                + System.getProperty("file.separator") + "hla_ambigs.xml.zip");
-//        try {
-//            FileUtils.forceDelete(xmlDownZip);        
-//            FileUtils.forceDelete(xmlDown);        
-//        } catch (Exception ex) {
-//            System.out.println(ex);
-//        } finally {
-//            System.exit(0);
-//        }
+
     }//GEN-LAST:event_formWindowClosed
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
