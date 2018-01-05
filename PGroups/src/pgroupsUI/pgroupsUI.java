@@ -46,6 +46,7 @@ public class pgroupsUI extends javax.swing.JFrame {
         DirectoryChooser = new javax.swing.JFileChooser();
         jCheckBox1 = new javax.swing.JCheckBox();
         jOptionPane1 = new javax.swing.JOptionPane();
+        jOptionPane2 = new javax.swing.JOptionPane();
         jPanel1 = new javax.swing.JPanel();
         Alleles = new javax.swing.JCheckBox();
         GGroups = new javax.swing.JCheckBox();
@@ -398,6 +399,7 @@ public class pgroupsUI extends javax.swing.JFrame {
     private javax.swing.JButton Start;
     private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JOptionPane jOptionPane1;
+    public static javax.swing.JOptionPane jOptionPane2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JProgressBar jProgressBar1;
     private javax.swing.JSeparator jSeparatorFileSave;

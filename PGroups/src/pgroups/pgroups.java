@@ -5,6 +5,8 @@
  */
 package pgroups;
 
+import pgroupsUI.*;
+
 import java.awt.Desktop;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -370,10 +372,13 @@ public class pgroups extends SwingWorker<Void, String> {
                 oldAllelesNewVersion = updatetable.get(xmlSourceVersion);
             } else {
 //                oldAllelesNewVersion = "unknown_version";
-                throw new Error("There's no verion listed in hla_ambigs.xml");
+                throw new RuntimeException("There's no verion listed in hla_ambigs.xml");
+
             }
         } catch (Exception ex) {
             System.out.println(ex);
+            pgroupsUI.jOptionPane2.showMessageDialog(pgroupsUI.jOptionPane2, ex);
+
         }
         String gGroupName = new String(); 
         String gGroupGID = new String();  
@@ -712,11 +717,13 @@ public class pgroups extends SwingWorker<Void, String> {
                 }
             } catch (IOException e) {
                 System.out.println(e);
+                pgroupsUI.jOptionPane2.showMessageDialog(pgroupsUI.jOptionPane2, e);
+
             }
         }
 //--FINISH write file: cwd_XXX_p-groups.txt    
     setProgress(100);
         return null;
     }
-    
+     
 }
