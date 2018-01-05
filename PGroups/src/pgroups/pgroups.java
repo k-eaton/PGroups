@@ -377,7 +377,7 @@ public class pgroups extends SwingWorker<Void, String> {
             }
         } catch (Exception ex) {
             System.out.println(ex);
-            pgroupsUI.jOptionPane2.showMessageDialog(pgroupsUI.jOptionPane2, ex);
+            pgroupsUI.jOptionPane2.showConfirmDialog(pgroupsUI.jOptionPane2, ex);
 
         }
         String gGroupName = new String(); 
