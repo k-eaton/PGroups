@@ -46,7 +46,8 @@ public class pgroupsUI extends javax.swing.JFrame {
         DirectoryChooser = new javax.swing.JFileChooser();
         jCheckBox1 = new javax.swing.JCheckBox();
         jOptionPane1 = new javax.swing.JOptionPane();
-        jOptionPane2 = new javax.swing.JOptionPane();
+        jOptionPane2 = new javax.swing.JOptionPane(jOptionPane2.YES_NO_OPTION);
+        ;
         jPanel1 = new javax.swing.JPanel();
         Alleles = new javax.swing.JCheckBox();
         GGroups = new javax.swing.JCheckBox();
@@ -65,6 +66,12 @@ public class pgroupsUI extends javax.swing.JFrame {
         DirectoryChooser.setFileSelectionMode(javax.swing.JFileChooser.DIRECTORIES_ONLY);
 
         jCheckBox1.setText("jCheckBox1");
+
+        jOptionPane2.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                jOptionPane2PropertyChange(evt);
+            }
+        });
 
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosed(java.awt.event.WindowEvent evt) {
@@ -345,6 +352,12 @@ public class pgroupsUI extends javax.swing.JFrame {
             System.exit(0);
         }
     }//GEN-LAST:event_formWindowClosing
+
+    private void jOptionPane2PropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jOptionPane2PropertyChange
+
+
+
+    }//GEN-LAST:event_jOptionPane2PropertyChange
 
    
     /**
