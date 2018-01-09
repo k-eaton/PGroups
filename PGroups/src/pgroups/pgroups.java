@@ -40,9 +40,11 @@ import org.xml.sax.SAXException;
 
 //public class pgroups extends SwingWorker<StatusBar, Void> {
 public class pgroups extends SwingWorker<Void, String> {
+//public class pgroups {
 
     private boolean[] runMe;
     private String[] directory;
+//    private Process runningProcess = null;
     
     //---All Urls used to get Files---
     private final URL OldPgroup = new URL("https://raw.githubusercontent.com/ANHIG/IMGTHLA/Latest/wmda/hla_nom_p.txt");  //hla_nom_p.txt
@@ -54,6 +56,7 @@ public class pgroups extends SwingWorker<Void, String> {
     public pgroups(String args[], boolean[] toggles ) throws IOException {
         runMe = toggles;
         directory = args;
+//        runningProcess = runtime.exec();
     }
     
     /**
@@ -195,10 +198,13 @@ public class pgroups extends SwingWorker<Void, String> {
 //    public static void cancel(){
 //        cancel();
 //    }
-    
-    @SuppressWarnings("empty-statement")
+
+//    @SuppressWarnings("empty-statement")
     @Override
-    protected Void doInBackground()throws FileNotFoundException, SAXException, IOException, ParserConfigurationException, ParseException, RuntimeException{
+//    new SwingWorker<Void, String>(){
+    protected Void doInBackground()throws FileNotFoundException, 
+            SAXException, IOException, ParserConfigurationException, 
+            ParseException, RuntimeException{
 
 //---All Hashmaps---
         HashMap<String, String> AlleleList = new HashMap<>(); // contains the ACC#s and reference allele names for the current database release version = ALhistory file
@@ -216,7 +222,7 @@ public class pgroups extends SwingWorker<Void, String> {
         String xmlSourceNameList[];
         String xmlSourceNameConvert;
         Integer xmlSourceNameIndex;
-        
+
         String Xml = directory[0] + System.getProperty("file.separator") + "hla_ambigs.xml.zip"; //xmlDirectory + "hla_ambigs.xml.zip";
 
         String line; 
@@ -233,13 +239,13 @@ public class pgroups extends SwingWorker<Void, String> {
         Iterator<String> SSkeysIt = SSkeys.iterator();
         String[] Pdata = new String[3]; 
         String NewVersionNum;
- 
+
         boolean makeAlleles = runMe[0];
         boolean makeGgroups = runMe[1];
         boolean makePgroups = runMe[2];
 
-       
-        
+
+
 //---starts to read Version update Table file   
         scnr = new Scanner (Versionupdatetable.openStream());
         lineNumber = 1;
@@ -255,7 +261,7 @@ public class pgroups extends SwingWorker<Void, String> {
 //    publish("status");
     setProgress(10);
 //--end of reading Version update Table file   
-      
+
 //---starts to read Allelelist_history.txt
         scnr = new Scanner(ALhistory.openStream()); 
         String ALhistorySourceName = new String(); 
@@ -266,7 +272,7 @@ public class pgroups extends SwingWorker<Void, String> {
         ALhistorySourceName = FileNameList[FileNameIndex - 1];
         ALhistorySourceVersion = Punctuate(scnr.nextLine().split("\t")[1]);
     setProgress(20);
-    
+
         while (scnr.hasNextLine()) {
             line = scnr.nextLine();
             String[] Data = line.split("\t");
@@ -280,16 +286,16 @@ public class pgroups extends SwingWorker<Void, String> {
     setProgress(25);
         scnr.close(); // I think we need to close the scanner in the reading of the versionupdatetable
 //-- Finished reading from the Allelelist_history file
-        
+
 //--- starts to read from cwd200_alleles.txt
         scnr = new Scanner(oldAlleles.openStream()); 
-        
+
         String oldAllelesSourceName;   
         String oldAllelesSourceVersion; 
         String oldAllelesNewVersion;
         String oldSourceVersion;
         int cwdColumn = 3;
-              
+
         oldAllelesSourceName = oldAlleles.getFile();
         FileNameList = oldAllelesSourceName.split("/");
         FileNameIndex = FileNameList.length; 
@@ -297,9 +303,9 @@ public class pgroups extends SwingWorker<Void, String> {
         oldAllelesSourceVersion = scnr.nextLine().split("\t")[0];  //Line 1
         oldAllelesSourceVersion = oldAllelesSourceVersion.substring(oldAllelesSourceVersion.indexOf("CWD")+3, oldAllelesSourceVersion.indexOf("Catalogue")-1).trim();
         // this is the version of the previoius CWD catalogue
-         
+
         // oldAllelesNewVersion = updatetable.get(xmlSourceVersion); 
-         
+
         if ("2.0.0".equals(oldAllelesSourceVersion)) { cwdColumn = 5; } else scnr.nextLine(); //this is the comment line
         line = scnr.nextLine();  // this is the header line
         oldSourceVersion = line.split("\t")[cwdColumn + 1];         
@@ -307,7 +313,7 @@ public class pgroups extends SwingWorker<Void, String> {
         // From the name extended column, this is the version of the old file
         String AlleleSourceVersion = line.split("\t")[2]; 
         AlleleSourceVersion = AlleleSourceVersion.substring(AlleleSourceVersion.indexOf("HLA")+4, AlleleSourceVersion.indexOf("Allele")-1).trim();  
-        
+
         while (scnr.hasNextLine()) {
             line= scnr.nextLine();
             if (!line.equals("")) {
@@ -318,23 +324,23 @@ public class pgroups extends SwingWorker<Void, String> {
         scnr.close();
     setProgress(30);
 //--- finished reading from cwd200_alleles.txt
-    
+
 //--- START Downloading/unzip/READING xml FILE    
-//        SaveUrl.saveTheUrl(Xml, ambigsXMLsource);
+        SaveUrl.saveTheUrl(Xml, ambigsXMLsource);
     setProgress(35);
-    
+
         Unzip unzipFile = new Unzip(directory[0] 
                 + System.getProperty("file.separator") 
                 + "hla_ambigs.xml.zip", directory[0]);
         unzipFile.unzipTheFile();
-        
+
     setProgress(40);
 
         Xml = directory[0] + System.getProperty("file.separator") + "hla_ambigs.xml";
 
         String xmlSourceVersion = new String(); 
         String xmlSourceDate = new String(); 
-    
+
         DocumentBuilderFactory dbFactorys = DocumentBuilderFactory.newInstance();
         DocumentBuilder dBuilders;
         dBuilders = dbFactorys.newDocumentBuilder();
@@ -345,9 +351,9 @@ public class pgroups extends SwingWorker<Void, String> {
 //        }
         docs.getDocumentElement().normalize();
         NodeList nLists = docs.getElementsByTagName("tns:gGroup");
-        
+
     setProgress(45);
-    
+
         NodeList nSource = docs.getElementsByTagName("tns:releaseVersion"); //SM-07/03/2015 This section is new, for pulling documentation of the source files
         if (nSource.item(0).getNodeType() == Node.ELEMENT_NODE) { // assumes source documentation only occurs once in the xml file. 
             Element eSource = (Element) nSource.item(0);
@@ -355,9 +361,9 @@ public class pgroups extends SwingWorker<Void, String> {
             System.out.println("xmlSourceVersion = " + xmlSourceVersion);
             xmlSourceDate = eSource.getAttribute("date");       
         } 
-        
+
     setProgress(50);
-        
+
         System.out.println(Xml);
         xmlSourceNameConvert = Xml.replace("\\", "/");
         System.out.println(xmlSourceNameConvert);
@@ -365,7 +371,7 @@ public class pgroups extends SwingWorker<Void, String> {
         xmlSourceNameIndex = xmlSourceNameList.length;
         xmlSourceName = xmlSourceNameList[xmlSourceNameIndex-1];
         System.out.println("xmlSourceName = " + xmlSourceName);
-        
+
         oldAllelesNewVersion = "unknown_version";
         try {
             if (StringUtils.isNotBlank(updatetable.get(xmlSourceVersion))){         
@@ -385,7 +391,8 @@ public class pgroups extends SwingWorker<Void, String> {
                     pgroupsUI.jOptionPane2.YES_NO_OPTION);
             System.out.println(pgroupsUI.jOptionPane2.NO_OPTION);
             if (result == 1) {
-//                break;
+                System.out.println("Successfully chose to cancel");
+
                 System.exit(0);
             }
 
@@ -397,9 +404,9 @@ public class pgroups extends SwingWorker<Void, String> {
 
         for (int i = 0; i < nLists.getLength(); i++) {
             Node nNodes = nLists.item(i); 
-         
+
             if (nNodes.getNodeType() == Node.ELEMENT_NODE) {
-                
+
                 Element eElements = (Element) nNodes;
                 gGroupName = eElements.getAttribute("name"); 
                 gGroupGID = eElements.getAttribute("gid");   
@@ -441,30 +448,30 @@ public class pgroups extends SwingWorker<Void, String> {
                         } // no? go on to the next sibling
                     } 
                 }  
-        
+
             } else { 
                 System.out.println("NO CHILD FOUND for: "+ nLists);
             }  
             //ChildNode ends
 
     setProgress(60);
-            
+
             if ("".equals(CurrentCWDStatus)){    // cwdStat should never be 'null' it should either have a C or WD value or ""
                 nNodes.getNextSibling();   // yes: go on to next nNode
             } else {
-                  
+
                 CWDhashWrite(gGroupName,gGroupGID,CurrentCWDStatus,Allcwdgroups); //SM: use CWDhashWrite to do all the work 
                 nNodes.getNextSibling();                                                               
                 // No: add this gGroup to the ggroups hash, using the gGroup name as the key, with the gid and the cwd-status as Value, using CWDhashWrite
             }
         }
         //--- FINISHED Downloading/unzip/READING xml FILE         
-    
+
     setProgress(70);
-        
+
         //--START  UPDATED CWD ALLELES LIST       
         Iterator<String> keyIt = Allcwdalleles.keySet().iterator();
-        
+
         while (keyIt.hasNext()) {
             key = keyIt.next();
 
@@ -480,19 +487,19 @@ public class pgroups extends SwingWorker<Void, String> {
         }
         Set keys = Updatedcwdalleles.keySet();
         Iterator<String> keysIt = keys.iterator();
-        
+
         while (keysIt.hasNext()) {
             key = keysIt.next();
             ReverseHash.put(Updatedcwdalleles.get(key).split("\t")[0], key + "\t" + Allcwdalleles.get(key).split("\t")[1]); // added CWD status to reverse updated CWD list
             lineNumber++;
         } 
 //--FINISH UPDATED CWD ALLELES LIST
-       
+
 
     setProgress(80);
 
 //---Read from hla_nom_p.txt   <--Pgroup    
-               
+
         scnr = new Scanner(OldPgroup.openStream());       
         lineNumber = 0;       
         if (scnr.hasNextLine()){ 
@@ -500,12 +507,12 @@ public class pgroups extends SwingWorker<Void, String> {
         } else {
             System.out.println("--no nextline----");
         }
-            
+
         line = scnr.nextLine();  //line1
         //System.out.println("--"+scnr.toString());
         ReadCWDStatus = ""; 
         CurrentCWDStatus = ("NONE");
-     
+
         String OldPgroupSourceName; 
         String OldPgroupSourceVersion;
         String OldPgroupSourceDate;
@@ -513,14 +520,14 @@ public class pgroups extends SwingWorker<Void, String> {
         String PgroupSourceName = new String();   
         String PgroupNewVersion = new String(); 
         //substring(0, key.indexOf("*")); 
-        
-        
+
+
         FileNameList = OldPgroup.getFile().split("/");
         FileNameIndex = FileNameList.length; 
         // System.out.println(" //"+ OldPgroup.getFile() +"||" + OldPgroupSourceName+"\\"); // figure out h0w to fix this
         // figure out a dynamic way to always get ONLY the file name from result of getFile, which is just the file name. From last /
         OldPgroupSourceName = FileNameList[FileNameIndex -1];
-              
+
         line = scnr.nextLine();  //line2 date          
         OldPgroupSourceDate = line.substring(line.indexOf(":")+2, line.length());  // figure out h0w to fix this
         System.out.println("| //"+ OldPgroupSourceDate+ "\\ |");
@@ -533,10 +540,10 @@ public class pgroups extends SwingWorker<Void, String> {
         scnr.nextLine();          //skips: # author: WHO, Steven G. E. Marsh (steven.marsh@ucl.ac.uk)   
 
     setProgress(90);        
-        
+
         while(scnr.hasNextLine()){
             line = scnr.nextLine();
-                     
+
             if (!line.endsWith(";")) {
                 Pdata = line.split(";");   //[0]= Locus, [1]=allele, [2]= Pgroup 
                 lineNumber++;
@@ -564,11 +571,11 @@ public class pgroups extends SwingWorker<Void, String> {
                 CurrentCWDStatus = "NONE";   
             }           
         }   
-        
+
         scnr.close();
 
   //----Finished reading from hla_nom_p.txt   
-        
+
   //--START delete xml & .zip file here
         boolean deleted; 
         File xmlDown = new File(directory[0] + System.getProperty("file.separator") + "hla_ambigs.xml.zip");
@@ -587,9 +594,9 @@ public class pgroups extends SwingWorker<Void, String> {
                     break; 
             }    
         }
-            
+
 //-- FINISHED delete xml & .zip file here 
-           
+
 //--START write cwd Ggroups file     
         if (makeGgroups){
             String gGroupLocus; // need to catch the locus for the file
@@ -601,7 +608,7 @@ public class pgroups extends SwingWorker<Void, String> {
                         + "_g-groups.txt");
             try{
                 BufferedWriter cwdFile = new BufferedWriter(new FileWriter(fileName));
-                
+
                 cwdFile.write("# Categories for G Groups in the CWD "
                         + oldAllelesNewVersion + " Catalogue" + CRet);
                 cwdFile.write("# Derived from: " + oldAllelesSourceName 
@@ -620,7 +627,7 @@ public class pgroups extends SwingWorker<Void, String> {
                             + CWDhashRead(1,Allcwdgroups.get(key)) + CRet);
                 }
                 cwdFile.close();  
-                
+
                 // Open the file if the user chooses to
                 if (runMe[3]) {
                     Desktop.getDesktop().open(new File(fileName));
@@ -630,7 +637,7 @@ public class pgroups extends SwingWorker<Void, String> {
             }  
         }
 //--FINISH write file: cwd210_g-groups.txt
-          
+
 //--START write UPDATED CWD ALLELES file     
         if (makeAlleles){ 
             String fileName = (directory[0] 
@@ -639,7 +646,7 @@ public class pgroups extends SwingWorker<Void, String> {
                     + "_alleles.txt");
             try {       
                 BufferedWriter cwdFile = new BufferedWriter(new FileWriter(fileName));
-                
+
                 //HLA Alleles in the CWD 2.0.0 Catalogue
                 cwdFile.write("# HLA Alleles in the CWD "+ oldAllelesNewVersion 
                         + " Catalogue" + "\t" + "\t" + "\t" + "\t" + CRet); 	
@@ -671,7 +678,7 @@ public class pgroups extends SwingWorker<Void, String> {
                     lineNumber++;
                 } 
                 cwdFile.close();
-                
+
                 // Open the file if the user chooses to
                 if (runMe[3] == true) {
                     Desktop.getDesktop().open(new File(fileName));
@@ -681,7 +688,7 @@ public class pgroups extends SwingWorker<Void, String> {
             } 
         }
 //--FINISH MAKE UPDATED CWD ALLELES FILE
- 
+
 //--START write file: cwd_XXX_p-groups.txt    
         if(makePgroups){  
             SSkeys = new TreeSet<>(Allpgroups.keySet());
@@ -695,7 +702,7 @@ public class pgroups extends SwingWorker<Void, String> {
                         + "_p-groups.txt");
             try {  
                 BufferedWriter cwdFile = new BufferedWriter(new FileWriter(fileName));
-                
+
                 cwdFile.write("# Categories for P Groups in the CWD " 
                         + oldAllelesNewVersion + " Catalogue" + CRet);
                 cwdFile.write("# Derived from: " + oldAllelesSourceName 
@@ -720,7 +727,7 @@ public class pgroups extends SwingWorker<Void, String> {
                     lineNumber++;        
                 }
                 cwdFile.close();
-                
+
                 // Open the file if the user chooses to
                 if (runMe[3] == true) {
                     Desktop.getDesktop().open(new File(fileName));
@@ -735,5 +742,4 @@ public class pgroups extends SwingWorker<Void, String> {
     setProgress(100);
         return null;
     }
-     
 }

@@ -279,8 +279,8 @@ public class pgroupsUI extends javax.swing.JFrame {
     private void StartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_StartActionPerformed
 
         try {
-            String location;
-            location = SaveDirectoryLabel.getText();
+
+            String location = SaveDirectoryLabel.getText();
             
             boolean allelesToggle = Alleles.isSelected();
             boolean ggroupsToggle = GGroups.isSelected();
@@ -310,7 +310,6 @@ public class pgroupsUI extends javax.swing.JFrame {
                         }
                     }
                 });
-
                 fileGenerator.execute();
             }
         } catch (Exception ex) {
