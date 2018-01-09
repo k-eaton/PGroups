@@ -326,7 +326,7 @@ public class pgroups extends SwingWorker<Void, String> {
 //--- finished reading from cwd200_alleles.txt
 
 //--- START Downloading/unzip/READING xml FILE    
-        SaveUrl.saveTheUrl(Xml, ambigsXMLsource);
+//        SaveUrl.saveTheUrl(Xml, ambigsXMLsource);
     setProgress(35);
 
         Unzip unzipFile = new Unzip(directory[0] 

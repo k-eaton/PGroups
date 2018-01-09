@@ -8,6 +8,7 @@ package pgroupsUI;
 import pgroups.*;
 
 import java.awt.Component;
+import java.awt.event.*;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.*;
@@ -311,6 +312,14 @@ public class pgroupsUI extends javax.swing.JFrame {
                     }
                 });
                 fileGenerator.execute();
+                
+                Cancel.addActionListener(new ActionListener() {
+                    public void actionPerformed(ActionEvent e) 
+                    {
+                        // Stop the swing worker thread
+                        fileGenerator.cancel(true);
+                    }
+                });
             }
         } catch (Exception ex) {
             System.out.println(ex);
