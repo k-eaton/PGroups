@@ -7,11 +7,14 @@ package pgroupsUI;
 
 import pgroups.*;
 
+import java.awt.Component;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
+import javax.swing.JOptionPane;
+import javax.swing.JOptionPane.*;
 import javax.swing.SwingWorker;
 import org.apache.commons.io.FileUtils;
 
@@ -46,8 +49,8 @@ public class pgroupsUI extends javax.swing.JFrame {
         DirectoryChooser = new javax.swing.JFileChooser();
         jCheckBox1 = new javax.swing.JCheckBox();
         jOptionPane1 = new javax.swing.JOptionPane();
-        jOptionPane2 = new javax.swing.JOptionPane(jOptionPane2.YES_NO_OPTION);
-        ;
+        String theMessage = "There is no version and or date listed in hla_ambigs.xml. Would you like to continue?";
+        jOptionPane2 = new javax.swing.JOptionPane();
         jPanel1 = new javax.swing.JPanel();
         Alleles = new javax.swing.JCheckBox();
         GGroups = new javax.swing.JCheckBox();
@@ -354,8 +357,12 @@ public class pgroupsUI extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowClosing
 
     private void jOptionPane2PropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jOptionPane2PropertyChange
+        System.out.println(jOptionPane2.YES_OPTION);
+        System.out.println(jOptionPane2.NO_OPTION);
 
-
+        if (jOptionPane2.NO_OPTION == 1) {
+            System.exit(0);
+        }
 
     }//GEN-LAST:event_jOptionPane2PropertyChange
 
