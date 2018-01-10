@@ -14,16 +14,6 @@
     </Component>
     <Component class="javax.swing.JOptionPane" name="jOptionPane1">
     </Component>
-    <Component class="javax.swing.JOptionPane" name="jOptionPane2">
-      <Events>
-        <EventHandler event="propertyChange" listener="java.beans.PropertyChangeListener" parameters="java.beans.PropertyChangeEvent" handler="jOptionPane2PropertyChange"/>
-      </Events>
-      <AuxValues>
-        <AuxValue name="JavaCodeGenerator_CreateCodePre" type="java.lang.String" value="String theMessage = &quot;There is no version and or date listed in hla_ambigs.xml. Would you like to continue?&quot;;"/>
-        <AuxValue name="JavaCodeGenerator_SerializeTo" type="java.lang.String" value="pgroupsUI_jOptionPane2"/>
-        <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
-      </AuxValues>
-    </Component>
   </NonVisualComponents>
   <SyntheticProperties>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>

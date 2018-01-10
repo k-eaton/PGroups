@@ -6,6 +6,7 @@
 package pgroupsUI;
 
 import javax.swing.JOptionPane;
+import pgroups.pgroups;
 
 
 /**
@@ -20,8 +21,12 @@ public class WarningPanes {
     public static void exceptionPane(Exception warning) {
         JOptionPane warningPane = new JOptionPane();
         String errorMessage = warning + "\n" + "Would you like to continue?";
-        warningPane.showConfirmDialog(null, errorMessage, "Error", 
+        int result = warningPane.showConfirmDialog(null, errorMessage, "Error", 
                 warningPane.YES_NO_OPTION);
+        if (result == 1){
+            System.out.println("Chose no.");
+            pgroupsUI.fileGenerator.cancel(true);
+        }
 
     }
 }

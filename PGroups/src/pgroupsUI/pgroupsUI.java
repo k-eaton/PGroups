@@ -52,8 +52,6 @@ public class pgroupsUI extends javax.swing.JFrame {
         DirectoryChooser = new javax.swing.JFileChooser();
         jCheckBox1 = new javax.swing.JCheckBox();
         jOptionPane1 = new javax.swing.JOptionPane();
-        String theMessage = "There is no version and or date listed in hla_ambigs.xml. Would you like to continue?";
-        jOptionPane2 = new javax.swing.JOptionPane();
         jPanel1 = new javax.swing.JPanel();
         Alleles = new javax.swing.JCheckBox();
         GGroups = new javax.swing.JCheckBox();
@@ -72,12 +70,6 @@ public class pgroupsUI extends javax.swing.JFrame {
         DirectoryChooser.setFileSelectionMode(javax.swing.JFileChooser.DIRECTORIES_ONLY);
 
         jCheckBox1.setText("jCheckBox1");
-
-        jOptionPane2.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
-            public void propertyChange(java.beans.PropertyChangeEvent evt) {
-                jOptionPane2PropertyChange(evt);
-            }
-        });
 
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosed(java.awt.event.WindowEvent evt) {
@@ -314,14 +306,6 @@ public class pgroupsUI extends javax.swing.JFrame {
                     }
                 });
                 fileGenerator.execute();
-                
-                Cancel.addActionListener(new ActionListener() {
-                    public void actionPerformed(ActionEvent e) 
-                    {
-                        // Stop the swing worker thread
-                        fileGenerator.cancel(true);
-                    }
-                });
             }
         } catch (Exception ex) {
             System.out.println(ex);
@@ -336,6 +320,9 @@ public class pgroupsUI extends javax.swing.JFrame {
         File xmlDownZip = new File(SaveDirectoryLabel.getText() 
                 + System.getProperty("file.separator") + "hla_ambigs.xml.zip");
         try {
+            // Stop the background job so it will release the files
+            fileGenerator.cancel(true);
+            
             FileUtils.forceDelete(xmlDownZip);        
             FileUtils.forceDelete(xmlDown);        
         } catch (Exception ex) {
@@ -357,6 +344,9 @@ public class pgroupsUI extends javax.swing.JFrame {
         File xmlDownZip = new File(SaveDirectoryLabel.getText() 
                 + System.getProperty("file.separator") + "hla_ambigs.xml.zip");
         try {
+            // Stop the background job so it will release the files
+            fileGenerator.cancel(true);
+            
             FileUtils.forceDelete(xmlDownZip);        
             FileUtils.forceDelete(xmlDown);        
         } catch (Exception ex) {
@@ -365,24 +355,6 @@ public class pgroupsUI extends javax.swing.JFrame {
             System.exit(0);
         }
     }//GEN-LAST:event_formWindowClosing
-
-    private void jOptionPane2PropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jOptionPane2PropertyChange
-//        System.out.println(jOptionPane2.YES_OPTION);
-//        System.out.println(jOptionPane2.NO_OPTION);
-//
-//        if (jOptionPane2.NO_OPTION == 1) {
-//            System.exit(0);
-//        }
-
-
-                System.out.println("Successfully chose to cancel");
-            
-                if (jOptionPane2.getValue() != null)
-
-                    // Stop the swing worker thread
-                    fileGenerator.cancel(true);
-
-    }//GEN-LAST:event_jOptionPane2PropertyChange
 
    
     /**
@@ -437,7 +409,6 @@ public class pgroupsUI extends javax.swing.JFrame {
     private javax.swing.JButton Start;
     private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JOptionPane jOptionPane1;
-    public static javax.swing.JOptionPane jOptionPane2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JProgressBar jProgressBar1;
     private javax.swing.JSeparator jSeparatorFileSave;

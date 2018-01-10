@@ -732,10 +732,9 @@ public class pgroups extends SwingWorker<Void, String> {
                 if (runMe[3] == true) {
                     Desktop.getDesktop().open(new File(fileName));
                 }
-            } catch (IOException e) {
-                System.out.println(e);
-                pgroupsUI.jOptionPane2.showMessageDialog(pgroupsUI.jOptionPane2, e);
-
+            } catch (IOException ex) {
+                System.out.println(ex);
+                WarningPanes.exceptionPane(ex);
             }
         }
 //--FINISH write file: cwd_XXX_p-groups.txt    
