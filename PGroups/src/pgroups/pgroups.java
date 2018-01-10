@@ -383,18 +383,18 @@ public class pgroups extends SwingWorker<Void, String> {
             }
         } catch (Exception ex) {
             System.out.println(ex);
-            String errorMessage = "There's no verion listed in hla_ambigs.xml \n" 
-                    + "Do you wish to continue?";
-            int result = pgroupsUI.jOptionPane2.showConfirmDialog(pgroupsUI.jOptionPane2, 
-                    errorMessage, "Error",
-//                    pgroupsUI.jOptionPane2.QUESTION_MESSAGE,
-                    pgroupsUI.jOptionPane2.YES_NO_OPTION);
-            System.out.println(pgroupsUI.jOptionPane2.NO_OPTION);
-            if (result == 1) {
-                System.out.println("Successfully chose to cancel");
-
-                System.exit(0);
-            }
+            WarningPanes.exceptionPane(ex);
+//            String errorMessage = "There's no verion listed in hla_ambigs.xml \n" 
+//                    + "Do you wish to continue?";
+//            int result = pgroupsUI.jOptionPane2.showConfirmDialog(pgroupsUI.jOptionPane2, 
+//                    errorMessage, "Error",
+//                    pgroupsUI.jOptionPane2.YES_NO_OPTION);
+//            System.out.println(pgroupsUI.jOptionPane2.NO_OPTION);
+//            if (result == 1) {
+//                System.out.println("Successfully chose to cancel");
+//                pgroupsUI.fileGenerator.cancel(true);
+////                System.exit(0);
+//            }
 
         }
         String gGroupName = new String(); 

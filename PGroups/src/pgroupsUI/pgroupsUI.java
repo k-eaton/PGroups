@@ -32,6 +32,8 @@ public class pgroupsUI extends javax.swing.JFrame {
      * Creates new form pgroupsUI
      */
     
+    public static pgroups fileGenerator;
+    
     public pgroupsUI() {
         
         initComponents();
@@ -296,7 +298,7 @@ public class pgroupsUI extends javax.swing.JFrame {
 
                 String[] passMeOn = {location, "test"};
 
-                pgroups fileGenerator = new pgroups(passMeOn, whatWeAreRunning);
+                fileGenerator = new pgroups(passMeOn, whatWeAreRunning);
 
                 fileGenerator.addPropertyChangeListener(new PropertyChangeListener() {
                     @Override
@@ -365,12 +367,20 @@ public class pgroupsUI extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowClosing
 
     private void jOptionPane2PropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jOptionPane2PropertyChange
-        System.out.println(jOptionPane2.YES_OPTION);
-        System.out.println(jOptionPane2.NO_OPTION);
+//        System.out.println(jOptionPane2.YES_OPTION);
+//        System.out.println(jOptionPane2.NO_OPTION);
+//
+//        if (jOptionPane2.NO_OPTION == 1) {
+//            System.exit(0);
+//        }
 
-        if (jOptionPane2.NO_OPTION == 1) {
-            System.exit(0);
-        }
+
+                System.out.println("Successfully chose to cancel");
+            
+                if (jOptionPane2.getValue() != null)
+
+                    // Stop the swing worker thread
+                    fileGenerator.cancel(true);
 
     }//GEN-LAST:event_jOptionPane2PropertyChange
 
