@@ -383,7 +383,8 @@ public class pgroups extends SwingWorker<Void, String> {
             }
         } catch (Exception ex) {
             System.out.println(ex);
-            WarningPanes.exceptionPane(ex);
+            new WarningPanes().exceptionPane(ex);
+//            WarningPanes.warningPane(ex);
 //            String errorMessage = "There's no verion listed in hla_ambigs.xml \n" 
 //                    + "Do you wish to continue?";
 //            int result = pgroupsUI.jOptionPane2.showConfirmDialog(pgroupsUI.jOptionPane2, 
@@ -734,7 +735,7 @@ public class pgroups extends SwingWorker<Void, String> {
                 }
             } catch (IOException ex) {
                 System.out.println(ex);
-                WarningPanes.exceptionPane(ex);
+//                WarningPanes.exceptionPane(ex);
             }
         }
 //--FINISH write file: cwd_XXX_p-groups.txt    

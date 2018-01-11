@@ -18,15 +18,31 @@ public class WarningPanes {
         
     }
     
-    public static void exceptionPane(Exception warning) {
+    public void exceptionPane(Exception warning) {
         JOptionPane warningPane = new JOptionPane();
         String errorMessage = warning + "\n" + "Would you like to continue?";
-        int result = warningPane.showConfirmDialog(null, errorMessage, "Error", 
-                warningPane.YES_NO_OPTION);
+        int result = warningPane.showConfirmDialog(null, errorMessage, "Houston, we have a problem", 
+                warningPane.YES_NO_OPTION, 2);
         if (result == 1){
             System.out.println("Chose no.");
-            pgroupsUI.fileGenerator.cancel(true);
+            try {
+//                pgroupsUI.fileGenerator.cancel(true);
+            } catch (Exception ex) {
+                System.out.println(ex);
+            }
         }
+
+    }
+    
+    public static void warningPane(Exception warning) {
+        JOptionPane warningPane = new JOptionPane();
+        String errorMessage = warning + "\n" + "Would you like to continue?";
+        int result = warningPane.showConfirmDialog(null, errorMessage, "Error", 0, 0);
+//        if (result == 1){
+//            System.out.println("Chose no.");
+            System.exit(0);
+//            pgroupsUI.fileGenerator.cancel(true);
+//        }
 
     }
 }

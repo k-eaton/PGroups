@@ -32,7 +32,8 @@ public class pgroupsUI extends javax.swing.JFrame {
      * Creates new form pgroupsUI
      */
     
-    public static pgroups fileGenerator;
+    public pgroups fileGenerator;
+    
     
     public pgroupsUI() {
         
