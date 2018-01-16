@@ -6,6 +6,8 @@
 package pgroupsUI;
 
 import javax.swing.JOptionPane;
+import javax.swing.JRootPane;
+import javax.swing.UIManager;
 import pgroups.pgroups;
 
 
@@ -34,10 +36,11 @@ public class WarningPanes {
 
     }
     
-    public static void warningPane(Exception warning) {
+    public static void warningPane(Exception ex) {
         JOptionPane warningPane = new JOptionPane();
-        String errorMessage = warning + "\n" + "Would you like to continue?";
-        int result = warningPane.showConfirmDialog(null, errorMessage, "Error", 0, 0);
+//        String errorMessage = ex.toString();
+        warningPane.showMessageDialog(null, ex, 
+                "This is seriously pooched",  JOptionPane.WARNING_MESSAGE);
 //        if (result == 1){
 //            System.out.println("Chose no.");
             System.exit(0);
