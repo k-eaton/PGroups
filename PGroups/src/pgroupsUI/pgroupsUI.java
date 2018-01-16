@@ -305,10 +305,6 @@ public class pgroupsUI extends javax.swing.JFrame {
 //                        }
                         if (name.equals("progress")) {
                             int progress = (int) evt.getNewValue();
-                            if (progress == 51){
-                                System.out.println("pgroupsUI cancel command");
-                                fileGenerator.cancel(true);
-                            }
     //                        String test = fileGenerator.process();
                             jProgressBar1.setValue(progress);
     //                        jProgressBar1.setString("Your total is " + progress);
