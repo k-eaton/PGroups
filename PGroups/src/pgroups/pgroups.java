@@ -378,7 +378,7 @@ public class pgroups extends SwingWorker<Void, String> {
                 oldAllelesNewVersion = updatetable.get(xmlSourceVersion);
             } else {
 //                oldAllelesNewVersion = "unknown_version";
-                throw new RuntimeException("There's no verion listed in hla_ambigs.xml");
+                throw new RuntimeException("There's no version listed in hla_ambigs.xml");
 
             }
         } catch (Exception ex) {

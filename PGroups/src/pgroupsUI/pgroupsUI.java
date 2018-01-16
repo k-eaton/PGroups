@@ -138,7 +138,9 @@ public class pgroupsUI extends javax.swing.JFrame {
 
         SelectDirectoryLabel.setText("Select Destination Directory For New Files");
 
-        SaveDirectoryLabel.setText(System.getProperty("user.home") + System.getProperty("file.separator")+ "Documents");
+        SaveDirectoryLabel.setText(System.getProperty("user.home")
+            + System.getProperty("file.separator")+ "Documents"
+            + System.getProperty("file.separator")+ "PGroups");
 
         SelectDirectoryButton.setText("Save to...");
         SelectDirectoryButton.addActionListener(new java.awt.event.ActionListener() {
