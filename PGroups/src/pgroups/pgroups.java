@@ -44,6 +44,8 @@ public class pgroups extends SwingWorker<Void, String> {
 
     private boolean[] runMe;
     private String[] directory;
+    public boolean errorState = false;
+    
 //    private Process runningProcess = null;
     
     //---All Urls used to get Files---
@@ -383,7 +385,11 @@ public class pgroups extends SwingWorker<Void, String> {
             }
         } catch (Exception ex) {
             System.out.println(ex);
-            new WarningPanes().exceptionPane(ex);
+            if (new WarningPanes().exceptionPane(ex)){
+                System.out.println("pgroups exception");
+                errorState = true;
+                setProgress(51);
+            }
 //            WarningPanes.warningPane(ex);
 //            String errorMessage = "There's no verion listed in hla_ambigs.xml \n" 
 //                    + "Do you wish to continue?";
