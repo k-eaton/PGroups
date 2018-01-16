@@ -328,7 +328,7 @@ public class pgroups extends SwingWorker<Void, String> {
 //--- finished reading from cwd200_alleles.txt
 
 //--- START Downloading/unzip/READING xml FILE    
-//        SaveUrl.saveTheUrl(Xml, ambigsXMLsource);
+        SaveUrl.saveTheUrl(Xml, ambigsXMLsource);
     setProgress(35);
 
         Unzip unzipFile = new Unzip(directory[0] 
@@ -379,9 +379,7 @@ public class pgroups extends SwingWorker<Void, String> {
             if (StringUtils.isNotBlank(updatetable.get(xmlSourceVersion))){         
                 oldAllelesNewVersion = updatetable.get(xmlSourceVersion);
             } else {
-//                oldAllelesNewVersion = "unknown_version";
                 throw new RuntimeException("There's no version listed in hla_ambigs.xml");
-
             }
         } catch (Exception ex) {
             System.out.println(ex);
@@ -391,22 +389,7 @@ public class pgroups extends SwingWorker<Void, String> {
                 setProgress(0);
                 return null;
             }
-//                errorState = true;
-//                setProgress(51);
-
 //            WarningPanes.warningPane(ex);
-//            String errorMessage = "There's no verion listed in hla_ambigs.xml \n" 
-//                    + "Do you wish to continue?";
-//            int result = pgroupsUI.jOptionPane2.showConfirmDialog(pgroupsUI.jOptionPane2, 
-//                    errorMessage, "Error",
-//                    pgroupsUI.jOptionPane2.YES_NO_OPTION);
-//            System.out.println(pgroupsUI.jOptionPane2.NO_OPTION);
-//            if (result == 1) {
-//                System.out.println("Successfully chose to cancel");
-//                pgroupsUI.fileGenerator.cancel(true);
-////                System.exit(0);
-//            }
-
         }
         String gGroupName = new String(); 
         String gGroupGID = new String();  
