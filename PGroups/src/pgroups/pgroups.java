@@ -385,11 +385,15 @@ public class pgroups extends SwingWorker<Void, String> {
             }
         } catch (Exception ex) {
             System.out.println(ex);
-            if (new WarningPanes().exceptionPane(ex)){
-                System.out.println("pgroups exception");
-                errorState = true;
-                setProgress(51);
+            boolean cancel = new WarningPanes().exceptionPane(ex);
+            System.out.println("pgroups exception");
+            if (cancel){
+                setProgress(0);
+                return null;
             }
+//                errorState = true;
+//                setProgress(51);
+
 //            WarningPanes.warningPane(ex);
 //            String errorMessage = "There's no verion listed in hla_ambigs.xml \n" 
 //                    + "Do you wish to continue?";

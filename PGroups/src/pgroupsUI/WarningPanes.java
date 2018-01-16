@@ -28,6 +28,7 @@ public class WarningPanes {
         if (result == 1){
             System.out.println("Chose no.");
             return true;
+
 //            try {
 ////                pgroups.errorState = true;
 ////                pgroupsUI.fileGenerator.cancel(true);
@@ -35,7 +36,7 @@ public class WarningPanes {
 //                System.out.println(ex);
 //            }
         }
-        return true;
+        return false;
     }
     
     public static void warningPane(Exception ex) {
