@@ -43,7 +43,7 @@ public class pgroups extends SwingWorker<Void, String> {
 //public class pgroups {
 
     private boolean[] runMe;
-    private String[] directory;
+    private File directory;
     public boolean errorState = false;
     
 //    private Process runningProcess = null;
@@ -57,7 +57,10 @@ public class pgroups extends SwingWorker<Void, String> {
 
     public pgroups(String args[], boolean[] toggles ) throws IOException {
         runMe = toggles;
-        directory = args;
+        directory = new File(args[0]);
+        if (!directory.exists()){
+            directory.mkdir();
+        }
 //        runningProcess = runtime.exec();
     }
     
@@ -136,7 +139,7 @@ public class pgroups extends SwingWorker<Void, String> {
                 return "000"+ num.toString();
         
             case 3: 
-                return  "00"+ num.toString();
+                return "00"+ num.toString();
         
             case 4: 
                 return "0"+ num.toString();
@@ -225,7 +228,7 @@ public class pgroups extends SwingWorker<Void, String> {
         String xmlSourceNameConvert;
         Integer xmlSourceNameIndex;
 
-        String Xml = directory[0] + System.getProperty("file.separator") + "hla_ambigs.xml.zip"; //xmlDirectory + "hla_ambigs.xml.zip";
+        String Xml = directory + System.getProperty("file.separator") + "hla_ambigs.xml.zip"; //xmlDirectory + "hla_ambigs.xml.zip";
 
         String line; 
         int lineNumber = 1; 
@@ -331,14 +334,14 @@ public class pgroups extends SwingWorker<Void, String> {
         SaveUrl.saveTheUrl(Xml, ambigsXMLsource);
     setProgress(35);
 
-        Unzip unzipFile = new Unzip(directory[0] 
+        Unzip unzipFile = new Unzip(directory 
                 + System.getProperty("file.separator") 
-                + "hla_ambigs.xml.zip", directory[0]);
+                + "hla_ambigs.xml.zip", directory.getPath());
         unzipFile.unzipTheFile();
 
     setProgress(40);
 
-        Xml = directory[0] + System.getProperty("file.separator") + "hla_ambigs.xml";
+        Xml = directory + System.getProperty("file.separator") + "hla_ambigs.xml";
 
         String xmlSourceVersion = new String(); 
         String xmlSourceDate = new String(); 
@@ -572,7 +575,7 @@ public class pgroups extends SwingWorker<Void, String> {
 
   //--START delete xml & .zip file here
         boolean deleted; 
-        File xmlDown = new File(directory[0] + System.getProperty("file.separator") + "hla_ambigs.xml.zip");
+        File xmlDown = new File(directory + System.getProperty("file.separator") + "hla_ambigs.xml.zip");
 
         while (!xmlDown.toString().equals("")){
             System.out.println("About to delete file: " + xmlDown);
@@ -596,7 +599,7 @@ public class pgroups extends SwingWorker<Void, String> {
             String gGroupLocus; // need to catch the locus for the file
             SSkeys = new TreeSet<>(Allcwdgroups.keySet());
             SSkeysIt = SSkeys.iterator();
-            String fileName = (directory[0] 
+            String fileName = (directory 
                         + System.getProperty("file.separator") + "cwd_" 
                         + (oldAllelesNewVersion.replaceAll("\\.", "")) 
                         + "_g-groups.txt");
@@ -634,7 +637,7 @@ public class pgroups extends SwingWorker<Void, String> {
 
 //--START write UPDATED CWD ALLELES file     
         if (makeAlleles){ 
-            String fileName = (directory[0] 
+            String fileName = (directory
                     + System.getProperty("file.separator") + "cwd_" 
                     + (oldAllelesNewVersion.replaceAll("\\.", "")) 
                     + "_alleles.txt");
@@ -690,7 +693,7 @@ public class pgroups extends SwingWorker<Void, String> {
             lineNumber = 0;               
 
             OldPgroupSourceName = OldPgroup.getFile().substring(6);
-            String fileName = (directory[0] 
+            String fileName = (directory
                         + System.getProperty("file.separator") + "cwd_"  
                         + (oldAllelesNewVersion.replaceAll("\\.", "")) 
                         + "_p-groups.txt");
