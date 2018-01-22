@@ -52,7 +52,8 @@ public class pgroups extends SwingWorker<Void, String> {
     private final URL OldPgroup = new URL("https://raw.githubusercontent.com/ANHIG/IMGTHLA/Latest/wmda/hla_nom_p.txt");  //hla_nom_p.txt
     private final URL oldAlleles = new URL("http://igdawg.org/pubs/cwd200_alleles.txt"); //cwd200_alleles.txt
     private final URL ALhistory = new URL("https://raw.githubusercontent.com/ANHIG/IMGTHLA/Latest/Allelelist_history.txt"); //Allelelist_history.txt
-    private final URL Versionupdatetable = new URL("http://igdawg.org/pubs/cwdv.upd");  //version_update_table.txt
+    private final URL Versionupdatetable = new URL("http://igdawg.org/pubs");  //version_update_table.txt
+//    private final URL Versionupdatetable = new URL("http://igdawg.org/pubs/cwdv.upd");  //version_update_table.txt
     private final String ambigsXMLsource = "https://github.com/ANHIG/IMGTHLA/blob/Latest/xml/hla_ambigs.xml.zip?raw=true"; //source path to hla_ambigs.xml.zip
 
     public pgroups(String args[], boolean[] toggles ) throws IOException {
@@ -252,17 +253,22 @@ public class pgroups extends SwingWorker<Void, String> {
 
 
 //---starts to read Version update Table file   
-        scnr = new Scanner (Versionupdatetable.openStream());
-        lineNumber = 1;
-        scnr.nextLine(); //skips header//skips header//skips header//skips header
-        while(scnr.hasNextLine()){  
-            NewVersionNum = scnr.nextLine();
-            updatetable.put(NewVersionNum.split("\t")[0], NewVersionNum.split("\t")[1]);
-            lineNumber++;
-        } 
-        System.out.println(updatetable);
+        try {
+            scnr = new Scanner (Versionupdatetable.openStream());
+            lineNumber = 1;
+            scnr.nextLine(); //skips header//skips header//skips header//skips header
+            while(scnr.hasNextLine()){  
+                NewVersionNum = scnr.nextLine();
+                updatetable.put(NewVersionNum.split("\t")[0], NewVersionNum.split("\t")[1]);
+                lineNumber++;
+            System.out.println(updatetable);
 
-        scnr.close();
+            scnr.close();
+            }
+        } catch (Exception ex){
+            System.out.println("Cannot open Version Update Table URL");
+            WarningPanes.warningPane("Cannot open Version Update Table URL");
+        }
 //    publish("status");
     setProgress(10);
 //--end of reading Version update Table file   
@@ -564,7 +570,9 @@ public class pgroups extends SwingWorker<Void, String> {
                         }   
                     }               
                 }    
-                CWDhashWrite(Pdata[0]+Pdata[2], "PGI" + IDGenerator(lineNumber), CurrentCWDStatus, Allpgroups);  // key=Pgroup name; value = CWDstatus (C, WD, or NONE) + PID
+                // key=Pgroup name; value = CWDstatus (C, WD, or NONE) + PID
+                CWDhashWrite(Pdata[0]+Pdata[2], "PGI" + IDGenerator(lineNumber), 
+                        CurrentCWDStatus, Allpgroups);  
                 CurrentCWDStatus = "NONE";   
             }           
         }   
