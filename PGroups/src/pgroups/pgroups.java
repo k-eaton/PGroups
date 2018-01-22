@@ -52,8 +52,8 @@ public class pgroups extends SwingWorker<Void, String> {
     private final URL OldPgroup = new URL("https://raw.githubusercontent.com/ANHIG/IMGTHLA/Latest/wmda/hla_nom_p.txt");  //hla_nom_p.txt
     private final URL oldAlleles = new URL("http://igdawg.org/pubs/cwd200_alleles.txt"); //cwd200_alleles.txt
     private final URL ALhistory = new URL("https://raw.githubusercontent.com/ANHIG/IMGTHLA/Latest/Allelelist_history.txt"); //Allelelist_history.txt
-    private final URL Versionupdatetable = new URL("http://igdawg.org/pubs");  //version_update_table.txt
-//    private final URL Versionupdatetable = new URL("http://igdawg.org/pubs/cwdv.upd");  //version_update_table.txt
+//    private final URL ALhistory = new URL("https://raw.githubusercontent.com/ANHIG/IMGTHLA/Latest/Allelelist_history.txt"); //Allelelist_history.txt
+    private final URL Versionupdatetable = new URL("http://igdawg.org/pubs/cwdv.upd");  //version_update_table.txt
     private final String ambigsXMLsource = "https://github.com/ANHIG/IMGTHLA/blob/Latest/xml/hla_ambigs.xml.zip?raw=true"; //source path to hla_ambigs.xml.zip
 
     public pgroups(String args[], boolean[] toggles ) throws IOException {
@@ -266,36 +266,45 @@ public class pgroups extends SwingWorker<Void, String> {
             scnr.close();
             }
         } catch (Exception ex){
-            System.out.println("Cannot open Version Update Table URL");
-            WarningPanes.warningPane("Cannot open Version Update Table URL");
+            String errorMsg = "Cannot open Version Update Table URL";
+            System.out.println(errorMsg);
+            WarningPanes.warningPane(errorMsg);
         }
 //    publish("status");
     setProgress(10);
 //--end of reading Version update Table file   
 
 //---starts to read Allelelist_history.txt
-        scnr = new Scanner(ALhistory.openStream()); 
-        String ALhistorySourceName = new String(); 
-        String ALhistorySourceVersion = new String(); 
-        ALhistorySourceName = ALhistory.getFile();
-        FileNameList = ALhistorySourceName.split("/");
-        FileNameIndex = FileNameList.length;
-        ALhistorySourceName = FileNameList[FileNameIndex - 1];
-        ALhistorySourceVersion = Punctuate(scnr.nextLine().split("\t")[1]);
+//        try {
+            scnr = new Scanner(ALhistory.openStream()); 
+            String ALhistorySourceName = new String(); 
+            String ALhistorySourceVersion = new String(); 
+            ALhistorySourceName = ALhistory.getFile();
+            FileNameList = ALhistorySourceName.split("/");
+            FileNameIndex = FileNameList.length;
+            ALhistorySourceName = FileNameList[FileNameIndex - 1];
+            ALhistorySourceVersion = Punctuate(scnr.nextLine().split("\t")[1]);
+
     setProgress(20);
 
-        while (scnr.hasNextLine()) {
-            line = scnr.nextLine();
-            String[] Data = line.split("\t");
-            // NOTE: Here, we could specify which database version to use as a reference allele list 
-            // by changing which column of data goes into the hash Value
-            int ALcolumn = 1;
-            AlleleList.put(Data[0], Data[ALcolumn]);
-            lineNumber++;
-        }
+            while (scnr.hasNextLine()) {
+                line = scnr.nextLine();
+                String[] Data = line.split("\t");
+                // NOTE: Here, we could specify which database version to use as a reference allele list 
+                // by changing which column of data goes into the hash Value
+                int ALcolumn = 1;
+                AlleleList.put(Data[0], Data[ALcolumn]);
+                lineNumber++;
+            }
     publish("Status 2");
     setProgress(25);
-        scnr.close(); // I think we need to close the scanner in the reading of the versionupdatetable
+            scnr.close(); // I think we need to close the scanner in the reading of the versionupdatetable
+//        } catch (Exception ex) {
+//            String errorMsg = "Cannot open ALHistory URL";
+//            System.out.println(errorMsg);
+//            WarningPanes.warningPane(errorMsg);
+//        }
+
 //-- Finished reading from the Allelelist_history file
 
 //--- starts to read from cwd200_alleles.txt
