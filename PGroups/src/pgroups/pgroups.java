@@ -51,7 +51,7 @@ public class pgroups extends SwingWorker<Void, String> {
     //---All Urls used to get Files---
     private final URL OldPgroup = new URL("https://raw.githubusercontent.com/ANHIG/IMGTHLA/Latest/wmda/hla_nom_p.txt");  //hla_nom_p.txt
     private final URL oldAlleles = new URL("http://igdawg.org/pubs/cwd200_alleles.txt"); //cwd200_alleles.txt
-    private final URL ALhistory = new URL("https://raw.githubusercontent.com/ANHIG/IMGTHLA/Latest/Allelelist_history.txt"); //Allelelist_history.txt
+    private final URL ALhistory = new URL("https://raw.githubusercontent.com/ANHIG/IMGTHLA/Latest"); //Allelelist_history.txt
 //    private final URL ALhistory = new URL("https://raw.githubusercontent.com/ANHIG/IMGTHLA/Latest/Allelelist_history.txt"); //Allelelist_history.txt
     private final URL Versionupdatetable = new URL("http://igdawg.org/pubs/cwdv.upd");  //version_update_table.txt
     private final String ambigsXMLsource = "https://github.com/ANHIG/IMGTHLA/blob/Latest/xml/hla_ambigs.xml.zip?raw=true"; //source path to hla_ambigs.xml.zip
@@ -233,11 +233,9 @@ public class pgroups extends SwingWorker<Void, String> {
 
         String line; 
         int lineNumber = 1; 
-//        Scanner scnr;
-        String CurrentCWDStatus = new String(); //
-        CurrentCWDStatus = ""; 
-        String ReadCWDStatus = new String();    // String that cwdStat will go into
-        ReadCWDStatus = ""; 
+        Scanner scnr;
+        String CurrentCWDStatus = ""; 
+        String ReadCWDStatus = "";    // String that cwdStat will go into
         String key;
         SortedSet SSkeys = new TreeSet<>();
         String CRet = System.getProperty("line.separator");
@@ -254,17 +252,17 @@ public class pgroups extends SwingWorker<Void, String> {
 
 //---starts to read Version update Table file   
         try {
-            Scanner scnrVUT = new Scanner (Versionupdatetable.openStream());
+            scnr = new Scanner (Versionupdatetable.openStream());
             lineNumber = 1;
-            scnrVUT.nextLine(); //skips header
-            while(scnrVUT.hasNextLine()){  
-                NewVersionNum = scnrVUT.nextLine();
+            scnr.nextLine(); //skips header
+            while(scnr.hasNextLine()){  
+                NewVersionNum = scnr.nextLine();
                 updatetable.put(NewVersionNum.split("\t")[0], NewVersionNum.split("\t")[1]);
                 lineNumber++;
 //                System.out.println(updatetable);
             }
             System.out.println(updatetable);
-            scnrVUT.close();
+            scnr.close();
             
            
         } catch (Exception ex){
@@ -281,8 +279,8 @@ public class pgroups extends SwingWorker<Void, String> {
         String ALhistorySourceName = new String(); 
         String ALhistorySourceVersion = new String();
 
-//        try {
-            Scanner scnr = new Scanner(ALhistory.openStream()); 
+        try {
+            scnr = new Scanner(ALhistory.openStream()); 
 //            String ALhistorySourceName = new String(); 
 //            String ALhistorySourceVersion = new String(); 
             ALhistorySourceName = ALhistory.getFile();
@@ -305,11 +303,12 @@ public class pgroups extends SwingWorker<Void, String> {
     publish("Status 2");
     setProgress(25);
             scnr.close(); // I think we need to close the scanner in the reading of the versionupdatetable
-//        } catch (Exception ex) {
-//            String errorMsg = "Cannot open ALHistory URL";
-//            System.out.println(errorMsg);
-//            WarningPanes.warningPane(errorMsg);
-//        }
+        } catch (Exception ex) {
+            String errorMsg = "There's a problem opening the Allele List History text";
+            System.out.println(ex);
+            System.out.println(errorMsg);
+            WarningPanes.warningPane(errorMsg);
+        }
 
 //-- Finished reading from the Allelelist_history file
 
