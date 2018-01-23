@@ -50,8 +50,7 @@ public class pgroups extends SwingWorker<Void, String> {
     
     //---All Urls used to get Files---
     private final URL OldPgroup = new URL("https://raw.githubusercontent.com/ANHIG/IMGTHLA/Latest/wmda/hla_nom_p.txt");  //hla_nom_p.txt
-    private final URL oldAlleles = new URL("http://igdawg.org/pubs"); //cwd200_alleles.txt
-//    private final URL oldAlleles = new URL("http://igdawg.org/pubs/cwd200_alleles.txt"); //cwd200_alleles.txt
+    private final URL oldAlleles = new URL("http://igdawg.org/pubs/cwd200_alleles.txt"); //cwd200_alleles.txt
     private final URL ALhistory = new URL("https://raw.githubusercontent.com/ANHIG/IMGTHLA/Latest/Allelelist_history.txt"); //Allelelist_history.txt
     private final URL Versionupdatetable = new URL("http://igdawg.org/pubs/cwdv.upd");  //version_update_table.txt
     private final String ambigsXMLsource = "https://github.com/ANHIG/IMGTHLA/blob/Latest/xml/hla_ambigs.xml.zip?raw=true"; //source path to hla_ambigs.xml.zip
@@ -527,83 +526,108 @@ public class pgroups extends SwingWorker<Void, String> {
 
     setProgress(80);
 
-//---Read from hla_nom_p.txt   <--Pgroup    
+//---Read from hla_nom_p.txt   <--Pgroup  
+        String OldPgroupSourceName = ""; 
+        String OldPgroupSourceVersion = "";
+        String OldPgroupSourceDate = "";
+        String OldPgroupNewVersion = ""; 
+        String PgroupSourceName = "";   
+        String PgroupNewVersion = "";
+        try {
+            scnr = new Scanner(OldPgroup.openStream());       
+            lineNumber = 0;       
+            if (scnr.hasNextLine()){ 
+                System.out.println("--Nextline--"); 
+            } else {
+                System.out.println("--no nextline----");
+            }
 
-        scnr = new Scanner(OldPgroup.openStream());       
-        lineNumber = 0;       
-        if (scnr.hasNextLine()){ 
-            System.out.println("--Nextline--"); 
-        } else {
-            System.out.println("--no nextline----");
-        }
-
-        line = scnr.nextLine();  //line1
-        //System.out.println("--"+scnr.toString());
-        ReadCWDStatus = ""; 
-        CurrentCWDStatus = ("NONE");
-
-        String OldPgroupSourceName; 
-        String OldPgroupSourceVersion;
-        String OldPgroupSourceDate;
-        String OldPgroupNewVersion; 
-        String PgroupSourceName;   
-        String PgroupNewVersion; 
-        //substring(0, key.indexOf("*")); 
+            line = scnr.nextLine();  //line1
+            //System.out.println("--"+scnr.toString());
+            ReadCWDStatus = ""; 
+            CurrentCWDStatus = ("NONE");
 
 
-        FileNameList = OldPgroup.getFile().split("/");
-        FileNameIndex = FileNameList.length; 
-        // System.out.println(" //"+ OldPgroup.getFile() +"||" + OldPgroupSourceName+"\\"); // figure out h0w to fix this
-        // figure out a dynamic way to always get ONLY the file name from result of getFile, which is just the file name. From last /
-        OldPgroupSourceName = FileNameList[FileNameIndex -1];
+            //substring(0, key.indexOf("*")); 
 
-        line = scnr.nextLine();  //line2 date          
-        OldPgroupSourceDate = line.substring(line.indexOf(":")+2, line.length());  // figure out h0w to fix this
-        System.out.println("| //"+ OldPgroupSourceDate+ "\\ |");
-        line = scnr.nextLine();           //line3 version
-        OldPgroupSourceVersion = line.substring(line.indexOf("HLA")+4, line.length());
-        System.out.println(" //"+ OldPgroupSourceVersion+ "\\");
-        scnr.nextLine();          //skips: # origin: http://hla.alleles.org/wmda/hla_nom_p.txt
-        scnr.nextLine();          //skips: repository: https://raw.githubusercontent.com/ANHIG/IMGTHLA/Latest/wmda/hla_nom_p.txt
 
-        scnr.nextLine();          //skips: # author: WHO, Steven G. E. Marsh (steven.marsh@ucl.ac.uk)   
+            FileNameList = OldPgroup.getFile().split("/");
+            FileNameIndex = FileNameList.length; 
+            // System.out.println(" //"+ OldPgroup.getFile() +"||" + OldPgroupSourceName+"\\"); // figure out h0w to fix this
+            // figure out a dynamic way to always get ONLY the file name from result of getFile, which is just the file name. From last /
+            OldPgroupSourceName = FileNameList[FileNameIndex -1];
 
-    setProgress(90);        
+            line = scnr.nextLine();  //line2 date          
+            OldPgroupSourceDate = line.substring(line.indexOf(":")+2, line.length());  // figure out h0w to fix this
+            System.out.println("| //"+ OldPgroupSourceDate+ "\\ |");
+            line = scnr.nextLine();           //line3 version
+            OldPgroupSourceVersion = line.substring(line.indexOf("HLA")+4, line.length());
+            System.out.println(" //"+ OldPgroupSourceVersion+ "\\");
+            scnr.nextLine();          //skips: # origin: http://hla.alleles.org/wmda/hla_nom_p.txt
+            scnr.nextLine();          //skips: repository: https://raw.githubusercontent.com/ANHIG/IMGTHLA/Latest/wmda/hla_nom_p.txt
 
-        while(scnr.hasNextLine()){
-            line = scnr.nextLine();
+            scnr.nextLine();          //skips: # author: WHO, Steven G. E. Marsh (steven.marsh@ucl.ac.uk)   
 
-            if (!line.endsWith(";")) {
-                Pdata = line.split(";");   //[0]= Locus, [1]=allele, [2]= Pgroup 
-                lineNumber++;
-                Integer n;
+        setProgress(90);        
 
-                for(n = 0; n < Pdata[1].trim().split("/").length; n++) {
-                    //check hashmap; compare alleles in pgroup list to cwdalleles to see whats in this list, give it the value
-                    if (ReverseHash.keySet().contains(Pdata[0]+Pdata[1].trim().split("/")[n])){              // is current allele contained on the allcwdalleles hash?
-                        ReadCWDStatus = ReverseHash.get(Pdata[0]+Pdata[1].trim().split("/")[n]).split("\t")[1]; // yes? retrieve the cwd-status from that allele from the allcwdalleles hash (using the cwdhasmodule)
+            while(scnr.hasNextLine()){
+                line = scnr.nextLine();
 
-                        switch (CurrentCWDStatus) {
-                            case "NONE" : 
-                                CurrentCWDStatus = ReadCWDStatus;
-                                break;
-                            case "WD": 
-                                CurrentCWDStatus = ReadCWDStatus;
-                                break;                                     // yes? overwrite cwd-status variable with the new retrieved cwd-status
-                            case "C":                                        // no? (tehrefore, it is c) do nothing
-                                //do nothing
-                                break;      
-                        }   
-                    }               
+                if (!line.endsWith(";")) {
+                    Pdata = line.split(";");   //[0]= Locus, [1]=allele, [2]= Pgroup 
+                    lineNumber++;
+                    Integer n;
+
+                    for(n = 0; n < Pdata[1].trim().split("/").length; n++) {
+                        //check hashmap; compare alleles in pgroup list to cwdalleles to see whats in this list, give it the value
+                        if (ReverseHash.keySet().contains(Pdata[0]+Pdata[1].trim().split("/")[n])){              // is current allele contained on the allcwdalleles hash?
+                            ReadCWDStatus = ReverseHash.get(Pdata[0]+Pdata[1].trim().split("/")[n]).split("\t")[1]; // yes? retrieve the cwd-status from that allele from the allcwdalleles hash (using the cwdhasmodule)
+
+                            switch (CurrentCWDStatus) {
+                                case "NONE" : 
+                                    CurrentCWDStatus = ReadCWDStatus;
+                                    break;
+                                case "WD": 
+                                    CurrentCWDStatus = ReadCWDStatus;
+                                    break;                                     // yes? overwrite cwd-status variable with the new retrieved cwd-status
+                                case "C":                                        // no? (tehrefore, it is c) do nothing
+                                    //do nothing
+                                    break;      
+                            }   
+                        }               
+                    }    
+                    // key=Pgroup name; value = CWDstatus (C, WD, or NONE) + PID
+                    CWDhashWrite(Pdata[0]+Pdata[2], "PGI" + IDGenerator(lineNumber), 
+                            CurrentCWDStatus, Allpgroups);  
+                    CurrentCWDStatus = "NONE";   
+                }           
+            }   
+
+            scnr.close();
+        } catch (Exception ex) {
+            
+            boolean deleted; 
+            File xmlDown = new File(directory + System.getProperty("file.separator") + "hla_ambigs.xml.zip");
+
+            while (!xmlDown.toString().equals("")){
+                System.out.println("About to delete file: " + xmlDown);
+                    deleted = xmlDown.delete();
+                System.out.println("File Deleted!: " + xmlDown + " = " + deleted);
+                System.out.println("testingtesting");
+                switch (xmlDown.toString().charAt(xmlDown.toString().length()-3)) {
+                    case 'z': 
+                        xmlDown = new File(xmlDown.toString().replace(".zip", "")); 
+                        break; 
+                    case 'x': 
+                        xmlDown = new File(""); 
+                        break; 
                 }    
-                // key=Pgroup name; value = CWDstatus (C, WD, or NONE) + PID
-                CWDhashWrite(Pdata[0]+Pdata[2], "PGI" + IDGenerator(lineNumber), 
-                        CurrentCWDStatus, Allpgroups);  
-                CurrentCWDStatus = "NONE";   
-            }           
-        }   
-
-        scnr.close();
+            }
+            String errorMsg = "There's a problem opening hla_nom_p.txt";
+            System.out.println(ex);
+            System.out.println(errorMsg);
+            WarningPanes.warningPane(errorMsg);            
+        }
 
   //----Finished reading from hla_nom_p.txt   
 

@@ -37,6 +37,7 @@ public class WarningPanes {
 //        String errorMessage = ex.toString();
         warningPane.showMessageDialog(null, message, 
                 "This is seriously pooched",  JOptionPane.ERROR_MESSAGE);
+        
 //        if (result == 1){
 //            System.out.println("Chose no.");
             System.exit(0);

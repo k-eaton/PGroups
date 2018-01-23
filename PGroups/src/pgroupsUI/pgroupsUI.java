@@ -336,10 +336,9 @@ public class pgroupsUI extends javax.swing.JFrame {
         } catch (Exception ex) {
             System.out.println(ex);
         } finally {
-            
+            System.exit(0);
         }
 
-        System.exit(0);
     }//GEN-LAST:event_CancelActionPerformed
 
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
