@@ -233,7 +233,7 @@ public class pgroups extends SwingWorker<Void, String> {
 
         String line; 
         int lineNumber = 1; 
-        Scanner scnr;
+//        Scanner scnr;
         String CurrentCWDStatus = new String(); //
         CurrentCWDStatus = ""; 
         String ReadCWDStatus = new String();    // String that cwdStat will go into
@@ -254,19 +254,22 @@ public class pgroups extends SwingWorker<Void, String> {
 
 //---starts to read Version update Table file   
         try {
-            scnr = new Scanner (Versionupdatetable.openStream());
+            Scanner scnrVUT = new Scanner (Versionupdatetable.openStream());
             lineNumber = 1;
-            scnr.nextLine(); //skips header//skips header//skips header//skips header
-            while(scnr.hasNextLine()){  
-                NewVersionNum = scnr.nextLine();
+            scnrVUT.nextLine(); //skips header
+            while(scnrVUT.hasNextLine()){  
+                NewVersionNum = scnrVUT.nextLine();
                 updatetable.put(NewVersionNum.split("\t")[0], NewVersionNum.split("\t")[1]);
                 lineNumber++;
-            System.out.println(updatetable);
-
-            scnr.close();
+//                System.out.println(updatetable);
             }
+            System.out.println(updatetable);
+            scnrVUT.close();
+            
+           
         } catch (Exception ex){
-            String errorMsg = "Cannot open Version Update Table URL";
+            String errorMsg = "There's a problem opening the Version Update Table";
+            System.out.println(ex);
             System.out.println(errorMsg);
             WarningPanes.warningPane(errorMsg);
         }
@@ -275,10 +278,13 @@ public class pgroups extends SwingWorker<Void, String> {
 //--end of reading Version update Table file   
 
 //---starts to read Allelelist_history.txt
+        String ALhistorySourceName = new String(); 
+        String ALhistorySourceVersion = new String();
+
 //        try {
-            scnr = new Scanner(ALhistory.openStream()); 
-            String ALhistorySourceName = new String(); 
-            String ALhistorySourceVersion = new String(); 
+            Scanner scnr = new Scanner(ALhistory.openStream()); 
+//            String ALhistorySourceName = new String(); 
+//            String ALhistorySourceVersion = new String(); 
             ALhistorySourceName = ALhistory.getFile();
             FileNameList = ALhistorySourceName.split("/");
             FileNameIndex = FileNameList.length;
@@ -407,7 +413,6 @@ public class pgroups extends SwingWorker<Void, String> {
                 setProgress(0);
                 return null;
             }
-//            WarningPanes.warningPane(ex);
         }
         String gGroupName = new String(); 
         String gGroupGID = new String();  
