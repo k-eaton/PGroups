@@ -50,9 +50,9 @@ public class pgroups extends SwingWorker<Void, String> {
     
     //---All Urls used to get Files---
     private final URL OldPgroup = new URL("https://raw.githubusercontent.com/ANHIG/IMGTHLA/Latest/wmda/hla_nom_p.txt");  //hla_nom_p.txt
-    private final URL oldAlleles = new URL("http://igdawg.org/pubs/cwd200_alleles.txt"); //cwd200_alleles.txt
-    private final URL ALhistory = new URL("https://raw.githubusercontent.com/ANHIG/IMGTHLA/Latest"); //Allelelist_history.txt
-//    private final URL ALhistory = new URL("https://raw.githubusercontent.com/ANHIG/IMGTHLA/Latest/Allelelist_history.txt"); //Allelelist_history.txt
+    private final URL oldAlleles = new URL("http://igdawg.org/pubs"); //cwd200_alleles.txt
+//    private final URL oldAlleles = new URL("http://igdawg.org/pubs/cwd200_alleles.txt"); //cwd200_alleles.txt
+    private final URL ALhistory = new URL("https://raw.githubusercontent.com/ANHIG/IMGTHLA/Latest/Allelelist_history.txt"); //Allelelist_history.txt
     private final URL Versionupdatetable = new URL("http://igdawg.org/pubs/cwdv.upd");  //version_update_table.txt
     private final String ambigsXMLsource = "https://github.com/ANHIG/IMGTHLA/blob/Latest/xml/hla_ambigs.xml.zip?raw=true"; //source path to hla_ambigs.xml.zip
 
@@ -243,7 +243,7 @@ public class pgroups extends SwingWorker<Void, String> {
         Iterator<String> SSkeysIt = SSkeys.iterator();
         String[] Pdata = new String[3]; 
         String NewVersionNum;
-
+        
         boolean makeAlleles = runMe[0];
         boolean makeGgroups = runMe[1];
         boolean makePgroups = runMe[2];
@@ -313,40 +313,53 @@ public class pgroups extends SwingWorker<Void, String> {
 //-- Finished reading from the Allelelist_history file
 
 //--- starts to read from cwd200_alleles.txt
-        scnr = new Scanner(oldAlleles.openStream()); 
+        String oldAllelesSourceName = "";   
+        String oldAllelesSourceVersion = ""; 
+        String oldAllelesNewVersion = "";
+        String oldSourceVersion = "";
+        try {
+            scnr = new Scanner(oldAlleles.openStream()); 
 
-        String oldAllelesSourceName;   
-        String oldAllelesSourceVersion; 
-        String oldAllelesNewVersion;
-        String oldSourceVersion;
-        int cwdColumn = 3;
+    //        String oldAllelesSourceName;   
+    //        String oldAllelesSourceVersion; 
+    //        String oldAllelesNewVersion;
+    //        String oldSourceVersion;
+            int cwdColumn = 3;
 
-        oldAllelesSourceName = oldAlleles.getFile();
-        FileNameList = oldAllelesSourceName.split("/");
-        FileNameIndex = FileNameList.length; 
-        oldAllelesSourceName = FileNameList[FileNameIndex - 1];
-        oldAllelesSourceVersion = scnr.nextLine().split("\t")[0];  //Line 1
-        oldAllelesSourceVersion = oldAllelesSourceVersion.substring(oldAllelesSourceVersion.indexOf("CWD")+3, oldAllelesSourceVersion.indexOf("Catalogue")-1).trim();
-        // this is the version of the previoius CWD catalogue
 
-        // oldAllelesNewVersion = updatetable.get(xmlSourceVersion); 
+            oldAllelesSourceName = oldAlleles.getFile();
+            FileNameList = oldAllelesSourceName.split("/");
+            FileNameIndex = FileNameList.length; 
+            oldAllelesSourceName = FileNameList[FileNameIndex - 1];
+            oldAllelesSourceVersion = scnr.nextLine().split("\t")[0];  //Line 1
+            oldAllelesSourceVersion = oldAllelesSourceVersion.substring(oldAllelesSourceVersion.indexOf("CWD")+3, oldAllelesSourceVersion.indexOf("Catalogue")-1).trim();
+            // this is the version of the previoius CWD catalogue
 
-        if ("2.0.0".equals(oldAllelesSourceVersion)) { cwdColumn = 5; } else scnr.nextLine(); //this is the comment line
-        line = scnr.nextLine();  // this is the header line
-        oldSourceVersion = line.split("\t")[cwdColumn + 1];         
-        oldSourceVersion = oldSourceVersion.substring(oldSourceVersion.indexOf("to")+3,oldSourceVersion.length());
-        // From the name extended column, this is the version of the old file
-        String AlleleSourceVersion = line.split("\t")[2]; 
-        AlleleSourceVersion = AlleleSourceVersion.substring(AlleleSourceVersion.indexOf("HLA")+4, AlleleSourceVersion.indexOf("Allele")-1).trim();  
+            // oldAllelesNewVersion = updatetable.get(xmlSourceVersion); 
 
-        while (scnr.hasNextLine()) {
-            line= scnr.nextLine();
-            if (!line.equals("")) {
-                Allcwdalleles.put(line.split("\t")[1], line.split("\t")[2] + "\t" + line.split("\t")[cwdColumn]); // 7/1/2015 Steve uncommented this
-                lineNumber++;
+            if ("2.0.0".equals(oldAllelesSourceVersion)) { cwdColumn = 5; } else scnr.nextLine(); //this is the comment line
+            line = scnr.nextLine();  // this is the header line
+            String tempOldSourceVersion = line.split("\t")[cwdColumn + 1];         
+            oldSourceVersion = tempOldSourceVersion.substring(tempOldSourceVersion.indexOf("to")+3,tempOldSourceVersion.length());
+            // From the name extended column, this is the version of the old file
+            String AlleleSourceVersion = line.split("\t")[2]; 
+            AlleleSourceVersion = AlleleSourceVersion.substring(AlleleSourceVersion.indexOf("HLA")+4, AlleleSourceVersion.indexOf("Allele")-1).trim();  
+
+            while (scnr.hasNextLine()) {
+                line= scnr.nextLine();
+                if (!line.equals("")) {
+                    Allcwdalleles.put(line.split("\t")[1], line.split("\t")[2] + "\t" + line.split("\t")[cwdColumn]); // 7/1/2015 Steve uncommented this
+                    lineNumber++;
+                }
             }
+            scnr.close();
+        } catch (Exception ex) {
+            String errorMsg = "There's a problem opening cwd200_alleles.txt";
+            System.out.println(ex);
+            System.out.println(errorMsg);
+            WarningPanes.warningPane(errorMsg);            
         }
-        scnr.close();
+
     setProgress(30);
 //--- finished reading from cwd200_alleles.txt
 
@@ -532,9 +545,9 @@ public class pgroups extends SwingWorker<Void, String> {
         String OldPgroupSourceName; 
         String OldPgroupSourceVersion;
         String OldPgroupSourceDate;
-        String OldPgroupNewVersion = new String(); 
-        String PgroupSourceName = new String();   
-        String PgroupNewVersion = new String(); 
+        String OldPgroupNewVersion; 
+        String PgroupSourceName;   
+        String PgroupNewVersion; 
         //substring(0, key.indexOf("*")); 
 
 
@@ -615,7 +628,9 @@ public class pgroups extends SwingWorker<Void, String> {
 
 //-- FINISHED delete xml & .zip file here 
 
-//--START write cwd Ggroups file     
+//--START write cwd Ggroups file   
+    setProgress(91);        
+
         if (makeGgroups){
             String gGroupLocus; // need to catch the locus for the file
             SSkeys = new TreeSet<>(Allcwdgroups.keySet());
@@ -656,7 +671,9 @@ public class pgroups extends SwingWorker<Void, String> {
         }
 //--FINISH write file: cwd210_g-groups.txt
 
-//--START write UPDATED CWD ALLELES file     
+//--START write UPDATED CWD ALLELES file 
+    setProgress(92);        
+
         if (makeAlleles){ 
             String fileName = (directory
                     + System.getProperty("file.separator") + "cwd_" 
@@ -707,7 +724,9 @@ public class pgroups extends SwingWorker<Void, String> {
         }
 //--FINISH MAKE UPDATED CWD ALLELES FILE
 
-//--START write file: cwd_XXX_p-groups.txt    
+//--START write file: cwd_XXX_p-groups.txt
+    setProgress(93);        
+
         if(makePgroups){  
             SSkeys = new TreeSet<>(Allpgroups.keySet());
             SSkeysIt =  SSkeys.iterator();
