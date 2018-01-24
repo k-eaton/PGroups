@@ -11,6 +11,7 @@ import java.awt.Component;
 import java.awt.event.*;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.util.concurrent.TimeUnit;
 import java.io.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
@@ -158,7 +159,7 @@ public class pgroupsUI extends javax.swing.JFrame {
             }
         });
 
-        Cancel.setText("Cancel");
+        Cancel.setText("Close");
         Cancel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 CancelActionPerformed(evt);
@@ -313,6 +314,7 @@ public class pgroupsUI extends javax.swing.JFrame {
 
                     }
                 });
+//                Cancel.setText("Cancel");
                 fileGenerator.execute();
             }
         } catch (Exception ex) {
@@ -327,16 +329,36 @@ public class pgroupsUI extends javax.swing.JFrame {
                 + System.getProperty("file.separator") + "hla_ambigs.xml");
         File xmlDownZip = new File(SaveDirectoryLabel.getText() 
                 + System.getProperty("file.separator") + "hla_ambigs.xml.zip");
-        try {
-            // Stop the background job so it will release the files
-            fileGenerator.cancel(true);
-            
-            FileUtils.forceDelete(xmlDownZip);        
-            FileUtils.forceDelete(xmlDown);        
-        } catch (Exception ex) {
-            System.out.println(ex);
-        } finally {
-            System.exit(0);
+        if (fileGenerator.getState() == javax.swing.SwingWorker.StateValue.STARTED){
+            try {
+                // Stop the background job so it will release the files
+                System.out.println(fileGenerator.getState());
+                fileGenerator.cancel(true);
+                jProgressBar1.setValue(0);
+                jProgressBar1.setString("Your total is 0");
+                jProgressBar1.repaint();
+                Cancel.setText("Close");
+//                TimeUnit.SECONDS.sleep(1);
+//
+//                FileUtils.forceDelete(xmlDownZip);        
+//                FileUtils.forceDelete(xmlDown);       
+                
+            } catch (Exception ex) {
+                System.out.println(ex);
+            }
+        } else {
+            try {
+                // Stop the background job so it will release the files
+                System.out.println(fileGenerator.getState());
+                fileGenerator.cancel(true);
+
+                FileUtils.forceDelete(xmlDownZip);        
+                FileUtils.forceDelete(xmlDown);        
+            } catch (Exception ex) {
+                System.out.println(ex);
+            } finally {
+                System.exit(0);
+            }
         }
 
     }//GEN-LAST:event_CancelActionPerformed
@@ -359,7 +381,9 @@ public class pgroupsUI extends javax.swing.JFrame {
         } catch (Exception ex) {
             System.out.println(ex);
         } finally {
-            System.exit(0);
+            
+            
+//            System.exit(0);
         }
     }//GEN-LAST:event_formWindowClosing
 
