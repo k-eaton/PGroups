@@ -333,11 +333,12 @@ public class pgroupsUI extends javax.swing.JFrame {
             try {
                 // Stop the background job so it will release the files
                 System.out.println(fileGenerator.getState());
-                fileGenerator.cancel(true);
                 jProgressBar1.setValue(0);
                 jProgressBar1.setString("Your total is 0");
                 jProgressBar1.repaint();
                 Cancel.setText("Close");
+                fileGenerator.cancel(true);
+
 //                TimeUnit.SECONDS.sleep(1);
 //
 //                FileUtils.forceDelete(xmlDownZip);        
