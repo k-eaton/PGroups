@@ -329,6 +329,7 @@ public class pgroupsUI extends javax.swing.JFrame {
                 + System.getProperty("file.separator") + "hla_ambigs.xml");
         File xmlDownZip = new File(SaveDirectoryLabel.getText() 
                 + System.getProperty("file.separator") + "hla_ambigs.xml.zip");
+        
         if (fileGenerator.getState() == javax.swing.SwingWorker.StateValue.STARTED){
             try {
                 // Stop the background job so it will release the files
@@ -341,8 +342,8 @@ public class pgroupsUI extends javax.swing.JFrame {
 
 //                TimeUnit.SECONDS.sleep(1);
 //
-//                FileUtils.forceDelete(xmlDownZip);        
-//                FileUtils.forceDelete(xmlDown);       
+                FileUtils.forceDelete(xmlDownZip);        
+                FileUtils.forceDelete(xmlDown);       
                 
             } catch (Exception ex) {
                 System.out.println(ex);

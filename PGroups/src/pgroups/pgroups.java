@@ -222,7 +222,7 @@ public class pgroups extends SwingWorker<Void, String> {
 
 //---General Variables---
         String FileNameList[]; 
-        String xmlSourceName;
+        String xmlSourceName = "";
         Integer FileNameIndex;
         String xmlSourceNameList[];
         String xmlSourceNameConvert;
@@ -371,17 +371,25 @@ public class pgroups extends SwingWorker<Void, String> {
                 + "hla_ambigs.xml.zip", directory.getPath());
         unzipFile.unzipTheFile();
 
+if(!isCancelled()){
     setProgress(40);
+} else {
+    return null;
+}
 
         Xml = directory + System.getProperty("file.separator") + "hla_ambigs.xml";
 
         String xmlSourceVersion = new String(); 
         String xmlSourceDate = new String(); 
+        
 
         DocumentBuilderFactory dbFactorys = DocumentBuilderFactory.newInstance();
         DocumentBuilder dBuilders;
         dBuilders = dbFactorys.newDocumentBuilder();
-        Document docs = dBuilders.parse(Xml);
+        Document docs;
+        
+            docs = dBuilders.parse(Xml);
+        
                 //.parse(zipxmlurl);
 //        if(asynctask.iscancel()){
 //            break;
@@ -389,7 +397,11 @@ public class pgroups extends SwingWorker<Void, String> {
         docs.getDocumentElement().normalize();
         NodeList nLists = docs.getElementsByTagName("tns:gGroup");
 
+if(!isCancelled()){
     setProgress(45);
+} else {
+    return null;
+}
 
         NodeList nSource = docs.getElementsByTagName("tns:releaseVersion"); //SM-07/03/2015 This section is new, for pulling documentation of the source files
         if (nSource.item(0).getNodeType() == Node.ELEMENT_NODE) { // assumes source documentation only occurs once in the xml file. 
@@ -399,7 +411,11 @@ public class pgroups extends SwingWorker<Void, String> {
             xmlSourceDate = eSource.getAttribute("date");       
         } 
 
+if(!isCancelled()){
     setProgress(50);
+} else {
+    return null;
+}
 
         System.out.println(Xml);
         xmlSourceNameConvert = Xml.replace("\\", "/");
@@ -428,8 +444,11 @@ public class pgroups extends SwingWorker<Void, String> {
         String gGroupName = new String(); 
         String gGroupGID = new String();  
 
+if(!isCancelled()){
     setProgress(55);
-
+} else {
+    return null;
+}
         for (int i = 0; i < nLists.getLength(); i++) {
             Node nNodes = nLists.item(i); 
 
@@ -481,8 +500,11 @@ public class pgroups extends SwingWorker<Void, String> {
                 System.out.println("NO CHILD FOUND for: "+ nLists);
             }  
             //ChildNode ends
-
+if(!isCancelled()){
     setProgress(60);
+} else {
+    return null;
+}
 
             if ("".equals(CurrentCWDStatus)){    // cwdStat should never be 'null' it should either have a C or WD value or ""
                 nNodes.getNextSibling();   // yes: go on to next nNode
@@ -494,7 +516,6 @@ public class pgroups extends SwingWorker<Void, String> {
             }
         }
         //--- FINISHED Downloading/unzip/READING xml FILE         
-
     setProgress(70);
 
         //--START  UPDATED CWD ALLELES LIST       
