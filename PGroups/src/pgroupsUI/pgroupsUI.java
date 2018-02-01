@@ -360,9 +360,16 @@ public class pgroupsUI extends javax.swing.JFrame {
                 // Stop the background job so it will release the files
                 System.out.println(fileGenerator.getState());
                 fileGenerator.cancel(true);
-
-                FileUtils.forceDelete(xmlDownZip);        
-                FileUtils.forceDelete(xmlDown);        
+                if (xmlDownZip.isFile()){
+                    FileUtils.forceDelete(xmlDownZip);
+                }
+                if (xmlDown.isFile()){
+                    try {
+                        FileUtils.forceDelete(xmlDown);
+                    } catch (Exception ex){
+                        System.out.println(ex);
+                    }
+                }  
             } catch (Exception ex) {
                 System.out.println(ex);
             } finally {
@@ -384,9 +391,20 @@ public class pgroupsUI extends javax.swing.JFrame {
         try {
             // Stop the background job so it will release the files
             fileGenerator.cancel(true);
-            
-            FileUtils.forceDelete(xmlDownZip);        
-            FileUtils.forceDelete(xmlDown);        
+            if (xmlDownZip.isFile()){
+                try {
+                    FileUtils.forceDelete(xmlDownZip);
+                } catch (Exception ex){
+                    System.out.println(ex);
+                }
+            }
+            if (xmlDown.isFile()){
+                try {
+                    FileUtils.forceDelete(xmlDown);
+                } catch (Exception ex){
+                    System.out.println(ex);
+                }
+            }    
         } catch (Exception ex) {
             System.out.println(ex);
         } finally {

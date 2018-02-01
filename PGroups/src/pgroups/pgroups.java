@@ -193,7 +193,7 @@ public class pgroups extends SwingWorker<Void, String> {
         if(!isCancelled()){
             setProgress(percentage);
         } else {
-            return;
+            Thread.currentThread().interrupt();
         }
     }
 
@@ -270,7 +270,7 @@ public class pgroups extends SwingWorker<Void, String> {
             WarningPanes.warningPane(errorMsg);
         }
 //    publish("status");
-    setProgress(10);
+    progress(10);
 //--end of reading Version update Table file   
 
 //---starts to read Allelelist_history.txt
@@ -287,7 +287,7 @@ public class pgroups extends SwingWorker<Void, String> {
             ALhistorySourceName = FileNameList[FileNameIndex - 1];
             ALhistorySourceVersion = Punctuate(scnr.nextLine().split("\t")[1]);
 
-    setProgress(20);
+    progress(20);
 
             while (scnr.hasNextLine()) {
                 line = scnr.nextLine();
@@ -299,7 +299,7 @@ public class pgroups extends SwingWorker<Void, String> {
                 lineNumber++;
             }
     publish("Status 2");
-    setProgress(25);
+    progress(25);
             scnr.close(); // I think we need to close the scanner in the reading of the versionupdatetable
         } catch (Exception ex) {
             String errorMsg = "There's a problem opening the Allele List History text";
@@ -358,19 +358,19 @@ public class pgroups extends SwingWorker<Void, String> {
             WarningPanes.warningPane(errorMsg);            
         }
 
-    setProgress(30);
+    progress(30);
 //--- finished reading from cwd200_alleles.txt
 
 //--- START Downloading/unzip/READING xml FILE    
         SaveUrl.saveTheUrl(Xml, ambigsXMLsource);
-    setProgress(35);
+    progress(35);
 
         Unzip unzipFile = new Unzip(directory 
                 + System.getProperty("file.separator") 
                 + "hla_ambigs.xml.zip", directory.getPath());
         unzipFile.unzipTheFile();
         
-progress(40);
+    progress(40);
 
 //if(!isCancelled()){
 //    setProgress(40);
@@ -398,11 +398,7 @@ progress(40);
         docs.getDocumentElement().normalize();
         NodeList nLists = docs.getElementsByTagName("tns:gGroup");
 
-if(!isCancelled()){
-    setProgress(45);
-} else {
-    return null;
-}
+    progress(45);
 
         NodeList nSource = docs.getElementsByTagName("tns:releaseVersion"); //SM-07/03/2015 This section is new, for pulling documentation of the source files
         if (nSource.item(0).getNodeType() == Node.ELEMENT_NODE) { // assumes source documentation only occurs once in the xml file. 
@@ -412,11 +408,8 @@ if(!isCancelled()){
             xmlSourceDate = eSource.getAttribute("date");       
         } 
 
-if(!isCancelled()){
-    setProgress(50);
-} else {
-    return null;
-}
+    progress(50);
+
 
         System.out.println(Xml);
         xmlSourceNameConvert = Xml.replace("\\", "/");
@@ -445,11 +438,8 @@ if(!isCancelled()){
         String gGroupName = new String(); 
         String gGroupGID = new String();  
 
-if(!isCancelled()){
-    setProgress(55);
-} else {
-    return null;
-}
+    progress(55);
+
         for (int i = 0; i < nLists.getLength(); i++) {
             Node nNodes = nLists.item(i); 
 
@@ -501,11 +491,8 @@ if(!isCancelled()){
                 System.out.println("NO CHILD FOUND for: "+ nLists);
             }  
             //ChildNode ends
-if(!isCancelled()){
-    setProgress(60);
-} else {
-    return null;
-}
+    progress(60);
+
 
             if ("".equals(CurrentCWDStatus)){    // cwdStat should never be 'null' it should either have a C or WD value or ""
                 nNodes.getNextSibling();   // yes: go on to next nNode
@@ -517,7 +504,7 @@ if(!isCancelled()){
             }
         }
         //--- FINISHED Downloading/unzip/READING xml FILE         
-    setProgress(70);
+    progress(70);
 
         //--START  UPDATED CWD ALLELES LIST       
         Iterator<String> keyIt = Allcwdalleles.keySet().iterator();
@@ -546,7 +533,7 @@ if(!isCancelled()){
 //--FINISH UPDATED CWD ALLELES LIST
 
 
-    setProgress(80);
+    progress(80);
 
 //---Read from hla_nom_p.txt   <--Pgroup  
         String OldPgroupSourceName = ""; 
@@ -590,7 +577,7 @@ if(!isCancelled()){
 
             scnr.nextLine();          //skips: # author: WHO, Steven G. E. Marsh (steven.marsh@ucl.ac.uk)   
 
-        setProgress(90);        
+        progress(90);        
 
             while(scnr.hasNextLine()){
                 line = scnr.nextLine();
@@ -627,24 +614,6 @@ if(!isCancelled()){
 
             scnr.close();
         } catch (Exception ex) {
-            
-//            boolean deleted; 
-//            File xmlDown = new File(directory + System.getProperty("file.separator") + "hla_ambigs.xml.zip");
-//
-//            while (!xmlDown.toString().equals("")){
-//                System.out.println("About to delete file: " + xmlDown);
-//                    deleted = xmlDown.delete();
-//                System.out.println("File Deleted!: " + xmlDown + " = " + deleted);
-//                System.out.println("testingtesting");
-//                switch (xmlDown.toString().charAt(xmlDown.toString().length()-3)) {
-//                    case 'z': 
-//                        xmlDown = new File(xmlDown.toString().replace(".zip", "")); 
-//                        break; 
-//                    case 'x': 
-//                        xmlDown = new File(""); 
-//                        break; 
-//                }    
-//            }
             String errorMsg = "There's a problem opening hla_nom_p.txt";
             System.out.println(ex);
             System.out.println(errorMsg);
@@ -657,10 +626,13 @@ if(!isCancelled()){
 //        boolean deleted; 
         File xmlDownZip = new File(directory + System.getProperty("file.separator") + "hla_ambigs.xml.zip");
         if (xmlDownZip.isFile()){
-            System.out.println("About to delete file: " + xmlDownZip);
-            xmlDownZip.delete();
-            System.out.println("deleted file: " + xmlDownZip);
-            
+            try {
+                System.out.println("About to delete file: " + xmlDownZip);
+                xmlDownZip.delete();
+                System.out.println("deleted file: " + xmlDownZip);
+            } catch (Exception ex){
+                System.out.println(ex);
+            }            
         }
         
         File xmlDown = new File(directory + System.getProperty("file.separator") + "hla_ambigs.xml");
@@ -668,8 +640,7 @@ if(!isCancelled()){
             try {
                 System.out.println("About to delete file: " + xmlDown);
                 FileUtils.forceDelete(xmlDown);
-//            xmlDown.delete();
-            System.out.println("deleted file: " + xmlDown);
+                System.out.println("deleted file: " + xmlDown);
             } catch (Exception ex){
                 System.out.println(ex);
             }
@@ -692,7 +663,7 @@ if(!isCancelled()){
 //-- FINISHED delete xml & .zip file here 
 
 //--START write cwd Ggroups file   
-    setProgress(91);        
+    progress(91);        
 
         if (makeGgroups){
             String gGroupLocus; // need to catch the locus for the file
@@ -735,7 +706,7 @@ if(!isCancelled()){
 //--FINISH write file: cwd210_g-groups.txt
 
 //--START write UPDATED CWD ALLELES file 
-    setProgress(92);        
+    progress(92);        
 
         if (makeAlleles){ 
             String fileName = (directory
@@ -788,7 +759,7 @@ if(!isCancelled()){
 //--FINISH MAKE UPDATED CWD ALLELES FILE
 
 //--START write file: cwd_XXX_p-groups.txt
-    setProgress(93);        
+    progress(93);        
 
         if(makePgroups){  
             SSkeys = new TreeSet<>(Allpgroups.keySet());
@@ -838,7 +809,7 @@ if(!isCancelled()){
             }
         }
 //--FINISH write file: cwd_XXX_p-groups.txt    
-    setProgress(100);
+    progress(100);
         return null;
     }
 }
