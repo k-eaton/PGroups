@@ -314,7 +314,7 @@ public class pgroupsUI extends javax.swing.JFrame {
 
                     }
                 });
-//                Cancel.setText("Cancel");
+                Cancel.setText("Cancel");
                 fileGenerator.execute();
             }
         } catch (Exception ex) {
@@ -341,9 +341,16 @@ public class pgroupsUI extends javax.swing.JFrame {
                 fileGenerator.cancel(true);
 
 //                TimeUnit.SECONDS.sleep(1);
-//
-                FileUtils.forceDelete(xmlDownZip);        
-                FileUtils.forceDelete(xmlDown);       
+                if (xmlDownZip.isFile()){
+                    FileUtils.forceDelete(xmlDownZip);
+                }
+                if (xmlDown.isFile()){
+                    try {
+                        FileUtils.forceDelete(xmlDown);
+                    } catch (Exception ex){
+                        System.out.println(ex);
+                    }
+                }
                 
             } catch (Exception ex) {
                 System.out.println(ex);
@@ -383,9 +390,7 @@ public class pgroupsUI extends javax.swing.JFrame {
         } catch (Exception ex) {
             System.out.println(ex);
         } finally {
-            
-            
-//            System.exit(0);
+            System.exit(0);
         }
     }//GEN-LAST:event_formWindowClosing
 

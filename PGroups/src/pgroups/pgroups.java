@@ -27,6 +27,7 @@ import javax.swing.text.JTextComponent;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -188,15 +189,13 @@ public class pgroups extends SwingWorker<Void, String> {
 // (Not yet implemented)
     
 //    @Override
-//    public void process() {
-//        protected void actionPerformed(ActionEvent e) {
-//            Object results = e.getSource();
-////                    panel.revalidate();
-////                    panel.repaint();
-//            System.out.println(results);
-////            return results;
-//        }
-//    }
+    public void progress(int percentage) {
+        if(!isCancelled()){
+            setProgress(percentage);
+        } else {
+            return;
+        }
+    }
 
     
 //    @Override
@@ -370,12 +369,14 @@ public class pgroups extends SwingWorker<Void, String> {
                 + System.getProperty("file.separator") 
                 + "hla_ambigs.xml.zip", directory.getPath());
         unzipFile.unzipTheFile();
+        
+progress(40);
 
-if(!isCancelled()){
-    setProgress(40);
-} else {
-    return null;
-}
+//if(!isCancelled()){
+//    setProgress(40);
+//} else {
+//    return null;
+//}
 
         Xml = directory + System.getProperty("file.separator") + "hla_ambigs.xml";
 
@@ -627,23 +628,23 @@ if(!isCancelled()){
             scnr.close();
         } catch (Exception ex) {
             
-            boolean deleted; 
-            File xmlDown = new File(directory + System.getProperty("file.separator") + "hla_ambigs.xml.zip");
-
-            while (!xmlDown.toString().equals("")){
-                System.out.println("About to delete file: " + xmlDown);
-                    deleted = xmlDown.delete();
-                System.out.println("File Deleted!: " + xmlDown + " = " + deleted);
-                System.out.println("testingtesting");
-                switch (xmlDown.toString().charAt(xmlDown.toString().length()-3)) {
-                    case 'z': 
-                        xmlDown = new File(xmlDown.toString().replace(".zip", "")); 
-                        break; 
-                    case 'x': 
-                        xmlDown = new File(""); 
-                        break; 
-                }    
-            }
+//            boolean deleted; 
+//            File xmlDown = new File(directory + System.getProperty("file.separator") + "hla_ambigs.xml.zip");
+//
+//            while (!xmlDown.toString().equals("")){
+//                System.out.println("About to delete file: " + xmlDown);
+//                    deleted = xmlDown.delete();
+//                System.out.println("File Deleted!: " + xmlDown + " = " + deleted);
+//                System.out.println("testingtesting");
+//                switch (xmlDown.toString().charAt(xmlDown.toString().length()-3)) {
+//                    case 'z': 
+//                        xmlDown = new File(xmlDown.toString().replace(".zip", "")); 
+//                        break; 
+//                    case 'x': 
+//                        xmlDown = new File(""); 
+//                        break; 
+//                }    
+//            }
             String errorMsg = "There's a problem opening hla_nom_p.txt";
             System.out.println(ex);
             System.out.println(errorMsg);
@@ -653,23 +654,40 @@ if(!isCancelled()){
   //----Finished reading from hla_nom_p.txt   
 
   //--START delete xml & .zip file here
-        boolean deleted; 
-        File xmlDown = new File(directory + System.getProperty("file.separator") + "hla_ambigs.xml.zip");
-
-        while (!xmlDown.toString().equals("")){
-            System.out.println("About to delete file: " + xmlDown);
-                deleted = xmlDown.delete();
-            System.out.println("File Deleted!: " + xmlDown + " = " + deleted);
-            System.out.println("testingtesting");
-            switch (xmlDown.toString().charAt(xmlDown.toString().length()-3)) {
-                case 'z': 
-                    xmlDown = new File(xmlDown.toString().replace(".zip", "")); 
-                    break; 
-                case 'x': 
-                    xmlDown = new File(""); 
-                    break; 
-            }    
+//        boolean deleted; 
+        File xmlDownZip = new File(directory + System.getProperty("file.separator") + "hla_ambigs.xml.zip");
+        if (xmlDownZip.isFile()){
+            System.out.println("About to delete file: " + xmlDownZip);
+            xmlDownZip.delete();
+            System.out.println("deleted file: " + xmlDownZip);
+            
         }
+        
+        File xmlDown = new File(directory + System.getProperty("file.separator") + "hla_ambigs.xml");
+        if (xmlDown.isFile()){
+            try {
+                System.out.println("About to delete file: " + xmlDown);
+                FileUtils.forceDelete(xmlDown);
+//            xmlDown.delete();
+            System.out.println("deleted file: " + xmlDown);
+            } catch (Exception ex){
+                System.out.println(ex);
+            }
+        }
+//        while (!xmlDown.toString().equals("")){
+//            System.out.println("About to delete file: " + xmlDown);
+//                deleted = xmlDown.delete();
+//            System.out.println("File Deleted!: " + xmlDown + " = " + deleted);
+//            System.out.println("testingtesting");
+//            switch (xmlDown.toString().charAt(xmlDown.toString().length()-3)) {
+//                case 'z': 
+//                    xmlDown = new File(xmlDown.toString().replace(".zip", "")); 
+//                    break; 
+//                case 'x': 
+//                    xmlDown = new File(""); 
+//                    break; 
+//            }    
+//        }
 
 //-- FINISHED delete xml & .zip file here 
 
