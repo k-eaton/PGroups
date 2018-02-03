@@ -190,10 +190,8 @@ public class pgroups extends SwingWorker<Void, String> {
     
 //    @Override
     public void progress(int percentage) {
-        if(!isCancelled()){
+        while(!isCancelled()){
             setProgress(percentage);
-        } else {
-            Thread.currentThread().interrupt();
         }
     }
 
