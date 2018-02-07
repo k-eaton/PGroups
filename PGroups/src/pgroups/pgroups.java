@@ -190,9 +190,11 @@ public class pgroups extends SwingWorker<Void, String> {
     
 //    @Override
     public void progress(int percentage) {
-        while(!isCancelled()){
-            setProgress(percentage);
+        while(isCancelled()){
+//            break;
+            return;
         }
+        setProgress(percentage);
     }
 
     
@@ -268,7 +270,12 @@ public class pgroups extends SwingWorker<Void, String> {
             WarningPanes.warningPane(errorMsg);
         }
 //    publish("status");
-    progress(10);
+//    progress(10);
+if(!isCancelled()){
+    setProgress(10);
+} else {
+    return null;
+}
 //--end of reading Version update Table file   
 
 //---starts to read Allelelist_history.txt
@@ -285,8 +292,12 @@ public class pgroups extends SwingWorker<Void, String> {
             ALhistorySourceName = FileNameList[FileNameIndex - 1];
             ALhistorySourceVersion = Punctuate(scnr.nextLine().split("\t")[1]);
 
-    progress(20);
-
+//    progress(20);
+if(!isCancelled()){
+    setProgress(20);
+} else {
+    return null;
+}
             while (scnr.hasNextLine()) {
                 line = scnr.nextLine();
                 String[] Data = line.split("\t");
@@ -297,7 +308,13 @@ public class pgroups extends SwingWorker<Void, String> {
                 lineNumber++;
             }
     publish("Status 2");
-    progress(25);
+//    progress(25);
+if(!isCancelled()){
+    setProgress(25);
+} else {
+    return null;
+}
+    
             scnr.close(); // I think we need to close the scanner in the reading of the versionupdatetable
         } catch (Exception ex) {
             String errorMsg = "There's a problem opening the Allele List History text";
@@ -356,25 +373,35 @@ public class pgroups extends SwingWorker<Void, String> {
             WarningPanes.warningPane(errorMsg);            
         }
 
-    progress(30);
+//    progress(30);
+if(!isCancelled()){
+    setProgress(30);
+} else {
+    return null;
+}
 //--- finished reading from cwd200_alleles.txt
 
 //--- START Downloading/unzip/READING xml FILE    
         SaveUrl.saveTheUrl(Xml, ambigsXMLsource);
-    progress(35);
+//    progress(35);
+if(!isCancelled()){
+    setProgress(35);
+} else {
+    return null;
+}
 
         Unzip unzipFile = new Unzip(directory 
                 + System.getProperty("file.separator") 
                 + "hla_ambigs.xml.zip", directory.getPath());
         unzipFile.unzipTheFile();
         
-    progress(40);
+//    progress(40);
 
-//if(!isCancelled()){
-//    setProgress(40);
-//} else {
-//    return null;
-//}
+if(!isCancelled()){
+    setProgress(40);
+} else {
+    return null;
+}
 
         Xml = directory + System.getProperty("file.separator") + "hla_ambigs.xml";
 
@@ -396,7 +423,12 @@ public class pgroups extends SwingWorker<Void, String> {
         docs.getDocumentElement().normalize();
         NodeList nLists = docs.getElementsByTagName("tns:gGroup");
 
-    progress(45);
+//    progress(45);
+if(!isCancelled()){
+    setProgress(45);
+} else {
+    return null;
+}
 
         NodeList nSource = docs.getElementsByTagName("tns:releaseVersion"); //SM-07/03/2015 This section is new, for pulling documentation of the source files
         if (nSource.item(0).getNodeType() == Node.ELEMENT_NODE) { // assumes source documentation only occurs once in the xml file. 
@@ -406,8 +438,12 @@ public class pgroups extends SwingWorker<Void, String> {
             xmlSourceDate = eSource.getAttribute("date");       
         } 
 
-    progress(50);
-
+//    progress(50);
+if(!isCancelled()){
+    setProgress(50);
+} else {
+    return null;
+}
 
         System.out.println(Xml);
         xmlSourceNameConvert = Xml.replace("\\", "/");
@@ -436,8 +472,12 @@ public class pgroups extends SwingWorker<Void, String> {
         String gGroupName = new String(); 
         String gGroupGID = new String();  
 
-    progress(55);
-
+//    progress(55);
+if(!isCancelled()){
+    setProgress(55);
+} else {
+    return null;
+}
         for (int i = 0; i < nLists.getLength(); i++) {
             Node nNodes = nLists.item(i); 
 
@@ -489,8 +529,12 @@ public class pgroups extends SwingWorker<Void, String> {
                 System.out.println("NO CHILD FOUND for: "+ nLists);
             }  
             //ChildNode ends
-    progress(60);
-
+//    progress(60);
+if(!isCancelled()){
+    setProgress(60);
+} else {
+    return null;
+}
 
             if ("".equals(CurrentCWDStatus)){    // cwdStat should never be 'null' it should either have a C or WD value or ""
                 nNodes.getNextSibling();   // yes: go on to next nNode
@@ -502,8 +546,12 @@ public class pgroups extends SwingWorker<Void, String> {
             }
         }
         //--- FINISHED Downloading/unzip/READING xml FILE         
-    progress(70);
-
+//    progress(70);
+if(!isCancelled()){
+    setProgress(70);
+} else {
+    return null;
+}
         //--START  UPDATED CWD ALLELES LIST       
         Iterator<String> keyIt = Allcwdalleles.keySet().iterator();
 
@@ -531,8 +579,12 @@ public class pgroups extends SwingWorker<Void, String> {
 //--FINISH UPDATED CWD ALLELES LIST
 
 
-    progress(80);
-
+//    progress(80);
+if(!isCancelled()){
+    setProgress(80);
+} else {
+    return null;
+}
 //---Read from hla_nom_p.txt   <--Pgroup  
         String OldPgroupSourceName = ""; 
         String OldPgroupSourceVersion = "";
@@ -575,8 +627,12 @@ public class pgroups extends SwingWorker<Void, String> {
 
             scnr.nextLine();          //skips: # author: WHO, Steven G. E. Marsh (steven.marsh@ucl.ac.uk)   
 
-        progress(90);        
-
+//        progress(90);        
+if(!isCancelled()){
+    setProgress(90);
+} else {
+    return null;
+}
             while(scnr.hasNextLine()){
                 line = scnr.nextLine();
 
