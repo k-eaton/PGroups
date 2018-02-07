@@ -34,6 +34,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
+import static pgroupsUI.pgroupsUI.Cancel;
 
 /**
  * @author Katrina Eaton & Melinda Perez
@@ -271,6 +272,7 @@ public class pgroups extends SwingWorker<Void, String> {
         }
 //    publish("status");
 //    progress(10);
+pgroupsUI.jProgressBar1.setString("download Allelelist_history.txt ");
 if(!isCancelled()){
     setProgress(10);
 } else {
@@ -293,6 +295,7 @@ if(!isCancelled()){
             ALhistorySourceVersion = Punctuate(scnr.nextLine().split("\t")[1]);
 
 //    progress(20);
+pgroupsUI.jProgressBar1.setString("Read from Allelelist_history.txt ");
 if(!isCancelled()){
     setProgress(20);
 } else {
@@ -307,13 +310,14 @@ if(!isCancelled()){
                 AlleleList.put(Data[0], Data[ALcolumn]);
                 lineNumber++;
             }
-    publish("Status 2");
+//    publish("Status 2");
 //    progress(25);
-if(!isCancelled()){
-    setProgress(25);
-} else {
-    return null;
-}
+//pgroupsUI.jProgressBar1.setString("Unzip the XML file");
+//if(!isCancelled()){
+//    setProgress(25);
+//} else {
+//    return null;
+//}
     
             scnr.close(); // I think we need to close the scanner in the reading of the versionupdatetable
         } catch (Exception ex) {
@@ -324,6 +328,13 @@ if(!isCancelled()){
         }
 
 //-- Finished reading from the Allelelist_history file
+
+pgroupsUI.jProgressBar1.setString("Download and read from cwd200_alleles.txt");
+if(!isCancelled()){
+    setProgress(25);
+} else {
+    return null;
+}
 
 //--- starts to read from cwd200_alleles.txt
         String oldAllelesSourceName = "";   
@@ -374,6 +385,7 @@ if(!isCancelled()){
         }
 
 //    progress(30);
+pgroupsUI.jProgressBar1.setString("Download the XML file");
 if(!isCancelled()){
     setProgress(30);
 } else {
@@ -383,7 +395,8 @@ if(!isCancelled()){
 
 //--- START Downloading/unzip/READING xml FILE    
         SaveUrl.saveTheUrl(Xml, ambigsXMLsource);
-//    progress(35);
+        
+pgroupsUI.jProgressBar1.setString("Unzip the XML file");
 if(!isCancelled()){
     setProgress(35);
 } else {
@@ -396,7 +409,7 @@ if(!isCancelled()){
         unzipFile.unzipTheFile();
         
 //    progress(40);
-
+pgroupsUI.jProgressBar1.setString("Parse the XML file (This may take a while)");
 if(!isCancelled()){
     setProgress(40);
 } else {
@@ -424,6 +437,7 @@ if(!isCancelled()){
         NodeList nLists = docs.getElementsByTagName("tns:gGroup");
 
 //    progress(45);
+pgroupsUI.jProgressBar1.setString("Find the version and date in XML file");
 if(!isCancelled()){
     setProgress(45);
 } else {
@@ -439,6 +453,7 @@ if(!isCancelled()){
         } 
 
 //    progress(50);
+pgroupsUI.jProgressBar1.setString("Check for version identification");
 if(!isCancelled()){
     setProgress(50);
 } else {
@@ -473,6 +488,7 @@ if(!isCancelled()){
         String gGroupGID = new String();  
 
 //    progress(55);
+pgroupsUI.jProgressBar1.setString("Read XML file, set CWD status");
 if(!isCancelled()){
     setProgress(55);
 } else {
@@ -530,6 +546,7 @@ if(!isCancelled()){
             }  
             //ChildNode ends
 //    progress(60);
+//pgroupsUI.jProgressBar1.setString("Write data to hash");
 if(!isCancelled()){
     setProgress(60);
 } else {
@@ -547,6 +564,7 @@ if(!isCancelled()){
         }
         //--- FINISHED Downloading/unzip/READING xml FILE         
 //    progress(70);
+//pgroupsUI.jProgressBar1.setString("Check for version identification");
 if(!isCancelled()){
     setProgress(70);
 } else {
@@ -580,6 +598,7 @@ if(!isCancelled()){
 
 
 //    progress(80);
+pgroupsUI.jProgressBar1.setString("Download and read hla_nom_p.txt");
 if(!isCancelled()){
     setProgress(80);
 } else {
@@ -628,6 +647,7 @@ if(!isCancelled()){
             scnr.nextLine();          //skips: # author: WHO, Steven G. E. Marsh (steven.marsh@ucl.ac.uk)   
 
 //        progress(90);        
+//pgroupsUI.jProgressBar1.setString("Check for version identification");
 if(!isCancelled()){
     setProgress(90);
 } else {
@@ -717,7 +737,8 @@ if(!isCancelled()){
 //-- FINISHED delete xml & .zip file here 
 
 //--START write cwd Ggroups file   
-    progress(91);        
+pgroupsUI.jProgressBar1.setString("Writing G-Groups file");
+progress(91);        
 
         if (makeGgroups){
             String gGroupLocus; // need to catch the locus for the file
@@ -760,7 +781,8 @@ if(!isCancelled()){
 //--FINISH write file: cwd210_g-groups.txt
 
 //--START write UPDATED CWD ALLELES file 
-    progress(92);        
+pgroupsUI.jProgressBar1.setString("Writing Alleles file");
+progress(92);        
 
         if (makeAlleles){ 
             String fileName = (directory
@@ -813,7 +835,8 @@ if(!isCancelled()){
 //--FINISH MAKE UPDATED CWD ALLELES FILE
 
 //--START write file: cwd_XXX_p-groups.txt
-    progress(93);        
+pgroupsUI.jProgressBar1.setString("Writing P-Groups file");
+progress(93);        
 
         if(makePgroups){  
             SSkeys = new TreeSet<>(Allpgroups.keySet());
@@ -862,8 +885,10 @@ if(!isCancelled()){
 //                WarningPanes.exceptionPane(ex);
             }
         }
-//--FINISH write file: cwd_XXX_p-groups.txt    
-    progress(100);
+//--FINISH write file: cwd_XXX_p-groups.txt  
+pgroupsUI.Cancel.setText("Close");
+pgroupsUI.jProgressBar1.setString("Program complete!");
+progress(100);
         return null;
     }
 }

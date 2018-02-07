@@ -175,16 +175,6 @@ public class pgroupsUI extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jSeparatorStartButton)
-                    .addComponent(SaveDirectoryLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(SelectDirectoryLabel)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jSeparatorFileSave))
-                .addGap(10, 10, 10))
-            .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 134, Short.MAX_VALUE)
                 .addComponent(ShowFiles)
@@ -198,15 +188,27 @@ public class pgroupsUI extends javax.swing.JFrame {
                         .addContainerGap()
                         .addComponent(SelectFilesLabel2)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jSeparatorStartButton)
+                            .addComponent(SaveDirectoryLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(SelectDirectoryLabel)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(jSeparatorFileSave))
+                        .addGap(10, 10, 10))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(Start, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(Cancel, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(124, 124, 124))
+                        .addComponent(Cancel, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(124, 124, 124))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jProgressBar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap())))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -308,7 +310,7 @@ public class pgroupsUI extends javax.swing.JFrame {
                             int progress = (int) evt.getNewValue();
     //                        String test = fileGenerator.process();
                             jProgressBar1.setValue(progress);
-                            jProgressBar1.setString("Your total is " + progress);
+//                            jProgressBar1.setString("Your total is " + progress);
                             repaint();
                         }
 
@@ -335,7 +337,7 @@ public class pgroupsUI extends javax.swing.JFrame {
                 // Stop the background job so it will release the files
                 System.out.println(fileGenerator.getState());
                 jProgressBar1.setValue(0);
-                jProgressBar1.setString("Your total is 0");
+//                jProgressBar1.setString("Your total is 0");
                 jProgressBar1.repaint();
                 Cancel.setText("Close");
                 fileGenerator.cancel(true);
@@ -453,7 +455,7 @@ public class pgroupsUI extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JCheckBox Alleles;
-    private javax.swing.JButton Cancel;
+    public static javax.swing.JButton Cancel;
     private javax.swing.JFileChooser DirectoryChooser;
     private javax.swing.JCheckBox GGroups;
     private javax.swing.JCheckBox PGroups;
@@ -466,7 +468,7 @@ public class pgroupsUI extends javax.swing.JFrame {
     private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JOptionPane jOptionPane1;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JProgressBar jProgressBar1;
+    public static javax.swing.JProgressBar jProgressBar1;
     private javax.swing.JSeparator jSeparatorFileSave;
     private javax.swing.JSeparator jSeparatorStartButton;
     // End of variables declaration//GEN-END:variables
