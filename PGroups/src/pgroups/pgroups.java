@@ -285,14 +285,24 @@ if(!isCancelled()){
         String ALhistorySourceVersion = new String();
 
         try {
-            scnr = new Scanner(ALhistory.openStream()); 
+            scnr = new Scanner(ALhistory.openStream());
+            System.out.println("ALhistory stream successfully opened");
 //            String ALhistorySourceName = new String(); 
 //            String ALhistorySourceVersion = new String(); 
             ALhistorySourceName = ALhistory.getFile();
+            System.out.println("ALhistory file successfully retrieved");
+            
             FileNameList = ALhistorySourceName.split("/");
+            System.out.println("FileNameList: " + FileNameList);
+            
             FileNameIndex = FileNameList.length;
+            System.out.println("FileNameIndex: " + FileNameIndex);
+            
             ALhistorySourceName = FileNameList[FileNameIndex - 1];
-            ALhistorySourceVersion = Punctuate(scnr.nextLine().split("\t")[1]);
+            System.out.println("ALhistorySourceName: " + ALhistorySourceName);
+            
+            ALhistorySourceVersion = Punctuate(scnr.nextLine().split("\t")[0]);
+            System.out.println("ALhistorySourceVersion: " + ALhistorySourceVersion);
 
 //    progress(20);
 pgroupsUI.jProgressBar1.setString("Read from Allelelist_history.txt ");
