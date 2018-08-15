@@ -40,7 +40,7 @@ public class WarningPanes {
         
 //        if (result == 1){
 //            System.out.println("Chose no.");
-            System.exit(0);
+        System.exit(0);
 //            pgroupsUI.fileGenerator.cancel(true);
 //        }
 

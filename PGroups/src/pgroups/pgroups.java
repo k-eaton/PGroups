@@ -281,27 +281,16 @@ if(!isCancelled()){
 //--end of reading Version update Table file   
 
 //---starts to read Allelelist_history.txt
+        
+        // Source name listed in an output file
         String ALhistorySourceName = new String(); 
         String ALhistorySourceVersion = new String();
 
         try {
             scnr = new Scanner(ALhistory.openStream());
             System.out.println("ALhistory stream successfully opened");
-//            String ALhistorySourceName = new String(); 
-//            String ALhistorySourceVersion = new String(); 
-            ALhistorySourceName = ALhistory.getFile();
-            System.out.println("ALhistory file successfully retrieved");
-            
-            FileNameList = ALhistorySourceName.split("/");
-            System.out.println("FileNameList: " + FileNameList);
-            
-            FileNameIndex = FileNameList.length;
-            System.out.println("FileNameIndex: " + FileNameIndex);
-            
-            ALhistorySourceName = FileNameList[FileNameIndex - 1];
-            System.out.println("ALhistorySourceName: " + ALhistorySourceName);
-            
-            ALhistorySourceVersion = Punctuate(scnr.nextLine().split("\t")[0]);
+
+            ALhistorySourceVersion = VersionMatcher.ALhistoryMatchVersion(scnr);
             System.out.println("ALhistorySourceVersion: " + ALhistorySourceVersion);
 
 //    progress(20);
@@ -310,28 +299,25 @@ if(!isCancelled()){
     setProgress(20);
 } else {
     return null;
-}
+} 
+            // scnr is conviently at the point where 
+            // ALhistoryMatchVersion left off
             while (scnr.hasNextLine()) {
                 line = scnr.nextLine();
-                String[] Data = line.split("\t");
+//                System.out.println("Line: " + line);
+
+                String[] Data = line.split(",");
                 // NOTE: Here, we could specify which database version to use as a reference allele list 
                 // by changing which column of data goes into the hash Value
                 int ALcolumn = 1;
                 AlleleList.put(Data[0], Data[ALcolumn]);
                 lineNumber++;
             }
-//    publish("Status 2");
-//    progress(25);
-//pgroupsUI.jProgressBar1.setString("Unzip the XML file");
-//if(!isCancelled()){
-//    setProgress(25);
-//} else {
-//    return null;
-//}
-    
+            
             scnr.close(); // I think we need to close the scanner in the reading of the versionupdatetable
+        
         } catch (Exception ex) {
-            String errorMsg = "There's a problem opening the Allele List History text";
+            String errorMsg = "There's a problem with the Allele List History text";
             System.out.println(ex);
             System.out.println(errorMsg);
             WarningPanes.warningPane(errorMsg);
