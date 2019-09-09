@@ -480,8 +480,10 @@ if(!isCancelled()){
                 return null;
             }
         }
+		System.out.println("End check version identification");
+
         String gGroupName = new String(); 
-        String gGroupGID = new String();  
+        String gGroupGID = new String(); 
 
 //    progress(55);
 pgroupsUI.jProgressBar1.setString("Read XML file, set CWD status");
